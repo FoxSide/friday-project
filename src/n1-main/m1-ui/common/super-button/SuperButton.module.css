@@ -1,0 +1,23 @@
+.default {
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.default:hover {
+    background-color: orange;
+    box-shadow: 3px 3px 10px gray;
+}
+.default:disabled {
+    background-color: #dfd0d0;
+    box-shadow: none;
+}
+
+.red {
+    background: red;
+    border-radius: 5px;
+    margin-top: 5px;
+
+}
+.red:hover {
+    box-shadow: 3px 3px 10px gray;
+}
