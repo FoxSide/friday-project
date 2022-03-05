@@ -4,6 +4,7 @@ const Registration = () => {
   return (
     <div>
       Registration
+        Committttt
     </div>
   );
 };
