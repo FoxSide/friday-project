@@ -37,7 +37,7 @@ const Login = () => {
         <div className={s.inputContainer}>
           <input className={s.input} {...register("email")} placeholder='Email'/>
           <div className={s.error}>{errors.email?.message}</div>
-          <input className={s.input} {...register("password")} placeholder='Password'/>
+          <input className={s.input} {...register("password")} placeholder='Password' type={"password"}/>
           <div className={s.error}>{errors.password?.message}</div>
         </div>
         <div className={s.forgotContainer}>
