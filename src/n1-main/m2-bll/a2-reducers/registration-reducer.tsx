@@ -1,16 +1,37 @@
 import React from 'react';
 
-type StateType = {}
-type ActionType = {
-  type: ''
+
+const initialState: StateType = {
+  email: '',
+  password: '',
 }
 
-const registrationReducer = (state: StateType = {}, action: ActionType) => {
+export const registrationReducer = (state: StateType = initialState, action: ActionType): StateType => {
   switch (action.type) {
+    case "ADD-USER":
+      console.log(state)
+      return {
+        ...state,
+        ...action.payload,
+      }
     default: {
       return state
     }
   }
 };
 
-export default registrationReducer;
+
+export const addUserAC = (email: string, password:string) => {
+ return {
+   type: 'ADD-USER',
+   payload: {email, password},
+ } as const
+}
+
+type StateType = {
+  email: string | null
+  password: string | null
+}
+
+type AddUserActionType = ReturnType<typeof addUserAC>
+type ActionType = AddUserActionType
