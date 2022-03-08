@@ -7,6 +7,7 @@ import ErrorPage from "../../../n2-features/f3-error-page/ErrorPage";
 import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/PasswordRecovery";
 import NewPassword from "../../../n2-features/f1-auth/a6-new-password/NewPassword";
 import Test from "../../../n2-features/f0-test/Test";
+import s from './routes.module.css'
 
 export const path = {
   login: '/login',
@@ -20,7 +21,7 @@ export const path = {
 
 const RoutesComponent = () => {
   return (
-    <div style={{margin: '90px'}}>
+    <div className={s.wrapp}>
       <Routes>
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
