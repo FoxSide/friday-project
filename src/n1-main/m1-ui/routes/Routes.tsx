@@ -13,8 +13,8 @@ import s from './routes.module.css'
 export const path = {
   login: '/login',
   registration: '/registration',
-  ptofile: '/profile',
-  ptofileEdit: '/profile-edit',
+  profile: '/profile',
+  profileEdit: '/profile-edit',
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
   newPassword: '/new-password',
@@ -23,12 +23,12 @@ export const path = {
 
 const RoutesComponent = () => {
   return (
-    <div style={{margin: '90px'}}>
+    <div className={s.wrapp}>
       <Routes>
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
-        <Route path={path.ptofile} element={<Profile/>}/>
-        <Route path={path.ptofileEdit} element={<ProfileEdit/>}/>
+        <Route path={path.profile} element={<Profile/>}/>
+        <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
         <Route path={path.newPassword} element={<NewPassword/>}/>
