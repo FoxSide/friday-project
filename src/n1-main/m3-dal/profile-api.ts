@@ -6,7 +6,7 @@ const instance = axios.create({
     withCredentials: true
 })
 
-type ResponseType = UserProfileStateType
+
 export type UpdateUserResponseType = {
     updateUser: UserProfileStateType
     error?: string
@@ -15,13 +15,13 @@ export type UpdateUserResponseType = {
 
 export const authAPI = {
     me() {
-        return instance.post<AxiosResponse<ResponseType>>(`auth/me`, {})
+        return instance.post<{},AxiosResponse<UserProfileStateType>>(`auth/me`, {})
     },
 }
 
 export const profileAPI = {
     updateUserData(name: string, avatar: string  ) {
-        return instance.put<AxiosResponse<UpdateUserResponseType>>(`auth/me`, {name, avatar})
+        return instance.put<{name: string, avatar: string},AxiosResponse<UpdateUserResponseType>>(`auth/me`, {name, avatar})
     },
     
 }

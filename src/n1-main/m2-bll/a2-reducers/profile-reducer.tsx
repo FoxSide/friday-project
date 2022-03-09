@@ -1,45 +1,36 @@
-import React, { Dispatch } from 'react';
-import { authAPI, profileAPI, UpdateUserResponseType } from '../../m3-dal/profile-api';
+import React, {Dispatch} from 'react';
+import {authAPI, profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
 
 
 export type TNullable<T> = T | null | undefined
 export type UserProfileStateType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number; // количество колод
-    created: Date;
-    updated: Date;
-    isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
-    rememberMe: boolean;
-    error?: string;
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
+    error?: string
 }
 
 type ProfileReducerActionsType = ReturnType<typeof setUserProfileData>
     | ReturnType<typeof setChangeUserData>
 
-const initialState: TNullable<UserProfileStateType> = {
-    _id: 'string',
-    email: 'string',
-    name: 'string',
-    avatar: 'string',
-    publicCardPacksCount: 34, // количество колод
-    created: new Date(),
-    updated: new Date(),
-    isAdmin: false,
-    verified: false, // подтвердил ли почту
-    rememberMe: false,
-    error: 'sfsdf',
-}
+const initialState: TNullable<UserProfileStateType> = null
 
 const profileReducer = (state: TNullable<UserProfileStateType> = initialState, action: ProfileReducerActionsType) => {
     switch (action.type) {
         case 'SET_USER_PROFILE_DATA':
-            return { ...state, ...action.payload }
+            return {...state, ...action.data}
         case 'SET_CHANGE_USER_DATA':
-            return { ...state, ...action.payload.updateUser, error: action.payload.error ? action.payload.error : state?.error }
+            return {
+                ...state, ...action.data.updateUser,
+                error: action.data.error ? action.data.error : state?.error
+            }
         default: {
             return state
         }
@@ -50,14 +41,14 @@ const profileReducer = (state: TNullable<UserProfileStateType> = initialState, a
 export const setUserProfileData = (data: UserProfileStateType) => {
     return {
         type: 'SET_USER_PROFILE_DATA',
-        payload: { ...data }
+        data
     } as const
 }
 
 export const setChangeUserData = (data: UpdateUserResponseType) => {
     return {
         type: 'SET_CHANGE_USER_DATA',
-        payload: { ...data }
+        data
     } as const
 }
 
@@ -65,7 +56,7 @@ export const setChangeUserData = (data: UpdateUserResponseType) => {
 export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerActionsType>) => {
     authAPI.me().then(res => {
         debugger
-        dispatch(setUserProfileData(res.data.data))
+        dispatch(setUserProfileData(res.data))
     }).catch(err => {
         debugger
         console.log(err)
@@ -74,13 +65,13 @@ export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerAction
 
 export const updateUserProfileData = (name: string, avatar: string) => (dispatch: Dispatch<ProfileReducerActionsType>) => {
     profileAPI.updateUserData(name, avatar)
-    .then(res=>{
-        dispatch(setChangeUserData(res.data.data))
-    }).catch(err=>{
+        .then(res => {
+            dispatch(setChangeUserData(res.data))
+        }).catch(err => {
         console.log(err);
-        
+
     })
-} 
+}
 
 
 export default profileReducer;

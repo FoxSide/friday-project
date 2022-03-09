@@ -8,6 +8,7 @@ import {getUserProfileData, TNullable, UserProfileStateType} from "../../n1-main
 const Profile = () => {
     const avatar = useSelector<AppRootStateType, TNullable<string>>(state => state.profile?.avatar)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -17,9 +18,10 @@ const Profile = () => {
         dispatch(getUserProfileData())
     }, [])
 
-if(!user) {
+if(!isLoggedIn) {
     return <Navigate to={'/login'}/>
 }
+
 const onEditProfileClickHandler = () => {
     navigate('/profile-edit')
 }

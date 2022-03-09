@@ -14,6 +14,7 @@ export const path = {
   login: '/login',
   registration: '/registration',
   ptofile: '/profile',
+  ptofileEdit: '/profile-edit',
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
   newPassword: '/new-password',
@@ -27,6 +28,7 @@ const RoutesComponent = () => {
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
         <Route path={path.ptofile} element={<Profile/>}/>
+        <Route path={path.ptofileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
         <Route path={path.newPassword} element={<NewPassword/>}/>
