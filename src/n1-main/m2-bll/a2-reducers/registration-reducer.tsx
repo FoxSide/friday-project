@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-const initialState: StateType = {
+const initialState: StateRegistrationReducerType = {
   email: '',
   password: '',
 }
 
-export const registrationReducer = (state: StateType = initialState, action: ActionType): StateType => {
+export const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
   switch (action.type) {
     case "ADD-USER":
       console.log(state)
@@ -28,9 +28,9 @@ export const addUserAC = (email: string, password:string) => {
  } as const
 }
 
-type StateType = {
-  email: string | null
-  password: string | null
+export type StateRegistrationReducerType = {
+  email: string
+  password: string
 }
 
 type AddUserActionType = ReturnType<typeof addUserAC>
