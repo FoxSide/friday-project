@@ -7,11 +7,13 @@ import ErrorPage from "../../../n2-features/f3-error-page/ErrorPage";
 import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/PasswordRecovery";
 import NewPassword from "../../../n2-features/f1-auth/a6-new-password/NewPassword";
 import Test from "../../../n2-features/f0-test/Test";
+import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 
 export const path = {
   login: '/login',
   registration: '/registration',
   ptofile: '/profile',
+  profileEdit: '/profile-edit',
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
   newPassword: '/new-password',
@@ -25,6 +27,7 @@ const RoutesComponent = () => {
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
         <Route path={path.ptofile} element={<Profile/>}/>
+        <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
         <Route path={path.newPassword} element={<NewPassword/>}/>
