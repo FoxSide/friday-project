@@ -1,0 +1,77 @@
+.containerForm {
+    border:black 1px solid;
+    background-color: #F9F9FE;
+    border-radius: 8px;
+    width: 413px;
+    height: 540px;
+    padding: 33px;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+
+}
+
+.headerForm {
+    text-align: center;
+}
+
+.headerForm h2{
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    color: #2D2E46;
+}
+
+.headerForm h2{
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column
+}
+
+.inputForm input{
+    border: none;
+    border-bottom: 1px solid gray;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.inputForm p{
+    color: gray;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.buttonForm {
+    display: flex;
+    margin-top: 100px;
+    justify-content: space-between;
+}
+
+.buttonForm button{
+
+    height: 36px;
+    border: none;
+    background: #21268F;
+    color: #ECECF9;
+    padding: 8px 48px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.buttonForm button:first-child{
+    background: #D7D8EF;
+    color: #21268F;
+}
