@@ -1,5 +1,7 @@
 .app {
+    height: 100vh;
     display: flex;
-    margin: 20px;
+    background: rgb(238,174,202);
+    background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 

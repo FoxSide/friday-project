@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {Navigate, useNavigate} from "react-router-dom";
 import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 import {getUserProfileData, TNullable, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
-import {Navigate, useNavigate} from "react-router-dom";
 
 
 const Profile = () => {

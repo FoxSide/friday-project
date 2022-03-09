@@ -8,12 +8,12 @@ import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/
 import NewPassword from "../../../n2-features/f1-auth/a6-new-password/NewPassword";
 import Test from "../../../n2-features/f0-test/Test";
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
+import s from './routes.module.css'
 
 export const path = {
   login: '/login',
   registration: '/registration',
   ptofile: '/profile',
-  profileEdit: '/profile-edit',
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
   newPassword: '/new-password',
@@ -27,7 +27,6 @@ const RoutesComponent = () => {
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
         <Route path={path.ptofile} element={<Profile/>}/>
-        <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
         <Route path={path.newPassword} element={<NewPassword/>}/>
