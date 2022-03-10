@@ -67,6 +67,7 @@ export const updateUserProfileData = (name: string, avatar: string) => (dispatch
     profileAPI.updateUserData(name, avatar)
         .then(res => {
             dispatch(setChangeUserData(res.data))
+
         }).catch(err => {
         console.log(err);
 

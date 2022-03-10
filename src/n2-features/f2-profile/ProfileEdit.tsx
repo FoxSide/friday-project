@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {yupResolver} from '@hookform/resolvers/yup';
 import s from './ProfileEdit.module.css'
 import {useForm} from 'react-hook-form';
@@ -19,6 +19,8 @@ const ProfileEdit = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+
+
     const onCancelClickHandler = () => {
         navigate('/profile')
     }
@@ -37,7 +39,7 @@ const ProfileEdit = () => {
     }
 
     const onSubmit = (data: OnSubmitDataType) => dispatch(updateUserProfileData(data.nickName, data.avatar));
-    const { register, handleSubmit, formState: { errors } } = useForm<OnSubmitDataType>({
+    const {register, handleSubmit, formState: {errors}} = useForm<OnSubmitDataType>({
         resolver: yupResolver(schema)
     });
 
@@ -45,20 +47,25 @@ const ProfileEdit = () => {
         <form className={s.wrapp} onSubmit={handleSubmit(onSubmit)}>
             <div className={s.titleContainer}>
                 <span className={s.titleText}>Personal information</span>
-                <img className={s.avatar} src={user?.avatar ? user?.avatar : noAvatar} alt="avatar" />
+                <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
                 <div className={s.photoBtn} onClick={onClickUploadHandler}>
-                    <img src={photoBtnIcon} />
+                    <img src={photoBtnIcon}/>
                 </div>
             </div>
 
-            {upload && <input {...register("avatar")} value={avatar} onChange={(e) => { setAvatar(e.currentTarget.value) }} />}
+            {upload && <input  {...register("avatar")} value={avatar} onChange={(e) => {
+                setAvatar(e.currentTarget.value)
+            }}/>}
 
             <div className={s.inputContainer}>
                 <span className={s.subTitle}>Nickname</span>
-                <input className={s.input} {...register("nickName")} placeholder='Nickname' value={nickName} onChange={(e) => { setNickName(e.currentTarget.value) }} />
+                <input className={s.input} {...register("nickName")} placeholder='Nickname' value={nickName}
+                       onChange={(e) => {
+                           setNickName(e.currentTarget.value)
+                       }}/>
                 <div className={s.error}>{errors.nickName?.message}</div>
                 <span className={s.subTitle}>E-mail</span>
-                <input className={s.input} value={user?.email} placeholder='E-mail' type={"text"} />
+                <input className={s.input} value={user?.email} placeholder='E-mail' type={"text"}/>
             </div>
             <div className={s.buttonContainer}>
                 <button className={s.buttonCancle} onClick={onCancelClickHandler}>Cancle</button>

@@ -29,7 +29,7 @@ const onEditProfileClickHandler = () => {
     return (
         <div>
             <div>
-                 <img className={s.avatar} src={avatar ? avatar : noAvatar} alt="avatar"/>
+                 <img className={s.avatar} src={avatar || noAvatar} alt="avatar"/>
             </div>
             <div>{user?.name}</div>
             <div>description</div>
