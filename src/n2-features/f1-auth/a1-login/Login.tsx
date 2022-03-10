@@ -1,6 +1,5 @@
-import React from 'react';
+import React from 'react'
 import s from './login.module.css'
-import {Navigate, NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsLoggedInTC} from "../../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {useForm} from "react-hook-form";
@@ -8,6 +7,7 @@ import {LoginParamsType} from "../../../n1-main/m3-dal/login-api";
 import {AppRootStateType} from "../../../n1-main/m2-bll/a1-redux-store/store";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
+import { Navigate, NavLink } from 'react-router-dom';
 
 //ed
 

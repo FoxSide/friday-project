@@ -74,5 +74,20 @@ export const updateUserProfileData = (name: string, avatar: string) => (dispatch
 }
 
 
+// {
+//     _id: 'string',
+//     email: 'email-sasdf',
+//     name: 'myName',
+//     avatar: 'https://static.kinoafisha.info/k/movie_posters/canvas/800x1200/upload/movie_posters/4/7/5/8097574/0cb900f339c55068808d6dc9a95b7f85.jpg',
+//     publicCardPacksCount: 23,
+//     created: new Date(),
+//     updated: new Date(),
+//     isAdmin: false,
+//     verified: false,
+//     rememberMe: false,
+//     error: 'some error'
+// }
+
+
 export default profileReducer;
 

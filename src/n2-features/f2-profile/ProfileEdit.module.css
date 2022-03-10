@@ -1,0 +1,110 @@
+.wrapp {
+    width: 413px;
+    height: 540px;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 130px;
+    margin-top: 36px;
+    
+}
+
+.titleText {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+}
+
+.photoBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    opacity: 70%;
+    background: rgb(156, 154, 154);
+    position: absolute;
+    text-decoration: none;
+    left: 480px;
+    top: 247px;
+    cursor: pointer;
+}
+
+.photoBtn img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 38px;
+}
+.subTitle {
+    opacity: 50%;
+    font-size: 13px;
+}
+
+.input {
+    height: 40px;
+    margin-top: 10px;
+    outline: none;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+}
+
+
+.buttonContainer {
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    margin-bottom: 60px;
+    height: 100px;
+}
+
+.buttonSave {
+    width: 124px;
+    height: 36px;
+    border-radius: 30px;
+    color: white;
+    background-color: mediumblue;
+    box-shadow: 3px 3px 10px gray;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.buttonCancle {
+    width: 124px;
+    height: 36px;
+    border-radius: 30px;
+    color: mediumblue;
+    background-color: white;
+    box-shadow: 3px 3px 10px gray;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.error {
+    height: 20px;
+    font-size: 14px;
+    color: red;
+}
