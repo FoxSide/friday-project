@@ -16,6 +16,8 @@ let rootReducer = combineReducers({
   newPassword: newPasswrodReducer
 })
 
+
+
 export let store =createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
