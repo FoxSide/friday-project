@@ -31,11 +31,27 @@
 }
 
 .input {
+    width: 98%;
     height: 40px;
     margin-top: 10px;
     outline: none;
     border: solid 1px lightgray;
     border-radius: 10px;
+}
+
+.passwordImput {
+    display: flex;
+    position: relative;
+    justify-content: end;
+}
+.passwordBtn {
+    margin-right: 10px;
+    margin-top: 20px;
+    position: absolute;
+}
+.passwordImg {
+    width: 25px;
+    height: 25px;
 }
 
 .forgotContainer {
