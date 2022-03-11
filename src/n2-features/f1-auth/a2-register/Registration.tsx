@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {path} from "../../../n1-main/m1-ui/routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,15 +10,20 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import style from './Registration.module.css'
+import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
 
 
 const Registration = () => {
     const errorState = useSelector<AppRootStateType>(state => state.registration.error)
     const isRegistrtion = useSelector<AppRootStateType>(state => state.registration.isRegistrtion)
 
-    useEffect(()=>{
-        if(isRegistrtion ==true) {
-            setTimeout(()=>{toLogin()}, 5000)
+    let [isType, setIsType] = useState(true)
+
+    useEffect(() => {
+        if (isRegistrtion == "Created") {
+            setTimeout(() => {
+                toLogin()
+            }, 5000)
         }
     }, [isRegistrtion])
 
@@ -28,12 +33,12 @@ const Registration = () => {
     const toLogin = () => {
         navigate(path.login)
     }
-    const schema = yup.object().shape({
+    const schema = yup.object({
         email: yup.string().email().required(),
         password: yup.string().min(7).required(),
-        confirmPassword: yup.string().test('confirm password', 'Passwords is different!', function(value):any {
+        confirmPassword: yup.string().test('confirm password', 'Passwords is different!', function (value): any {
             return this.parent.password === value
-        }),
+        }).required(),
     }).required()
 
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<StateForm>({
@@ -41,43 +46,52 @@ const Registration = () => {
         resolver: yupResolver(schema)
     })
     const onSubmit: SubmitHandler<StateForm> = (data) => {
-        alert(`Your data ${data.email}, ${data.password}, ${data.confirmPassword}`)
         dispatch(addUserTC(data.email, data.password))
+        console.log(isRegistrtion)
+    }
+    const toggleTypeInput = () => {
+        setIsType(isType = !isType)
     }
     return (
         <div className={style.containerForm}>
             <div className={style.headerForm}>
                 <h2>It-incubator</h2>
-                <h3>Sing Up</h3>
+                <h3>Sign Up</h3>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={style.inputForm}>
-                    <p>Email</p>
                     <input {...register('email')}
                            type='text'
                            required
+                           placeholder='Email*'
+
                     />
-                    {errors?.email && (<div style={{color: 'red'}}>{errors.email.message}</div>)}
-                    <p>Password</p>
+                    <div className={style.inputFormError}>{errors.email?.message}</div>
                     <input {...register('password')}
-                           type='password'
+                        // type='password'
+                           type={isType ? "password" : "text"}
                            required
+                           placeholder='Password*'
+
                     />
-                    {errors?.password && (<div style={{color: 'red'}}>{errors.password.message}</div>)}
-                    <p>Confirm Password</p>
+                    <SvgSelector id={'Eye'}  onClick={toggleTypeInput} className={style.eyeOne}/>
+                    <div className={style.inputFormError}>{errors.password?.message}</div>
                     <input {...register('confirmPassword')}
-                           type='password'
+                           type={isType ? "password" : "text"}
                            required
+                           placeholder='Confirm Password*'
                     />
-                    {errors?.confirmPassword && (<div style={{color: 'red'}}>{errors.confirmPassword.message}</div>)}
+                    <SvgSelector id={'Eye'}  onClick={toggleTypeInput} className={style.eyeTwo}/>
+                    <div className={style.inputFormError}>{errors.confirmPassword?.message}</div>
                 </div>
                 <div className={style.buttonForm}>
                     <button onClick={toLogin}>Cancel</button>
                     <button disabled={!isValid}>Register</button>
                 </div>
             </form>
-            {errorState && (<div style={{color: 'red'}}>Error: {errorState}</div>)}
-            {isRegistrtion && (<div style={{color: 'green' }}>Account was: {isRegistrtion}</div>)}
+            {errorState && (<div className={style.errorForm}>Error: {errorState}</div>)}
+            {isRegistrtion && (
+                <div className={style.successForm}>Account was: {isRegistrtion}. Redirecting to Login page...</div>)}
         </div>
     );
 };
