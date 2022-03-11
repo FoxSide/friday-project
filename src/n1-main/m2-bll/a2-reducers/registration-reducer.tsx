@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dispatch} from "redux";
-import {registrationAPI} from "../../../n2-features/f1-auth/a2-register/api-registration";
+import {registrationAPI} from "../../m3-dal/registration-api";
 
 
 const initialState: StateRegistrationReducerType = {
@@ -8,7 +8,7 @@ const initialState: StateRegistrationReducerType = {
     isRegistrtion: null,
 }
 
-export const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
+const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
   switch (action.type) {
       case "SET-ERROR":
           return  {
@@ -18,7 +18,8 @@ export const registrationReducer = (state: StateRegistrationReducerType = initia
       case "IS-REGISTRATION":
           return  {
               ...state,
-              isRegistrtion: action.payload.isRegistrtion
+              isRegistrtion: action.payload.isRegistrtion,
+              error: action.payload.error
           }
     default: {
       return state
@@ -26,17 +27,17 @@ export const registrationReducer = (state: StateRegistrationReducerType = initia
   }
 };
 
-export const setRegistrationErrorAC = (error: string) => {
+export const setRegistrationErrorAC = (error: string | null) => {
     return {
         type: 'SET-ERROR',
         payload: {error}
     } as const
 }
 
-export const isRegistrationAC = (isRegistrtion: string) => {
+export const isRegistrationAC = (isRegistrtion: string, error: string | null) => {
     return {
         type: 'IS-REGISTRATION',
-        payload: {isRegistrtion}
+        payload: {isRegistrtion, error}
     } as const
 }
 
@@ -45,7 +46,7 @@ export const isRegistrationAC = (isRegistrtion: string) => {
 export const addUserTC = (email: string, password:string) => (dispatch: Dispatch) => {
   registrationAPI.addUser(email, password)
       .then( (res) => {
-          dispatch(isRegistrationAC(res.statusText))
+          dispatch(isRegistrationAC(res.statusText, null))
       })
       .catch( error => {
           dispatch(setRegistrationErrorAC(error.response.data.error))
@@ -62,3 +63,5 @@ export type StateRegistrationReducerType = {
 type SetRegistrationErrorActionType = ReturnType<typeof setRegistrationErrorAC>
 type IsRegistrationACActionType = ReturnType<typeof isRegistrationAC>
 type ActionType = SetRegistrationErrorActionType | IsRegistrationACActionType
+
+export default registrationReducer
