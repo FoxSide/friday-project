@@ -1,4 +1,5 @@
 .containerForm {
+    position: absolute;
     background-color: white;
     border-radius: 10px;
     width: 350px;
@@ -33,8 +34,10 @@
 
 
 .inputForm {
+
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+
 }
 
 .inputForm input{
@@ -46,6 +49,7 @@
 }
 
 .buttonForm {
+
     display: flex;
     margin-top: 100px;
     justify-content: space-between;
@@ -103,4 +107,18 @@
     color: red;
     height: 20px;
     font-size: 14px;
+}
+
+.eyeOne {
+position: absolute;
+    left: 334px;
+    top: 245px;
+    cursor: pointer;
+}
+
+.eyeTwo {
+    position: absolute;
+    left: 334px;
+    top: 319px;
+    cursor: pointer;
 }
