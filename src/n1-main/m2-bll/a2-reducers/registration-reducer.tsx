@@ -1,4 +1,3 @@
-import React from 'react';
 import {Dispatch} from "redux";
 import {registrationAPI} from "../../../n2-features/f1-auth/a2-register/api-registration";
 
@@ -8,7 +7,7 @@ const initialState: StateRegistrationReducerType = {
     isRegistrtion: null,
 }
 
-export const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
+const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
   switch (action.type) {
       case "SET-ERROR":
           return  {
@@ -62,3 +61,5 @@ export type StateRegistrationReducerType = {
 type SetRegistrationErrorActionType = ReturnType<typeof setRegistrationErrorAC>
 type IsRegistrationACActionType = ReturnType<typeof isRegistrationAC>
 type ActionType = SetRegistrationErrorActionType | IsRegistrationACActionType
+
+export default  registrationReducer
