@@ -39,9 +39,9 @@
     background: rgb(156, 154, 154);
     position: absolute;
     text-decoration: none;
-    left: 780px;
-    top: 225px;
     cursor: pointer;
+    margin-top: 100px;
+    margin-left: 60px;
 }
 
 .photoBtn img {
@@ -49,6 +49,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    user-select: none;
 }
 
 
@@ -101,6 +102,15 @@
     outline: none;
     border: 0;
     cursor: pointer;
+}
+
+.inputUrlContainer {
+    width: 100%;
+    height: 30px;
+}
+
+.inputUrl {
+    width: 100%;
 }
 
 .error {

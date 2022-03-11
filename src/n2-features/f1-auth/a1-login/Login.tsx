@@ -11,8 +11,6 @@ import {Navigate, NavLink} from 'react-router-dom';
 import eye from '../../../n1-main/m1-ui/common/images/eye.png'
 import hidden from '../../../n1-main/m1-ui/common/images/hidden.png'
 
-//ed
-
 const schema = yup.object({
   email: yup.string().email('Invalid email address').required('Email is required'),
   password: yup.string().required('Password is required'),
@@ -24,7 +22,6 @@ const Login = () => {
   const onclickShowHandle = () => {
     setShow(!show)
   }
-
 
   const {register, handleSubmit, formState: {errors}} = useForm<LoginParamsType>({
     resolver: yupResolver(schema)
@@ -49,10 +46,12 @@ const Login = () => {
           <input className={s.input} {...register("email")} placeholder='Email'/>
           <div className={s.error}>{errors.email?.message}</div>
           <div className={s.passwordImput}>
-            <input className={s.input} {...register("password")} placeholder='Password' type={!show ? "password" : "text"}/>
-            <div className={s.passwordBtn} onClick={onclickShowHandle}><img className={s.passwordImg} src={show ? eye : hidden} alt="eye"/></div>
-          <div className={s.error}>{errors.password?.message}</div>
+            <input className={s.input} {...register("password")} placeholder='Password'
+                   type={!show ? "password" : "text"}/>
+            <div className={s.passwordBtn} onClick={onclickShowHandle}><img className={s.passwordImg}
+                                                                            src={show ? eye : hidden} alt="eye"/></div>
           </div>
+          <div className={s.error}>{errors.password?.message}</div>
         </div>
         <div className={s.forgotContainer}>
           <div className={s.checkbox}>
