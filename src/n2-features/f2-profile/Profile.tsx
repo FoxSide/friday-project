@@ -13,9 +13,7 @@ const Profile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
- 
     useEffect(() => {
-        debugger
         dispatch(getUserProfileData())
     }, [])
 
@@ -32,7 +30,7 @@ const onEditProfileClickHandler = () => {
                  <img className={s.avatar} src={avatar || noAvatar} alt="avatar"/>
             </div>
             <div>{user?.name}</div>
-            <div>description</div>
+            <div>{user?._id}</div>
             <button onClick={onEditProfileClickHandler}>edit profile</button>
         </div>
     );

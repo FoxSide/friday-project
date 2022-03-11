@@ -8,7 +8,7 @@ const initialState: StateRegistrationReducerType = {
     isRegistrtion: null,
 }
 
-export const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
+  const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
   switch (action.type) {
       case "SET-ERROR":
           return  {
@@ -62,3 +62,5 @@ export type StateRegistrationReducerType = {
 type SetRegistrationErrorActionType = ReturnType<typeof setRegistrationErrorAC>
 type IsRegistrationACActionType = ReturnType<typeof isRegistrationAC>
 type ActionType = SetRegistrationErrorActionType | IsRegistrationACActionType
+
+export default  registrationReducer

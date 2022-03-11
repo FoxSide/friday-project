@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     addUserTC,
 } from "../../../n1-main/m2-bll/a2-reducers/registration-reducer";
-import {AppStoreType} from "../../../n1-main/m2-bll/a1-redux-store/store";
+import {AppRootStateType} from "../../../n1-main/m2-bll/a1-redux-store/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -13,8 +13,8 @@ import style from './Registration.module.css'
 
 
 const Registration = () => {
-    const errorState = useSelector<AppStoreType>(state => state.registration.error)
-    const isRegistrtion = useSelector<AppStoreType>(state => state.registration.isRegistrtion)
+    const errorState = useSelector<AppRootStateType>(state => state.registration.error)
+    const isRegistrtion = useSelector<AppRootStateType>(state => state.registration.isRegistrtion)
 
     useEffect(()=>{
         if(isRegistrtion ==true) {

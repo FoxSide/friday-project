@@ -16,10 +16,17 @@ const ProfileEdit = () => {
     const [nickName, setNickName] = useState<string | undefined>(user?.name);
     const [avatar, setAvatar] = useState<string | undefined>(user?.avatar);
     const [upload, setUpload] = useState<boolean>(false);
+    const [editMode, setEditMode] = useState<boolean>(false);
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-
+    useEffect(()=>{
+        console.log('useEff')
+        if (editMode) {
+            navigate('/profile')
+        }
+    },[user])
 
     const onCancelClickHandler = () => {
         navigate('/profile')
@@ -33,12 +40,10 @@ const ProfileEdit = () => {
         nickName: yup.string().required('nickName is required'),
     }).required();
 
-    type OnSubmitDataType = {
-        nickName: string
-        avatar: string
-    }
-
-    const onSubmit = (data: OnSubmitDataType) => dispatch(updateUserProfileData(data.nickName, data.avatar));
+    const onSubmit = (data: OnSubmitDataType) => {
+        setEditMode(true)
+        dispatch(updateUserProfileData(data.nickName, data.avatar))
+    };
     const {register, handleSubmit, formState: {errors}} = useForm<OnSubmitDataType>({
         resolver: yupResolver(schema)
     });
@@ -74,5 +79,10 @@ const ProfileEdit = () => {
         </form>
     );
 };
+
+type OnSubmitDataType = {
+    nickName: string
+    avatar: string
+}
 
 export default ProfileEdit;

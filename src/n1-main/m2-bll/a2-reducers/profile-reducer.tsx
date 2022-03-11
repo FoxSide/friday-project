@@ -1,7 +1,6 @@
 import React, {Dispatch} from 'react';
 import {authAPI, profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
 
-
 export type TNullable<T> = T | null | undefined
 export type UserProfileStateType = {
     _id: string
@@ -16,7 +15,6 @@ export type UserProfileStateType = {
     rememberMe: boolean
     error?: string
 }
-
 type ProfileReducerActionsType = ReturnType<typeof setUserProfileData>
     | ReturnType<typeof setChangeUserData>
 
@@ -29,7 +27,7 @@ const profileReducer = (state: TNullable<UserProfileStateType> = initialState, a
         case 'SET_CHANGE_USER_DATA':
             return {
                 ...state, ...action.data.updateUser,
-                error: action.data.error ? action.data.error : state?.error
+                error: action.data.error || state?.error
             }
         default: {
             return state
@@ -64,13 +62,13 @@ export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerAction
 }
 
 export const updateUserProfileData = (name: string, avatar: string) => (dispatch: Dispatch<ProfileReducerActionsType>) => {
+    debugger
     profileAPI.updateUserData(name, avatar)
         .then(res => {
             dispatch(setChangeUserData(res.data))
 
         }).catch(err => {
         console.log(err);
-
     })
 }
 
