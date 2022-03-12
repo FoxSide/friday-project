@@ -19,7 +19,7 @@ export const path = {
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
   checkEmail: '/check-email',
-  newPassword: '/new-password',
+  newPassword: '/new-password/:token',
   test: '/test'
 }
 

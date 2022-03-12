@@ -1,8 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {
-    fromMessage,
-    htmlMessage
-} from "../../n2-features/f1-auth/a5-password-recovery/constants/recoveryPasswordRequest";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -11,22 +7,20 @@ export const instance = axios.create({
 })
 
 export const authAPI = {
-    recovery(email: string) {
+    setNewPassword(password: string, resetPasswordToken: string) {
         const requestData: RequestDataType = {
-            email: email,
-            from: fromMessage,
-            message: htmlMessage,
+            password: password,
+            resetPasswordToken: resetPasswordToken,
         }
         return instance
-            .post<RequestDataType, AxiosResponse<PasswordRecoveryResponseType>>('auth/forgot', requestData)
+            .post<RequestDataType, AxiosResponse<PasswordRecoveryResponseType>>('auth/set-new-password', requestData)
             .then(res => res.data)
     }
 }
 
 export type RequestDataType = {
-    email: string;
-    from: string;
-    message: string;
+    password: string;
+    resetPasswordToken: string;
 }
 
 export type PasswordRecoveryResponseType = {
