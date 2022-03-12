@@ -5,6 +5,8 @@ import Header from "./header/Header";
 import RoutesComponent from "./routes/Routes";
 
 const App = () => {
+
+
   return (
   <div className={s.app}>
     <HashRouter>
