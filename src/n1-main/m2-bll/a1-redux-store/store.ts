@@ -3,17 +3,17 @@ import loginReducer from "../a2-reducers/login-reducer";
 import registrationReducer from "../a2-reducers/registration-reducer";
 import profileReducer from "../a2-reducers/profile-reducer";
 import errorReducer from "../a2-reducers/error-reducer";
-import passwordRecoveryReducer from "../a2-reducers/password-recovery-reducer";
-import newPasswrodReducer from "../a2-reducers/new-password";
+import newPasswordReducer from "../a2-reducers/new-password";
 import thunkMiddleware from "redux-thunk";
+import {passwordRecoveryReducer} from "../a2-reducers/password-recovery-reducer";
 
 let rootReducer = combineReducers({
   login: loginReducer,
   registration: registrationReducer,
   profile: profileReducer,
   error: errorReducer,
-  passwrdRecovery: passwordRecoveryReducer,
-  newPassword: newPasswrodReducer
+  passwordRecovery: passwordRecoveryReducer,
+  newPassword: newPasswordReducer
 })
 
 

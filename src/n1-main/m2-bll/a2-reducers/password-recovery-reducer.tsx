@@ -5,12 +5,10 @@ type ActionType = {
   type: ''
 }
 
-const passwordRecoveryReducer = (state: StateType = {}, action: ActionType) => {
+export const passwordRecoveryReducer = (state: StateType = {}, action: ActionType) => {
   switch (action.type) {
     default: {
       return state
     }
   }
 };
-
-export default passwordRecoveryReducer;
