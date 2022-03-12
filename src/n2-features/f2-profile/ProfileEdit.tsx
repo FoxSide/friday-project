@@ -5,10 +5,12 @@ import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
-import {TNullable, updateUserProfileData, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
+// import {TNullable, updateUserProfileData, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
 import * as yup from "yup";
 import photoBtnIcon from '../f2-profile/ProfileImg/PhotoBtn.png'
 import noAvatar from '../f2-profile/ProfileImg/noAvatar.png'
+import {TNullable, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/login-reducer";
+import {updateUserProfileData} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
 
 const schema = yup.object({
     nickName: yup.string().required('nickName is required'),
@@ -16,7 +18,7 @@ const schema = yup.object({
 
 const ProfileEdit = () => {
 
-    const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
+    const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.login.userData)
     const [nickName, setNickName] = useState<string | undefined>(user?.name);
     const [avatar, setAvatar] = useState<string | undefined>(user?.avatar);
     const [upload, setUpload] = useState<boolean>(false);
@@ -29,7 +31,7 @@ const ProfileEdit = () => {
         if (editMode) {
             navigate('/profile')
         }
-    },[user])
+    },[editMode])
 
     const onCancelClickHandler = () => {
         navigate('/profile')

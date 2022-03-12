@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import s from './login.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {setIsLoggedInTC} from "../../../n1-main/m2-bll/a2-reducers/login-reducer";
+import {setUserDataTC} from "../../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {useForm} from "react-hook-form";
 import {LoginParamsType} from "../../../n1-main/m3-dal/login-api";
 import {AppRootStateType} from "../../../n1-main/m2-bll/a1-redux-store/store";
@@ -26,7 +26,7 @@ const Login = () => {
   const {register, handleSubmit, formState: {errors}} = useForm<LoginParamsType>({
     resolver: yupResolver(schema)
   });
-  const onSubmit = (data: LoginParamsType) => dispatch(setIsLoggedInTC(data));
+  const onSubmit = (data: LoginParamsType) => dispatch(setUserDataTC(data));
   const dispatch = useDispatch()
 
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)

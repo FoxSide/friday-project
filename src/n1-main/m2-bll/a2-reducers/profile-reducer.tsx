@@ -1,29 +1,32 @@
-import React, {Dispatch} from 'react';
 import {authAPI, profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
+import {Dispatch} from "redux";
+import {initialState, TNullable, UserProfileStateType} from "./login-reducer";
 
-export type TNullable<T> = T | null | undefined
-export type UserProfileStateType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-    error?: string
-}
-type ProfileReducerActionsType = ReturnType<typeof setUserProfileData>
-    | ReturnType<typeof setChangeUserData>
+export const userData = initialState.userData
 
-const initialState: TNullable<UserProfileStateType> = null
+// export type TNullable<T> = T | null | undefined
+// export type UserProfileStateType = {
+//     _id: string
+//     email: string
+//     name: string
+//     avatar?: string
+//     publicCardPacksCount: number
+//     created: Date
+//     updated: Date
+//     isAdmin: boolean
+//     verified: boolean
+//     rememberMe: boolean
+//     error?: string
+// }
+type ProfileReducerActionsType = ReturnType<typeof setChangeUserData>
 
-const profileReducer = (state: TNullable<UserProfileStateType> = initialState, action: ProfileReducerActionsType) => {
+// const initialState: TNullable<UserProfileStateType> = null
+
+const profileReducer = (state: TNullable<UserProfileStateType> = userData, action: ProfileReducerActionsType) => {
+
     switch (action.type) {
-        case 'SET_USER_PROFILE_DATA':
-            return {...state, ...action.data}
+        // case 'SET_USER_PROFILE_DATA':
+        //     return {...state, ...action.data}
         case 'SET_CHANGE_USER_DATA':
             return {
                 ...state, ...action.data.updateUser,
@@ -36,12 +39,12 @@ const profileReducer = (state: TNullable<UserProfileStateType> = initialState, a
 };
 
 //action
-export const setUserProfileData = (data: UserProfileStateType) => {
-    return {
-        type: 'SET_USER_PROFILE_DATA',
-        data
-    } as const
-}
+// export const setUserProfileData = (data: UserProfileStateType) => {
+//     return {
+//         type: 'SET_USER_PROFILE_DATA',
+//         data
+//     } as const
+// }
 
 export const setChangeUserData = (data: UpdateUserResponseType) => {
     return {
@@ -51,15 +54,15 @@ export const setChangeUserData = (data: UpdateUserResponseType) => {
 }
 
 //thunk
-export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerActionsType>) => {
-    authAPI.me().then(res => {
-        debugger
-        dispatch(setUserProfileData(res.data))
-    }).catch(err => {
-        debugger
-        console.log(err)
-    })
-}
+// export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerActionsType>) => {
+//     authAPI.me().then(res => {
+//         debugger
+//         dispatch(setUserProfileData(res.data))
+//     }).catch(err => {
+//         debugger
+//         console.log(err)
+//     })
+// }
 
 export const updateUserProfileData = (name: string, avatar: string) => (dispatch: Dispatch<ProfileReducerActionsType>) => {
     debugger

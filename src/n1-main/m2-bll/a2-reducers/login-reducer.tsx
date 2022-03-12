@@ -8,7 +8,7 @@ type InitialStateType = {
 type ActionsType = ReturnType<typeof setUserDataAC> | ReturnType<typeof setIsLoggedInAC>
 export type TNullable<T> = T | null | undefined
 
-const initialState: InitialStateType = {
+export const initialState: InitialStateType = {
   isLoggedIn: false,
   userData:  null
 }
