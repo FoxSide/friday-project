@@ -1,11 +1,14 @@
 import {authAPI, LoginParamsType} from "../../m3-dal/login-api";
 import {Dispatch} from "redux";
+import {setIsInitializedAC, SetIsInitializedActionType} from "./app-reducer";
 
 type InitialStateType = {
   isLoggedIn: boolean
   userData: TNullable<UserProfileStateType>
 }
-type ActionsType = ReturnType<typeof setUserDataAC> | ReturnType<typeof setIsLoggedInAC>
+type ActionsType = ReturnType<typeof setUserDataAC>
+    | ReturnType<typeof setIsLoggedInAC>
+| SetIsInitializedActionType
 export type TNullable<T> = T | null | undefined
 
 export const initialState: InitialStateType = {
@@ -65,6 +68,9 @@ export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<Acti
       alert('Не верный логин/пароль')
       console.log(err)
     })
+      .finally(() =>{
+        dispatch(setIsInitializedAC(true))
+      })
 }
 
 

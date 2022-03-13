@@ -49,6 +49,7 @@ const ProfileEdit = () => {
         resolver: yupResolver(schema)
     });
 
+    let test = true
     return (
         <form className={s.wrapp} onSubmit={handleSubmit(onSubmit)}>
             <div className={s.titleContainer}>
@@ -66,7 +67,7 @@ const ProfileEdit = () => {
 
             <div className={s.inputContainer}>
                 <span className={s.subTitle}>Nickname</span>
-                <input className={s.input} {...register("nickName")} placeholder='Nickname' value={nickName}
+                <input className={s.input} {...register("nickName")} placeholder='Nickname'
                        onChange={(e) => {
                            setNickName(e.currentTarget.value)
                        }}/>
