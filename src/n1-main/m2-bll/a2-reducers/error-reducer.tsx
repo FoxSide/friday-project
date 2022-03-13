@@ -1,32 +1,35 @@
 import React from 'react';
 
-type StateType = {
-    info: string
-    error: string
+type StateErrorType = {
+    error: string | null,
+
 }
-type ActionType = SetInfoActionType
-export type SetInfoActionType = ReturnType<typeof setInfoAC>
 
 const initialState = {
-    info: '',
-    error: ''
+    error: null as string | null,
 }
-const errorReducer = (state: StateType = initialState, action: ActionType) => {
+
+
+const errorReducer = (state: StateErrorType = initialState, action: ActionType): StateErrorType => {
     switch (action.type) {
-        case "error/SET_INFO":
-            return {...state, info: action.infoMassage}
+        case 'APP/SET-ERROR':
+            return {...state, error: action.error}
         default: {
             return state
         }
     }
 };
 
-//action
-export const setInfoAC = (infoMassage: string) => {
+export const setAppErrorAC = (error: string | null) => {
     return {
-        type: 'error/SET_INFO',
-        infoMassage
+        type: 'APP/SET-ERROR',
+        error
     } as const
 }
+
+export type SetAppErrorType = ReturnType<typeof setAppErrorAC>
+
+type ActionType = SetAppErrorType
+
 
 export default errorReducer;

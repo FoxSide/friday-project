@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Routes, Route} from "react-router-dom";
 import Login from "../../../n2-features/f1-auth/a1-login/Login";
 import Registration from "../../../n2-features/f1-auth/a2-register/Registration";
 import Profile from "../../../n2-features/f2-profile/Profile";
 import ErrorPage from "../../../n2-features/f3-error-page/ErrorPage";
-import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/PasswordRecovery";
-import NewPassword from "../../../n2-features/f1-auth/a6-new-password/NewPassword";
+import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/passwordRecowery/PasswordRecovery";
 import Test from "../../../n2-features/f0-test/Test";
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 import s from './routes.module.css'
+import {useDispatch} from "react-redux";
+import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
+import {CreateNewPassword} from "../../../n2-features/f1-auth/a6-createNewPassword/CreateNewPassword";
+import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/checkEmail/CheckEmail";
 
 export const path = {
   login: '/login',
@@ -17,11 +20,18 @@ export const path = {
   profileEdit: '/profile-edit',
   errorPage: '/404',
   passwordRecovery: '/password-recovery',
-  newPassword: '/new-password',
+  checkEmail: '/check-email',
+  newPassword: '/new-password/:token',
   test: '/test'
 }
 
+
 const RoutesComponent = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setIntitalazedTC())
+  }, [])
+
   return (
     <div className={s.wrapp}>
       <Routes>
@@ -31,7 +41,8 @@ const RoutesComponent = () => {
         <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
-        <Route path={path.newPassword} element={<NewPassword/>}/>
+        <Route path={path.checkEmail} element={<CheckEmail/>}/>
+        <Route path={path.newPassword} element={<CreateNewPassword/>}/>
         <Route path={path.test} element={<Test/>}/>
       </Routes>
     </div>
