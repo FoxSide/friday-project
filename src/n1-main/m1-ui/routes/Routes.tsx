@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Routes, Route} from "react-router-dom";
 import Login from "../../../n2-features/f1-auth/a1-login/Login";
 import Registration from "../../../n2-features/f1-auth/a2-register/Registration";
@@ -9,6 +9,8 @@ import NewPassword from "../../../n2-features/f1-auth/a6-new-password/NewPasswor
 import Test from "../../../n2-features/f0-test/Test";
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 import s from './routes.module.css'
+import {useDispatch} from "react-redux";
+import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
 
 export const path = {
   login: '/login',
@@ -21,7 +23,13 @@ export const path = {
   test: '/test'
 }
 
+
 const RoutesComponent = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setIntitalazedTC())
+  }, [])
+
   return (
     <div className={s.wrapp}>
       <Routes>
