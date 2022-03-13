@@ -1,7 +1,7 @@
 import {profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
 import {Dispatch} from "redux";
 
-
+// fix
 const initialState: TNullable<UserProfileStateType> = null
 const profileReducer = (state: TNullable<UserProfileStateType> = initialState, action: ProfileReducerActionsType) => {
 
