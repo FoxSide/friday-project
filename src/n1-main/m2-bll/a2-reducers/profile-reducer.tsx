@@ -1,35 +1,16 @@
-import {authAPI, profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
+import {profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
 import {Dispatch} from "redux";
-import {initialState, TNullable, UserProfileStateType} from "./login-reducer";
 
-export const userData = initialState.userData
 
-// export type TNullable<T> = T | null | undefined
-// export type UserProfileStateType = {
-//     _id: string
-//     email: string
-//     name: string
-//     avatar?: string
-//     publicCardPacksCount: number
-//     created: Date
-//     updated: Date
-//     isAdmin: boolean
-//     verified: boolean
-//     rememberMe: boolean
-//     error?: string
-// }
-type ProfileReducerActionsType = ReturnType<typeof setChangeUserData>
-
-// const initialState: TNullable<UserProfileStateType> = null
-
-const profileReducer = (state: TNullable<UserProfileStateType> = userData, action: ProfileReducerActionsType) => {
+const initialState: TNullable<UserProfileStateType> = null
+const profileReducer = (state: TNullable<UserProfileStateType> = initialState, action: ProfileReducerActionsType) => {
 
     switch (action.type) {
-        // case 'SET_USER_PROFILE_DATA':
-        //     return {...state, ...action.data}
+        case 'SET_USER_PROFILE_DATA':
+            return {...state, ...action.data}
         case 'SET_CHANGE_USER_DATA':
             return {
-                ...state, ...action.data.updateUser,
+                ...state, ...action.data.updatedUser,
                 error: action.data.error || state?.error
             }
         default: {
@@ -39,12 +20,12 @@ const profileReducer = (state: TNullable<UserProfileStateType> = userData, actio
 };
 
 //action
-// export const setUserProfileData = (data: UserProfileStateType) => {
-//     return {
-//         type: 'SET_USER_PROFILE_DATA',
-//         data
-//     } as const
-// }
+export const setUserProfileData = (data: UserProfileStateType) => {
+    return {
+        type: 'SET_USER_PROFILE_DATA',
+        data
+    } as const
+}
 
 export const setChangeUserData = (data: UpdateUserResponseType) => {
     return {
@@ -54,42 +35,35 @@ export const setChangeUserData = (data: UpdateUserResponseType) => {
 }
 
 //thunk
-// export const getUserProfileData = () => (dispatch: Dispatch<ProfileReducerActionsType>) => {
-//     authAPI.me().then(res => {
-//         debugger
-//         dispatch(setUserProfileData(res.data))
-//     }).catch(err => {
-//         debugger
-//         console.log(err)
-//     })
-// }
-
 export const updateUserProfileData = (name: string, avatar: string) => (dispatch: Dispatch<ProfileReducerActionsType>) => {
-    debugger
     profileAPI.updateUserData(name, avatar)
         .then(res => {
             dispatch(setChangeUserData(res.data))
-
         }).catch(err => {
         console.log(err);
     })
 }
 
-
-// {
-//     _id: 'string',
-//     email: 'email-sasdf',
-//     name: 'myName',
-//     avatar: 'https://static.kinoafisha.info/k/movie_posters/canvas/800x1200/upload/movie_posters/4/7/5/8097574/0cb900f339c55068808d6dc9a95b7f85.jpg',
-//     publicCardPacksCount: 23,
-//     created: new Date(),
-//     updated: new Date(),
-//     isAdmin: false,
-//     verified: false,
-//     rememberMe: false,
-//     error: 'some error'
-// }
-
+//type
+export type TNullable<T> = T | null | undefined
+export type UserProfileStateType = {
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
+    error?: string
+}
+type ProfileReducerActionsType = ReturnType<typeof setChangeUserData> | SetUserProfileDataType
+export type SetUserProfileDataType = {
+    type: 'SET_USER_PROFILE_DATA'
+    data: UserProfileStateType
+}
 
 export default profileReducer;
 

@@ -1,71 +1,56 @@
 import {authAPI, LoginParamsType} from "../../m3-dal/login-api";
 import {Dispatch} from "redux";
+import {setUserProfileData, SetUserProfileDataType} from "./profile-reducer";
+import {setInfoAC, SetInfoActionType} from "./error-reducer";
 
 type InitialStateType = {
-  isLoggedIn: boolean
-  userData: TNullable<UserProfileStateType>
+    isLoggedIn: boolean
 }
-type ActionsType = ReturnType<typeof setUserDataAC> | ReturnType<typeof setIsLoggedInAC>
-export type TNullable<T> = T | null | undefined
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetUserProfileDataType | SetInfoActionType
 
 export const initialState: InitialStateType = {
-  isLoggedIn: false,
-  userData:  null
+    isLoggedIn: false,
 }
-
-export type UserProfileStateType = {
-  _id: string
-  email: string
-  name: string
-  avatar?: string
-  publicCardPacksCount: number
-  created: Date
-  updated: Date
-  isAdmin: boolean
-  verified: boolean
-  rememberMe: boolean
-  error?: string
-}
-
-
 
 const loginReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-  switch (action.type) {
-    case 'LOGIN/SET_IS_LOGGED_IN':
-      return {...state, isLoggedIn: action.value}
-    case 'LOGIN/SET_USER_DATA':
-      return {...state, userData: action.data}
-    default:
-      return state
-  }
+    switch (action.type) {
+        case 'LOGIN/SET_IS_LOGGED_IN':
+            return {...state, isLoggedIn: action.value}
+        default:
+            return state
+    }
 };
+
 //action
 export const setIsLoggedInAC = (value: boolean) => {
-  return {
-    type: 'LOGIN/SET_IS_LOGGED_IN',
-    value
-  } as const
-}
-
-export const setUserDataAC = (data: UserProfileStateType) => {
-  return {
-    type: 'LOGIN/SET_USER_DATA',
-    data
-  } as const
+    return {
+        type: 'LOGIN/SET_IS_LOGGED_IN',
+        value
+    } as const
 }
 
 //thunk
 export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
-  authAPI.login(data)
-    .then(res => {
-      dispatch(setIsLoggedInAC(true))
-      dispatch(setUserDataAC(res.data))
-    })
-    .catch(err => {
-      alert('Не верный логин/пароль')
-      console.log(err)
-    })
+    authAPI.login(data)
+        .then(res => {
+            dispatch(setIsLoggedInAC(true))
+            dispatch(setUserProfileData(res.data))
+        })
+        .catch(err => {
+            alert('Не верный логин/пароль')
+            console.log(err)
+        })
 }
 
+export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.logOut()
+        .then(res => {
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setInfoAC(res.data.info))
+        })
+        .catch(err => {
+            alert(err)
+        })
+}
 
 export default loginReducer;
