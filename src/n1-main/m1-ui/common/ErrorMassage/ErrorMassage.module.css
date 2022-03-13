@@ -1,0 +1,16 @@
+.container {
+    position: fixed;
+    margin: 10px;
+    bottom: 0;
+    left:0;
+    padding: 5px;
+    color: red;
+    border: solid 2px red;
+    width: 300px;
+    min-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    background-color: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px gray;
+}
