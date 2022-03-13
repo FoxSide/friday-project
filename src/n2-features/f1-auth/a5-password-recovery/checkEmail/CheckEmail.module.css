@@ -1,0 +1,41 @@
+.checkEmail {
+    width: 370px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8px;
+    background: #F9F9FE;
+    text-align: center;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    color: #2D2E46;
+    margin-bottom: 35px;
+}
+
+.checkEmail__img {
+    width: 108px;
+    height: 108px;
+    margin-bottom: 24px;
+}
+
+.checkEmail__text {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-bottom: 20px;
+}
+
+.checkEmail__subtext {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2D2E46;
+    opacity: 0.7;
+    margin-bottom: 138px;
+}
