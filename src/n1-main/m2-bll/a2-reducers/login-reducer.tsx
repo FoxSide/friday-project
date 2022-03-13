@@ -62,8 +62,15 @@ export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<Acti
       dispatch(setUserDataAC(res.data))
     })
     .catch(err => {
-      alert('Не верный логин/пароль')
+      alert('Ошибка')
       console.log(err)
+    })
+}
+
+export const setIsLoggedInTC = () => (dispatch: Dispatch<ActionsType>) => {
+  authAPI.me()
+    .then(res => {
+      dispatch(setIsLoggedInAC(true))
     })
 }
 
