@@ -1,40 +1,25 @@
 import {authAPI, LoginParamsType} from "../../m3-dal/login-api";
 import {Dispatch} from "redux";
+import {setIsInitializedAC, SetIsInitializedActionType} from "./app-reducer";
+import {setUserProfileData, SetUserProfileDataType} from "./profile-reducer";
 
 type InitialStateType = {
   isLoggedIn: boolean
-  userData: TNullable<UserProfileStateType>
 }
-type ActionsType = ReturnType<typeof setUserDataAC> | ReturnType<typeof setIsLoggedInAC>
+type ActionsType =
+  | SetUserProfileDataType
+  | ReturnType<typeof setIsLoggedInAC>
+  | SetIsInitializedActionType
 export type TNullable<T> = T | null | undefined
 
 export const initialState: InitialStateType = {
-  isLoggedIn: false,
-  userData:  null
+  isLoggedIn: false
 }
-
-export type UserProfileStateType = {
-  _id: string
-  email: string
-  name: string
-  avatar?: string
-  publicCardPacksCount: number
-  created: Date
-  updated: Date
-  isAdmin: boolean
-  verified: boolean
-  rememberMe: boolean
-  error?: string
-}
-
-
 
 const loginReducer = (state: InitialStateType = initialState, action: ActionsType) => {
   switch (action.type) {
     case 'LOGIN/SET_IS_LOGGED_IN':
       return {...state, isLoggedIn: action.value}
-    case 'LOGIN/SET_USER_DATA':
-      return {...state, userData: action.data}
     default:
       return state
   }
@@ -47,23 +32,37 @@ export const setIsLoggedInAC = (value: boolean) => {
   } as const
 }
 
-export const setUserDataAC = (data: UserProfileStateType) => {
-  return {
-    type: 'LOGIN/SET_USER_DATA',
-    data
-  } as const
-}
-
 //thunk
 export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
   authAPI.login(data)
     .then(res => {
       dispatch(setIsLoggedInAC(true))
-      dispatch(setUserDataAC(res.data))
+      dispatch(setUserProfileData(res.data))
     })
     .catch(err => {
       alert('Ошибка')
       console.log(err)
+    })
+    .finally(() => {
+      dispatch(setIsInitializedAC(true))
+    })
+}
+
+export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
+  authAPI.logOut()
+    .then(res => {
+      dispatch(setIsLoggedInAC(false))
+    })
+    .catch(err => {
+      alert(err)
+    })
+}
+
+export const setIntitalazedTC = () => (dispatch: Dispatch<ActionsType>) => {
+  authAPI.me()
+    .then(res => {
+      dispatch(setIsLoggedInAC(true))
+      dispatch(setUserProfileData(res.data))
     })
 }
 

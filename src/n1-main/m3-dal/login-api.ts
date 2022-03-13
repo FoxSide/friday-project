@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {UserProfileStateType} from "../m2-bll/a2-reducers/login-reducer";
+import {UserProfileStateType} from "../m2-bll/a2-reducers/profile-reducer";
+
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -10,6 +11,9 @@ export const authAPI = {
   login(data: LoginParamsType) {
     return instance.post<LoginParamsType, AxiosResponse<ResponseType>>('auth/login', data)
   },
+  logOut() {
+    return instance.delete<{},AxiosResponse<LogOutResponseType>>(`auth/me`, {})
+  },
   me() {
     return instance.post<{},AxiosResponse<UserProfileStateType>>(`auth/me`, {})
   },
@@ -19,6 +23,11 @@ export type LoginParamsType = {
   email: string
   password: string
   rememberMe: boolean
+}
+
+export type LogOutResponseType = {
+  info: string
+  error: string
 }
 
 export type ResponseType = {
