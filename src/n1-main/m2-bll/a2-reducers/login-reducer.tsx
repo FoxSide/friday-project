@@ -2,7 +2,8 @@ import {authAPI, LoginParamsType} from "../../m3-dal/login-api";
 import {Dispatch} from "redux";
 import {setUserProfileData, SetUserProfileDataType} from "./profile-reducer";
 import {setInfoAC, SetInfoActionType} from "./error-reducer";
-//fix
+
+//fix453453
 type InitialStateType = {
     isLoggedIn: boolean
 }
