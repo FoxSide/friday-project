@@ -25,6 +25,7 @@ const App = () => {
   //       </div>
   //     )
   // }
+
   return (
   <div className={s.app}>
       <Header/>

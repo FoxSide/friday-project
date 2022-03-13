@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Login from "../../../n2-features/f1-auth/a1-login/Login";
 import Registration from "../../../n2-features/f1-auth/a2-register/Registration";
 import Profile from "../../../n2-features/f2-profile/Profile";
@@ -8,10 +8,11 @@ import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/
 import Test from "../../../n2-features/f0-test/Test";
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 import s from './routes.module.css'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
 import {CreateNewPassword} from "../../../n2-features/f1-auth/a6-createNewPassword/CreateNewPassword";
 import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/checkEmail/CheckEmail";
+import {AppRootStateType} from "../../m2-bll/a1-redux-store/store";
 
 export const path = {
   login: '/login',
@@ -27,6 +28,7 @@ export const path = {
 
 
 const RoutesComponent = () => {
+  const isLoggedIn = useSelector((state: AppRootStateType) => state.login.isLoggedIn)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setIntitalazedTC())
@@ -35,6 +37,7 @@ const RoutesComponent = () => {
   return (
     <div className={s.wrapp}>
       <Routes>
+        <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
         <Route path={path.profile} element={<Profile/>}/>

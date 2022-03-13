@@ -66,12 +66,12 @@ export const setIntitalazedTC = () => (dispatch: Dispatch<ActionsType>) => {
     })
 }
 
-export const setIsLoggedInTC = () => (dispatch: Dispatch<ActionsType>) => {
-  authAPI.me()
-    .then(res => {
-      dispatch(setIsLoggedInAC(true))
-    })
-}
+// export const setIsLoggedInTC = () => (dispatch: Dispatch<ActionsType>) => {
+//   authAPI.me()
+//     .then(res => {
+//       dispatch(setIsLoggedInAC(true))
+//     })
+// }
 
 
 export default loginReducer;
