@@ -46,9 +46,11 @@ const Login = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.inputContainer}>
-          <input className={s.input} {...register("email")} placeholder='Email'/>
+          <div className={s.passwordAndLoginImput}>
+            <input className={s.input} {...register("email")} placeholder='Email'/>
+          </div>
           <div className={s.error}>{errors.email?.message}</div>
-          <div className={s.passwordImput}>
+          <div className={s.passwordAndLoginImput}>
             <input className={s.input} {...register("password")} placeholder='Password'
                    type={!show ? "password" : "text"}/>
             <div className={s.passwordBtn} onClick={onclickShowHandle}><img className={s.passwordImg}

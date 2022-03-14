@@ -9,10 +9,11 @@ import Test from "../../../n2-features/f0-test/Test";
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 import s from './routes.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
+import {authMeTC} from "../../m2-bll/a2-reducers/login-reducer";
 import {CreateNewPassword} from "../../../n2-features/f1-auth/a6-createNewPassword/CreateNewPassword";
 import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/checkEmail/CheckEmail";
 import {AppRootStateType} from "../../m2-bll/a1-redux-store/store";
+import {Preloader} from "../common/preloader/Preloader";
 
 export const path = {
   login: '/login',
@@ -29,26 +30,30 @@ export const path = {
 
 const RoutesComponent = () => {
   const isLoggedIn = useSelector((state: AppRootStateType) => state.login.isLoggedIn)
+  const isInitialized = useSelector((state: AppRootStateType) => state.app.isInitialized)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setIntitalazedTC())
-  }, [])
+    dispatch(authMeTC())
+  }, [dispatch])
 
   return (
-    <div className={s.wrapp}>
-      <Routes>
-        <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
-        <Route path={path.login} element={<Login/>}/>
-        <Route path={path.registration} element={<Registration/>}/>
-        <Route path={path.profile} element={<Profile/>}/>
-        <Route path={path.profileEdit} element={<ProfileEdit/>}/>
-        <Route path={path.errorPage} element={<ErrorPage/>}/>
-        <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
-        <Route path={path.checkEmail} element={<CheckEmail/>}/>
-        <Route path={path.newPassword} element={<CreateNewPassword/>}/>
-        <Route path={path.test} element={<Test/>}/>
-      </Routes>
-    </div>
+    <>{!isInitialized
+      ? <Preloader/>
+      : <div className={s.wrapp}>
+        <Routes>
+          <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
+          <Route path={path.login} element={<Login/>}/>
+          <Route path={path.registration} element={<Registration/>}/>
+          <Route path={path.profile} element={<Profile/>}/>
+          <Route path={path.profileEdit} element={<ProfileEdit/>}/>
+          <Route path={path.errorPage} element={<ErrorPage/>}/>
+          <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
+          <Route path={path.checkEmail} element={<CheckEmail/>}/>
+          <Route path={path.newPassword} element={<CreateNewPassword/>}/>
+          <Route path={path.test} element={<Test/>}/>
+        </Routes>
+      </div>}
+    </>
   );
 };
 

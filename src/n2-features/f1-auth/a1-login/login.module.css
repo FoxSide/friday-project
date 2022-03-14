@@ -33,7 +33,8 @@
 }
 
 .input {
-    width: 98%;
+    padding-left: 10px;
+    width: 100%;
     height: 40px;
     margin-top: 10px;
     outline: none;
@@ -41,7 +42,7 @@
     border-radius: 10px;
 }
 
-.passwordImput {
+.passwordAndLoginImput {
     display: flex;
     position: relative;
     justify-content: end;
