@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapp {
+    width: 1008px;
+    height: 636px;
+    background-color: #FEFEFF;
+    display: flex;
+}
+
+.profileContainer {
+    width: 243px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile {
+    width: 243px;
+    height: 216px;
+    background-color: #D9D9F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileDescription {
+    text-align: center;
+}
+
+.profileDescription p {
+    padding: 5px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #2D2E46;
+    opacity: 0.5;
+}
+
+
+
+
+.packListContainer {
+
+}
+
+.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+}
+
+
+
+.profileSetting {
+    background-color: #ECECF9;
+    padding: 24px;
+}

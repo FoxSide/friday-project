@@ -13,8 +13,6 @@ let rootReducer = combineReducers({
   registration: registrationReducer,
   profile: profileReducer,
   error: errorReducer,
-  passwrdRecovery: passwordRecoveryReducer,
-  newPassword: newPasswrodReducer,
   app: appReducer,
   passwordRecovery: passwordRecoveryReducer,
   newPassword: newPasswordReducer,

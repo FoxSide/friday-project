@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {setIsInitializedAC, SetIsInitializedActionType} from "./app-reducer";
 import {setUserProfileData, SetUserProfileDataType} from "./profile-reducer";
 
-//fix453453
 type InitialStateType = {
   isLoggedIn: boolean
 }
