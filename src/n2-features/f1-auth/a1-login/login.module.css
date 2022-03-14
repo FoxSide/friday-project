@@ -1,9 +1,11 @@
 .wrapp {
+    position: absolute;
     width: 350px;
     height: 600px;
     padding: 20px;
     border-radius: 10px;
     background: white;
+    display: block;
 }
 
 .titleContainer {

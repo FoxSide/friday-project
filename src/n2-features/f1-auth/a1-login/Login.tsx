@@ -10,6 +10,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {Navigate, NavLink} from 'react-router-dom';
 import eye from '../../../n1-main/m1-ui/common/images/eye.png'
 import hidden from '../../../n1-main/m1-ui/common/images/hidden.png'
+import {Preloader} from "../../../n1-main/m1-ui/common/preloader/Preloader";
 
 const schema = yup.object({
   email: yup.string().email('Invalid email address').required('Email is required'),
@@ -30,6 +31,7 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+  const status = useSelector<AppRootStateType>(state => state.app.status)
 
   if (isLoggedIn) {
     return <Navigate to={'/profile'}/>
@@ -37,6 +39,7 @@ const Login = () => {
 
   return (
     <div className={s.wrapp}>
+      {status === "loading" && <Preloader/>}
       <div className={s.titleContainer}>
         <span className={s.titleText}>It-incubator</span>
         <span className={s.secondTitleText}>Sign In</span>

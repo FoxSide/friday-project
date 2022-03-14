@@ -2,7 +2,7 @@ import React from 'react';
 import {Dispatch} from "redux";
 import {registrationAPI} from "../../m3-dal/registration-api";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
-import {setAppErrorAC} from "./error-reducer";
+import {setAppErrorAC, setAppSuccessAC} from "./error-reducer";
 
 
 const initialState: StateRegistrationReducerType = {
@@ -36,6 +36,7 @@ export const addUserTC = (email: string, password:string) => (dispatch: Dispatch
     registrationAPI.addUser(email, password)
       .then( (res) => {
           dispatch(isRegistrationAC(res.statusText))
+          dispatch(setAppSuccessAC(res.statusText))
           dispatch(setAppErrorAC(null))
           dispatch(setAppStatusAC("succeeded"))
       })

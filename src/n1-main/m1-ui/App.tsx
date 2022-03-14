@@ -7,6 +7,7 @@ import {AppRootStateType} from "../m2-bll/a1-redux-store/store";
 import { useSelector } from 'react-redux';
 import {SvgSelector} from "./common/SvgSelector/SvgSelector";
 import {ErrorMassage} from "./common/ErrorMassage/ErrorMassage";
+import {SuccessMassage} from "./common/SuccessMassage/SuccessMassage";
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
       <Header/>
       <RoutesComponent/>
       <ErrorMassage/>
+      <SuccessMassage />
   </div>
   );
 }

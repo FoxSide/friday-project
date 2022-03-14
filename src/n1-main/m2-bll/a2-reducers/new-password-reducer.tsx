@@ -2,10 +2,11 @@ import React from 'react';
 import {Dispatch} from "redux";
 import {authAPI} from "../../m3-dal/setNewPassword-api";
 import {setIsLoadingAC} from "./password-recovery-reducer";
+import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {setAppErrorAC, SetAppErrorType, setAppSuccessAC, SetAppSuccessType} from "./error-reducer";
 
 const initialNewPasswordState: NewPasswordStateType = {
   isSetNewPassword: false,
-  error: "",
 }
 export const newPasswordReducer = (state: NewPasswordStateType = initialNewPasswordState, action: NewPasswordActionType) => {
   switch (action.type) {
@@ -23,26 +24,27 @@ export const newPasswordReducer = (state: NewPasswordStateType = initialNewPassw
 
 export const setIsSetNewPasswordAC = (isSetNewPassword: boolean) =>
     ({type: 'passwordRecovery/SET-IS-SET-NEW-PASSWORD', payload: {isSetNewPassword}} as const)
-export const setErrorNewPasswordAC = (error: string) =>
-    ({type: 'passwordRecovery/SET-IS-SET-NEW-PASSWORD', payload: {error}} as const)
 
 export const setIsSetNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch<NewPasswordActionType>) => {
+  dispatch(setAppStatusAC("loading"))
   try {
     dispatch(setIsLoadingAC(true))
-    await authAPI.setNewPassword(password, token);
+    let res = await authAPI.setNewPassword(password, token);
     dispatch(setIsSetNewPasswordAC(true))
+    dispatch(setAppSuccessAC(res.info))
+    dispatch(setAppStatusAC("succeeded"))
   } catch (e: any) {
-    dispatch(setErrorNewPasswordAC(e.response.data.error))
-  } finally {
-    dispatch(setIsLoadingAC(false))
+    dispatch(setAppErrorAC(e.response.data.error))
+    dispatch(setAppStatusAC('failed'))
   }
 }
 
 type NewPasswordStateType = {
   isSetNewPassword: boolean;
-  error: string;
 }
 type NewPasswordActionType =
     | ReturnType<typeof setIsSetNewPasswordAC>
     | ReturnType<typeof setIsLoadingAC>
-    | ReturnType<typeof setErrorNewPasswordAC>
+    | SetAppErrorType
+    | SetAppStatusActionType
+    | SetAppSuccessType

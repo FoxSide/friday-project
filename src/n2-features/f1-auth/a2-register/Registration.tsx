@@ -12,24 +12,26 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import style from './Registration.module.css'
 import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
 import {ErrorMassage} from "../../../n1-main/m1-ui/common/ErrorMassage/ErrorMassage";
+import {Preloader} from "../../../n1-main/m1-ui/common/preloader/Preloader";
+import {setAppSuccessAC} from "../../../n1-main/m2-bll/a2-reducers/error-reducer";
 
 
 const Registration = () => {
-    const error = useSelector<AppRootStateType>(state => state.error.error)
     const isRegistrtion = useSelector<AppRootStateType>(state => state.registration.isRegistrtion)
     const status = useSelector<AppRootStateType>(state => state.app.status)
-
+    const dispatch = useDispatch()
     let [isType, setIsType] = useState(true)
 
     useEffect(() => {
         if (isRegistrtion == "Created") {
-            setTimeout(() => {
+            // setTimeout(() => {
+            //     dispatch(setAppSuccessAC(null))
                 toLogin()
-            }, 5000)
+            // }, 5000)
         }
     }, [isRegistrtion])
 
-    const dispatch = useDispatch()
+
 
     const navigate = useNavigate()
     const toLogin = () => {
@@ -49,15 +51,13 @@ const Registration = () => {
     })
     const onSubmit: SubmitHandler<StateForm> = (data) => {
         dispatch(addUserTC(data.email, data.password))
-        console.log(isRegistrtion)
     }
     const toggleTypeInput = () => {
         setIsType(isType = !isType)
     }
     return (
-        <>
-            {status === "loading" ? <div><SvgSelector id={'ballLoader'}/></div> :
             <div className={style.containerForm}>
+                {status === "loading" && <Preloader/>}
                 <div className={style.headerForm}>
                     <h2>It-incubator</h2>
                     <h3>Sign Up</h3>
@@ -93,11 +93,10 @@ const Registration = () => {
                         <button disabled={!isValid}>Register</button>
                     </div>
                 </form>
-                {isRegistrtion && (
-                    <div className={style.successForm}>Account was: {isRegistrtion}. Redirecting to Login
-                        page...</div>)}
-            </div>}
-        </>
+                {/*{isRegistrtion && (*/}
+                {/*    <div className={style.successForm}>Account was: {isRegistrtion}. Redirecting to Login*/}
+                {/*        page...</div>)}*/}
+            </div>
     );
 };
 

@@ -9,13 +9,14 @@ import * as yup from "yup";
 import photoBtnIcon from '../f2-profile/ProfileImg/PhotoBtn.png'
 import noAvatar from '../f2-profile/ProfileImg/noAvatar.png'
 import {TNullable, updateUserProfileData, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
+import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
 
 const schema = yup.object({
     nickName: yup.string().required('nickName is required'),
 }).required();
 
 const ProfileEdit = () => {
-
+    const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const [upload, setUpload] = useState<boolean>(false);
@@ -52,6 +53,7 @@ const ProfileEdit = () => {
             ? <Navigate to={'/login'}/>
             : <form className={s.wrapp} onSubmit={handleSubmit(onSubmit)}>
                 <div className={s.titleContainer}>
+                    {status === "loading" && <Preloader/>}
                     <span className={s.titleText}>Personal information</span>
                     <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
                     <div className={s.photoBtn} onClick={onClickUploadHandler}>

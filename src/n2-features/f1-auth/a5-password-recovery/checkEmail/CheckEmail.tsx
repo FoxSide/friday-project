@@ -4,8 +4,10 @@ import checkEmail from "./../images/checkEmail.png";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../n1-main/m2-bll/a1-redux-store/store";
 import {setIsEmailSendAC} from "../../../../n1-main/m2-bll/a2-reducers/password-recovery-reducer";
+import {Preloader} from "../../../../n1-main/m1-ui/common/preloader/Preloader";
 
 export const CheckEmail = () => {
+    const status = useSelector<AppRootStateType>(state => state.app.status)
     const dispatch = useDispatch();
     const email = useSelector<AppRootStateType, string>(state => state.passwordRecovery.email);
     const checkEmailText = `We’ve sent an Email with instructions to ${email}`;
@@ -14,6 +16,7 @@ export const CheckEmail = () => {
     }, [])
     return (
         <div className={s.checkEmail}>
+            {status === "loading" && <Preloader/>}
             <span className={s.title}>It-incubator</span>
             <img className={s.checkEmail__img} src={checkEmail} alt="checkEmail"/>
             <span className={s.checkEmail__text}>Check Email</span>

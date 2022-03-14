@@ -11,8 +11,7 @@ import {path} from "../../../../n1-main/m1-ui/routes/Routes";
 import {Preloader} from "../../../../n1-main/m1-ui/common/preloader/Preloader";
 
 const PasswordRecovery = () => {
-    const isLoading = useSelector<AppRootStateType, boolean>(state => state.passwordRecovery.isLoading);
-    const error = useSelector<AppRootStateType, string>(state => state.passwordRecovery.error);
+    const status = useSelector<AppRootStateType>(state => state.app.status)
     const isEmailSend = useSelector<AppRootStateType, boolean>(state => state.passwordRecovery.isEmailSend);
     const dispatch = useDispatch();
 
@@ -40,7 +39,7 @@ const PasswordRecovery = () => {
     }, [isEmailSend]);
     return (
             <div className={s.passwordRecovery}>
-                { isLoading && <Preloader/> }
+                { status === "loading" && <Preloader/> }
                 <span className={s.title}>It-incubator</span>
                 <span className={s.subTitle}>Forgot your password?</span>
                 <form className={s.passwordRecovery__form}
@@ -52,7 +51,7 @@ const PasswordRecovery = () => {
                            required
                            placeholder='Email'
                     />
-                    <div className={s.inputFormError}>{errors.email?.message || error}</div>
+                    <div className={s.inputFormError}>{errors.email?.message}</div>
                     <span className={s.enterEmail__text}>
                     Enter your email address and we will send you further instructions
                 </span>

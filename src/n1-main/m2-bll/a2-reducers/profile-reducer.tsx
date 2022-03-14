@@ -1,5 +1,7 @@
 import {profileAPI, UpdateUserResponseType} from '../../m3-dal/profile-api';
 import {Dispatch} from "redux";
+import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {setAppErrorAC, SetAppErrorType, SetAppSuccessType} from "./error-reducer";
 
 // fix
 const initialState: TNullable<UserProfileStateType> = null
@@ -36,11 +38,15 @@ export const setChangeUserData = (data: UpdateUserResponseType) => {
 
 //thunk
 export const updateUserProfileData = (name: string, avatar: string) => (dispatch: Dispatch<ProfileReducerActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
     profileAPI.updateUserData(name, avatar)
         .then(res => {
             dispatch(setChangeUserData(res.data))
+            dispatch(setAppStatusAC("succeeded"))
+            dispatch(setAppErrorAC(null))
         }).catch(err => {
-        console.log(err);
+        dispatch(setAppStatusAC('failed'))
+        dispatch(setAppErrorAC(err.response.data.error))
     })
 }
 
@@ -59,7 +65,12 @@ export type UserProfileStateType = {
     rememberMe: boolean
     error?: string
 }
-type ProfileReducerActionsType = ReturnType<typeof setChangeUserData> | SetUserProfileDataType
+type ProfileReducerActionsType = ReturnType<typeof setChangeUserData>
+    | SetUserProfileDataType
+    | SetAppErrorType
+    | SetAppStatusActionType
+    | SetAppSuccessType
+
 export type SetUserProfileDataType = {
     type: 'SET_USER_PROFILE_DATA'
     data: UserProfileStateType

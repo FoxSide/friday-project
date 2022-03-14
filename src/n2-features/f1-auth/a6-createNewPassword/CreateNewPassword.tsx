@@ -11,9 +11,8 @@ import {AppRootStateType} from "../../../n1-main/m2-bll/a1-redux-store/store";
 import {Preloader} from "../../../n1-main/m1-ui/common/preloader/Preloader";
 
 export const CreateNewPassword = () => {
-    const isLoading = useSelector<AppRootStateType, boolean>(state => state.passwordRecovery.isLoading);
+    const status = useSelector<AppRootStateType>(state => state.app.status)
     const isSetNewPassword = useSelector<AppRootStateType, boolean>(state => state.newPassword.isSetNewPassword);
-    const error = useSelector<AppRootStateType, string>(state => state.newPassword.error)
     const dispatch = useDispatch();
     const {token} = useParams();
 
@@ -43,7 +42,7 @@ export const CreateNewPassword = () => {
 
     return (
         <div className={s.createNewPassword}>
-            { isLoading && <Preloader/> }
+            { status === "loading" && <Preloader/> }
             <span className={s.title}>It-incubator</span>
             <span className={s.subTitle}>Create new password</span>
             <form className={s.createNewPassword__form} onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +52,7 @@ export const CreateNewPassword = () => {
                        required
                        placeholder='Password'
                 />
-                <div className={s.inputFormError}>{errors.password?.message || error}</div>
+                <div className={s.inputFormError}>{errors.password?.message}</div>
                 <span className={s.createNewPassword__text}>Create new password and we will send you further instructions to email</span>
                 <button className={s.createNewPassword__button}
                         type={'submit'}
