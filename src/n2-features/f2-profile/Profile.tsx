@@ -9,60 +9,53 @@ import {logOutTC} from "../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
 
 const Profile = () => {
-    const status = useSelector<AppRootStateType>(state => state.app.status)
-    const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
-    const userName = user?.name
-    console.log(userName)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const status = useSelector<AppRootStateType>(state => state.app.status)
+  const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
+  const userName = user?.name
+  console.log(userName)
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-    const onEditProfileClickHandler = () => {
-        navigate('/profile-edit')
-    }
+  const onEditProfileClickHandler = () => {
+    navigate('/profile-edit')
+  }
 
-    const logOutOnClickHandler = () => {
-        dispatch(logOutTC())
-    }
-    return (
-        !isLoggedIn
-            ? <Navigate to={'/login'}/>
-            : <div>
-                {status === "loading" && <Preloader/>}
-                <div>
-                    <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
-                </div>
-                <div>{user?.name}</div>
-                <div>{user?._id}</div>
-                <button onClick={onEditProfileClickHandler}>edit profile</button>
-                <button onClick={logOutOnClickHandler}>logOut</button>
-            : <div className={s.wrapp}>
-                <div className={s.profileContainer}>
-                    <div className={s.profile}>
-                        <div className={s.profileAva}>
-                            <div>
-                                <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
-                            </div>
-                        </div>
-                        <div className={s.profileDescription}>
-                            <h3>{user?.name}</h3>
-                            <p className={s.profileDescriptionText}>Front-end developer</p>
-                        </div>
-                        <div className={s.profileButton}>
-                            <button onClick={onEditProfileClickHandler}>edit profile</button>
-                            <button onClick={logOutOnClickHandler}>logOut</button>
-                        </div>
-                    </div>
-                    <div className={s.profileSetting}>
-                        <span>Number of cards</span>
-                    </div>
-                </div>
-                <div className={s.packListContainer}>
+  const logOutOnClickHandler = () => {
+    dispatch(logOutTC())
+  }
+  return (
+    !isLoggedIn
+      ? <Navigate to={'/login'}/>
 
-                </div>
-
+      : <div className={s.wrapp}>
+        {status === "loading" && <Preloader/>}
+        <div className={s.profileContainer}>
+          <div className={s.profile}>
+            <div className={s.profileAva}>
+              <div>
+                <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
+              </div>
             </div>
-    );
+            <div className={s.profileDescription}>
+              <h3>{user?.name}</h3>
+              <p className={s.profileDescriptionText}>Front-end developer</p>
+            </div>
+            <div className={s.profileButton}>
+              <button onClick={onEditProfileClickHandler}>edit profile</button>
+              <button onClick={logOutOnClickHandler}>logOut</button>
+            </div>
+          </div>
+          <div className={s.profileSetting}>
+            <span>Number of cards</span>
+          </div>
+        </div>
+        <div className={s.packListContainer}>
+
+        </div>
+
+      </div>
+  );
 };
 
 export default Profile;
