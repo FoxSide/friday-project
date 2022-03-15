@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
 import {Pack} from "./Pack/Pack";
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 import {
+    setCurrentPage,
     CardsStateType,
     fetchingCardsData,
-    setCountItemsOnPage,
-    setCurrentPage
+    setCountItemsOnPage
 } from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
-import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 
 export const PackContainer = () => {
     const {

@@ -41,8 +41,8 @@ const RoutesComponent = () => {
         <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
-        {/*<Route path={path.profile} element={<Profile/>}/>*/}
-        <Route path={path.profile} element={<PackContainer/>}/>
+        <Route path={path.profile} element={<Profile/>}/>
+        {/*<Route path={path.profile} element={<PackContainer/>}/>*/}
         <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>

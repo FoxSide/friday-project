@@ -1,12 +1,12 @@
-import React, {MouseEvent, useMemo, useState} from 'react';
 import s from "./Pagination.module.css";
+import React, {MouseEvent, useMemo, useState} from 'react';
 import {BsChevronLeft, BsChevronRight} from "react-icons/bs";
 
 export const Pagination: React.FC<PaginationType> = React.memo((props) => {
     const {
-        currentPage,
-        totalCount,
         pageSize,
+        totalCount,
+        currentPage,
         paginatorSize,
         setCurrentPageCallback,
     } = props;
@@ -24,22 +24,22 @@ export const Pagination: React.FC<PaginationType> = React.memo((props) => {
         return pages
     }, [pageSize, totalCount]);
 
-    const onClickPage = (e: MouseEvent<HTMLButtonElement>) => setCurrentPageCallback(Number(e.currentTarget.value))
     const onClickPrev = () => setPaginatorNumber(paginatorNumber - 1)
     const onClickNext = () => setPaginatorNumber(paginatorNumber + 1)
+    const onClickPage = (e: MouseEvent<HTMLButtonElement>) => setCurrentPageCallback(Number(e.currentTarget.value))
 
     const prev = paginatorNumber > 1 &&
         <button
-            onClick={onClickPrev}
             className={s.prev}
+            onClick={onClickPrev}
         >
             <BsChevronLeft/>
         </button>;
 
     const next = rightPaginatorPageSize < massPages.length &&
         <button
-            onClick={onClickNext}
             className={s.next}
+            onClick={onClickNext}
         >
             <BsChevronRight/>
         </button>;
@@ -51,9 +51,9 @@ export const Pagination: React.FC<PaginationType> = React.memo((props) => {
             return (
                 <button
                     key={p}
-                    className={fullClassPage}
-                    onClick={onClickPage}
                     value={p}
+                    onClick={onClickPage}
+                    className={fullClassPage}
                 >
                     {p}
                 </button>)

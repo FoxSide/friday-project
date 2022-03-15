@@ -8,9 +8,3 @@
 .searchInput {
     margin-top: 20px;
 }
-
-.paginationBlock {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
