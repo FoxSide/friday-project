@@ -16,10 +16,12 @@ const initialState: CardsStateType = {
 }
 export const cardsReducer = (state: CardsStateType = initialState, action: CardsReducerActionsType) => {
     switch (action.type) {
+        case "SET-COUNT-ITEMS-ON-PAGE":
+        case "SET-CURRENT-PAGE":
         case "SET-CARDS-DATA":
             return {
                 ...state,
-                ...action.payload.data
+                ...action.payload
             }
         default: {
             return state
@@ -30,7 +32,21 @@ export const cardsReducer = (state: CardsStateType = initialState, action: Cards
 export const setCardsData = (data: CardsStateType) => {
     return {
         type: "SET-CARDS-DATA",
-        payload: {data}
+        payload: {...data}
+    } as const
+};
+
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        payload: { page: currentPage }
+    } as const
+};
+
+export const setCountItemsOnPage = (countItemsOnPage: number) => {
+    return {
+        type: "SET-COUNT-ITEMS-ON-PAGE",
+        payload: { pageCount: countItemsOnPage }
     } as const
 }
 
@@ -94,6 +110,8 @@ export type CardType = {
 
 export type CardsReducerActionsType =
     | ReturnType<typeof setCardsData>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setCountItemsOnPage>
     | SetAppErrorType
     | SetAppStatusActionType
     | SetAppSuccessType

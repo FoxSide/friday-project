@@ -1,0 +1,28 @@
+.selectCountItemsOnPage {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #2D2E46;
+}
+
+.selectLabel {
+    margin: 0 5px;
+}
+
+.select {
+    padding: 5px 2px;
+    background: #FFFFFF;
+    border: 1px solid rgba(99, 93, 128, 0.5);
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #2D2E46;
+}
+
+.select:focus-visible {
+    outline: none;
+}
