@@ -13,6 +13,7 @@ import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
 import {CreateNewPassword} from "../../../n2-features/f1-auth/a6-createNewPassword/CreateNewPassword";
 import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/checkEmail/CheckEmail";
 import {AppRootStateType} from "../../m2-bll/a1-redux-store/store";
+import {PackContainer} from "../../../n2-features/f4-pack/PackContainer";
 
 export const path = {
   login: '/login',
@@ -40,7 +41,8 @@ const RoutesComponent = () => {
         <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
-        <Route path={path.profile} element={<Profile/>}/>
+        {/*<Route path={path.profile} element={<Profile/>}/>*/}
+        <Route path={path.profile} element={<PackContainer/>}/>
         <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>

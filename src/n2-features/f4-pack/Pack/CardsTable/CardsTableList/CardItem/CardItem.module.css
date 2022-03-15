@@ -1,0 +1,39 @@
+.cardItem {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    color: #000000;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.cardItem:hover .edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
+    width: 35%;
+}
+
+.answer {
+    width: 35%;
+}
+
+.lastUpdated {
+    width: 17%;
+}
+
+.grade {
+    width: 10%;
+}
+
+.edit {
+    width: 3%;
+    height: 90%;
+    display: none;
+}

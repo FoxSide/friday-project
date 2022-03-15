@@ -7,11 +7,13 @@ import thunkMiddleware from "redux-thunk";
 import {appReducer} from "../a2-reducers/app-reducer";
 import {passwordRecoveryReducer} from "../a2-reducers/password-recovery-reducer";
 import {newPasswordReducer} from "../a2-reducers/new-password-reducer";
+import {cardsReducer} from "../a2-reducers/cards-reducer";
 
 let rootReducer = combineReducers({
   login: loginReducer,
   registration: registrationReducer,
   profile: profileReducer,
+  cards: cardsReducer,
   error: errorReducer,
   app: appReducer,
   passwordRecovery: passwordRecoveryReducer,
