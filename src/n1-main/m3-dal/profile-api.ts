@@ -1,11 +1,8 @@
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import {UserProfileStateType} from "../m2-bll/a2-reducers/profile-reducer";
+import {instance} from "./a1-instance-api";
 
-const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
-    // baseURL: 'https://neko-back.herokuapp.com/2.0/' ,
-    withCredentials: true
-})
+
 
 
 export type UpdateUserResponseType = {
