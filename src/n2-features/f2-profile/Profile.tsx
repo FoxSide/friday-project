@@ -21,41 +21,40 @@ const Profile = () => {
     navigate('/profile-edit')
   }
 
-  const logOutOnClickHandler = () => {
-    dispatch(logOutTC())
-  }
-  return (
-    !isLoggedIn
-      ? <Navigate to={'/login'}/>
+    const logOutOnClickHandler = () => {
+        dispatch(logOutTC())
+    }
+    return (
+        !isLoggedIn
+            ? <Navigate to={'/login'}/>
+            : <div className={s.wrapp}>
+                {status === "loading" && <Preloader/>}
+                <div className={s.profileContainer}>
+                    <div className={s.profile}>
+                        <div className={s.profileAva}>
+                            <div>
+                                <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
+                            </div>
+                        </div>
+                        <div className={s.profileDescription}>
+                            <h3>{user?.name}</h3>
+                            <p className={s.profileDescriptionText}>Front-end developer</p>
+                        </div>
+                        <div className={s.profileButton}>
+                            <button onClick={onEditProfileClickHandler}>edit profile</button>
+                            <button onClick={logOutOnClickHandler}>logOut</button>
+                        </div>
+                    </div>
+                    <div className={s.profileSetting}>
+                        <span>Number of cards</span>
+                    </div>
+                </div>
+                <div className={s.packListContainer}>
 
-      : <div className={s.wrapp}>
-        {status === "loading" && <Preloader/>}
-        <div className={s.profileContainer}>
-          <div className={s.profile}>
-            <div className={s.profileAva}>
-              <div>
-                <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
-              </div>
-            </div>
-            <div className={s.profileDescription}>
-              <h3>{user?.name}</h3>
-              <p className={s.profileDescriptionText}>Front-end developer</p>
-            </div>
-            <div className={s.profileButton}>
-              <button onClick={onEditProfileClickHandler}>edit profile</button>
-              <button onClick={logOutOnClickHandler}>logOut</button>
-            </div>
-          </div>
-          <div className={s.profileSetting}>
-            <span>Number of cards</span>
-          </div>
-        </div>
-        <div className={s.packListContainer}>
+                </div>
 
-        </div>
-
-      </div>
-  );
+            </div>
+    );
 };
 
 export default Profile;
