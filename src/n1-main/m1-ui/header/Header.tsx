@@ -16,6 +16,7 @@ const Header = () => {
       <NavLink to={path.passwordRecovery} className={({isActive}) => styleNav(isActive)}>Password Recovery</NavLink>
       <NavLink to={path.newPassword} className={({isActive}) => styleNav(isActive)}>New Password</NavLink>
       <NavLink to={path.test} className={({isActive}) => styleNav(isActive)}>Test</NavLink>
+      <NavLink to={path.packList} className={({isActive}) => styleNav(isActive)}>Pack List</NavLink>
     </div>
   );
 };

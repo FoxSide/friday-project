@@ -1,0 +1,202 @@
+.container {
+    width: 1008px;
+    min-height: 639px;
+    display: flex;
+}
+
+.containerFilter {
+    width: 243px;
+    background-color: #ECECF9;
+    min-height: 639px;
+    padding: 23px;
+    box-sizing: border-box;
+
+}
+
+.blockShowCards {
+    margin: 10px 0;
+}
+
+.blockButtonsShowCards {
+    width: 196px;
+    height: 36px;
+    background-color: #FEFEFF;
+    color: #2D2E46;
+    display: flex;
+    margin: 20px 0;
+
+}
+
+.buttonShowCards {
+    width: 50%;
+    text-align: center;
+    line-height: 38px;
+}
+
+.buttonShowCards {
+    width: 50%;
+    text-align: center;
+}
+
+.buttonShowCardsActive {
+    background-color: #9A91C8;
+    color: white;
+}
+
+.containerPackList {
+    background-color: #FEFEFF;
+    min-height: 639px;
+    width: 765px;
+    padding: 24px 40px;
+    box-sizing: border-box;
+    position:relative;
+}
+
+.titlePackList {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.blockSearch {
+    width: 669px;
+    height: 38px;
+    display: flex;
+    margin-top: 21px;
+}
+
+.search {
+    height: 100%;
+    width: 461px;
+    border: 1px solid lightgrey;
+    background-color: #ECECF9;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.svgSearch {
+    margin-left: 20px;
+    padding-top: 7px;
+}
+
+.search input {
+    height: 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    width: 400px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+}
+
+.blockSearch button {
+    width: 184px;
+    margin-left: 22px;
+    border-radius: 20px;
+    color: white;
+    background-color: mediumblue;
+    box-shadow: 3px 3px 10px gray;
+    outline: none;
+    border: 0;
+}
+
+.blockPacks {
+    font-size: 13px;
+    margin-top: 24px;
+    margin-bottom: 50px;
+    box-shadow: 3px 3px 10px gray;
+    width: 670px;
+}
+
+.packsHeader {
+    width: 670px;
+    height: 48px;
+    background-color: #ECECF9;
+    display: flex;
+}
+
+.packsHeader div {
+    line-height: 48px;
+    padding-left: 15px;
+}
+
+.pack {
+    width: 670px;
+    height: 48px;
+    background-color: #F8F7FD;
+    display: flex;
+    border-top: 1px solid lightgrey;
+
+}
+.pack div {
+    line-height: 48px;
+    padding-left: 15px;
+}
+
+.pack button{
+    background-color: #D7D8EF;
+    padding: 5px;
+    outline: none;
+    border: none;
+    margin-left: 6px;
+    border-radius: 3px;
+    color: mediumblue;
+}
+
+.packsBlockLarge {
+    width: 30%;
+    overflow: hidden;
+}
+
+.packsBlockMedium {
+    width: 15%;
+    overflow: hidden;
+}
+
+.packsBlockSmall {
+    width: 10%
+}
+
+button.buttonDelete{
+    background-color: #F1453D;
+    color: white;
+}
+div .packButtons{
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.pagination {
+    position:absolute;
+    bottom:0;
+    width: 670px;
+    height: 24px;
+    border: 1px solid black;
+    margin-bottom: 34px;
+    overflow: hidden;
+}
+.setPagination {
+    position:absolute;
+    bottom: -23px;
+    width: auto;
+    height: 24px;
+    border: 1px solid black;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+.OtherPage {
+    border: 1px solid;
+    padding: 2px;
+    color: black;
+}
+
+.selectedPage {
+    font-weight: bold;
+    background-color: #9A91C8;
+}
+

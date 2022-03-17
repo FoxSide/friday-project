@@ -27,16 +27,8 @@ const Profile = () => {
     return (
         !isLoggedIn
             ? <Navigate to={'/login'}/>
-            : <div>
-                {status === "loading" && <Preloader/>}
-                <div>
-                    <img className={s.avatar} src={user?.avatar || noAvatar} alt="avatar"/>
-                </div>
-                <div>{user?.name}</div>
-                <div>{user?._id}</div>
-                <button onClick={onEditProfileClickHandler}>edit profile</button>
-                <button onClick={logOutOnClickHandler}>logOut</button>
             : <div className={s.wrapp}>
+                {status === "loading" && <Preloader/>}
                 <div className={s.profileContainer}>
                     <div className={s.profile}>
                         <div className={s.profileAva}>
