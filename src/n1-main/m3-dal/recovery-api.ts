@@ -1,14 +1,9 @@
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import {
     fromMessage,
     htmlMessage
 } from "../../n2-features/f1-auth/a5-password-recovery/constants/recoveryPasswordRequest";
-
-export const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true,
-})
+import {instance} from "./a1-instance-api";
 
 export const authAPI = {
     recovery(email: string) {
