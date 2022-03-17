@@ -15,7 +15,8 @@ const Header = () => {
       <NavLink to={path.errorPage} className={({isActive}) => styleNav(isActive)}>Error 404</NavLink>
       <NavLink to={path.passwordRecovery} className={({isActive}) => styleNav(isActive)}>Password Recovery</NavLink>
       <NavLink to={path.newPassword} className={({isActive}) => styleNav(isActive)}>New Password</NavLink>
-      <NavLink to={path.test} className={({isActive}) => styleNav(isActive)}>Test</NavLink>
+      <NavLink to={path.cards} className={({isActive}) => styleNav(isActive)}>Cards</NavLink>
+      <NavLink to={path.packList} className={({isActive}) => styleNav(isActive)}>Pack List</NavLink>
     </div>
   );
 };

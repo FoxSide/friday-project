@@ -1,0 +1,31 @@
+.cardsTableHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: #ECECF9;
+    color: #2D2E46;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.question {
+    width: 35%;
+}
+
+.answer {
+    width: 35%;
+}
+
+.lastUpdated {
+    width: 17%;
+}
+
+.grade {
+    width: 10%;
+}
+
+.edit {
+    width: 3%;
+    height: 90%;
+}

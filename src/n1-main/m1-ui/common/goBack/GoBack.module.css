@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    max-width: 70px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.wrapper:hover .goBackIcon {
+    transform: translateX(-5px);
+}
+
+.goBackIcon {
+    transition: all .2s ease-in-out;
+}
+
+.text {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-left: 8px;
+}

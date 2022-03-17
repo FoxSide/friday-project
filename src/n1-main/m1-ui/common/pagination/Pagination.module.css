@@ -1,0 +1,29 @@
+.pages {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-right: 34px;
+}
+
+.page, .next, .prev {
+    width: 24px;
+    height: 24px;
+    margin: 0 6px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #2D2E46;
+    border: none;
+}
+
+.active {
+    background: #21268F;
+    color: #F2F5F7;
+}
+
+
+
+

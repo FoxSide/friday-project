@@ -1,0 +1,34 @@
+.noUi-connect {
+    background: #21268F;
+}
+.noUi-tooltip {
+    background: #21268F;
+    color: white;
+    border-radius: 3px;
+    height: 30px;
+    line-height: 20px;
+}
+.noUi-handle {
+    right: -9px;
+    border-radius: 50%;
+    background: #21268F;
+    box-shadow: none;
+
+}
+
+.noUi-horizontal .noUi-handle {
+    top: -7px;
+    right: -7px;
+    height: 20px;
+    width: 20px;
+}
+
+.noUi-horizontal {
+    height: 10px;
+    background: #9A91C8;
+    box-shadow: none;
+}
+
+.noUi-handle:before, .noUi-handle:after {
+    display: none;
+}

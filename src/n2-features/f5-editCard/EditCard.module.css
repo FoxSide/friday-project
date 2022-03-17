@@ -1,0 +1,86 @@
+.editCard {
+    padding: 36px 33px;
+    width: 347px;
+    background-color: #F9F9FE;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cardTitle {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-bottom: 25px;
+}
+
+.form {
+    width: 100%;
+}
+
+.inputBlock {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+    opacity: 0.5;
+}
+
+.input {
+    display: block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(36,37,74, 0.2);
+    padding: 0 0 7px 0;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.attach {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: right;
+    color: #21268F;
+}
+
+.buttonGrope {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.btn {
+    width: 125px;
+    padding: 9px 0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    background: #21268F;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    border: none;
+    cursor: pointer;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.cancel_btn {
+    background-color: #D7D8EF;
+    color: #21268F;
+    opacity: 0.8;
+}
