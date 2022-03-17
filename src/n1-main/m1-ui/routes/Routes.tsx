@@ -36,7 +36,7 @@ const RoutesComponent = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(authMeTC())
-  }, [dispatch])
+  }, [])
 
   return (
   <>{!isInitialized
