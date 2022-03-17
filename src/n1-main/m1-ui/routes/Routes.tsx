@@ -24,7 +24,6 @@ export const path = {
   passwordRecovery: '/password-recovery',
   checkEmail: '/check-email',
   newPassword: '/new-password/:token',
-  test: '/test',
   cards: '/cards',
   packList: '/pack-list',
 }
@@ -51,7 +50,6 @@ const RoutesComponent = () => {
         <Route path={path.passwordRecovery} element={<PasswordRecovery/>}/>
         <Route path={path.checkEmail} element={<CheckEmail/>}/>
         <Route path={path.newPassword} element={<CreateNewPassword/>}/>
-        <Route path={path.test} element={<Test/>}/>
         <Route path={path.packList} element={<PacksList/>}/>
       </Routes>
     </div>
