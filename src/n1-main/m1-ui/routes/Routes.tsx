@@ -8,12 +8,13 @@ import PasswordRecovery from "../../../n2-features/f1-auth/a5-password-recovery/
 import ProfileEdit from '../../../n2-features/f2-profile/ProfileEdit';
 import s from './routes.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {setIntitalazedTC} from "../../m2-bll/a2-reducers/login-reducer";
+import {authMeTC} from "../../m2-bll/a2-reducers/login-reducer";
 import {CreateNewPassword} from "../../../n2-features/f1-auth/a6-createNewPassword/CreateNewPassword";
 import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/checkEmail/CheckEmail";
 import {AppRootStateType} from "../../m2-bll/a1-redux-store/store";
 import {PackContainer} from "../../../n2-features/f4-pack/PackContainer";
 import {PacksList} from "../../../n2-features/packsList/PacksList";
+import {Preloader} from "../common/preloader/Preloader";
 
 export const path = {
   login: '/login',
@@ -31,13 +32,16 @@ export const path = {
 
 const RoutesComponent = () => {
   const isLoggedIn = useSelector((state: AppRootStateType) => state.login.isLoggedIn)
+  const isInitialized = useSelector((state: AppRootStateType) => state.app.isInitialized)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setIntitalazedTC())
-  }, [])
+    dispatch(authMeTC())
+  }, [dispatch])
 
   return (
-    <div className={s.wrapp}>
+  <>{!isInitialized
+    ? <Preloader/>
+    : <div className={s.wrapp}>
       <Routes>
         <Route path={'/'} element={!isLoggedIn ? <Navigate to={path.login}/> : <Navigate to={path.profile}/>}/>
         <Route path={path.login} element={<Login/>}/>
@@ -52,7 +56,8 @@ const RoutesComponent = () => {
         <Route path={path.newPassword} element={<CreateNewPassword/>}/>
         <Route path={path.packList} element={<PacksList/>}/>
       </Routes>
-    </div>
+    </div>}
+  </>
   );
 };
 

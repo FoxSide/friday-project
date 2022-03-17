@@ -6,86 +6,90 @@ import {setAppErrorAC, SetAppErrorType, setAppSuccessAC, SetAppSuccessType} from
 
 
 type InitialStateType = {
-    isLoggedIn: boolean
+  isLoggedIn: boolean
 }
 type ActionsType =
-    | SetUserProfileDataType
-    | ReturnType<typeof setIsLoggedInAC>
-    | SetIsInitializedActionType
-    | SetAppErrorType
-    | SetAppStatusActionType
-    | SetAppSuccessType
+  | SetUserProfileDataType
+  | ReturnType<typeof setIsLoggedInAC>
+  | SetIsInitializedActionType
+  | SetAppErrorType
+  | SetAppStatusActionType
+  | SetAppSuccessType
 export type TNullable<T> = T | null | undefined
 
 export const initialState: InitialStateType = {
-    isLoggedIn: false
+  isLoggedIn: false
 }
 
 const loginReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-    switch (action.type) {
-        case 'LOGIN/SET_IS_LOGGED_IN':
-            return {...state, isLoggedIn: action.value}
-        default:
-            return state
-    }
+  switch (action.type) {
+    case 'LOGIN/SET_IS_LOGGED_IN':
+      return {...state, isLoggedIn: action.value}
+    default:
+      return state
+  }
 };
 //action
 export const setIsLoggedInAC = (value: boolean) => {
-    return {
-        type: 'LOGIN/SET_IS_LOGGED_IN',
-        value
-    } as const
+  return {
+    type: 'LOGIN/SET_IS_LOGGED_IN',
+    value
+  } as const
 }
 
 //thunk
 export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI.login(data)
-        .then(res => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setUserProfileData(res.data))
-            dispatch(setAppSuccessAC(res.statusText))
-            dispatch(setAppErrorAC(null))
-            dispatch(setAppStatusAC("succeeded"))
+  dispatch(setAppStatusAC("loading"))
+  authAPI.login(data)
+    .then(res => {
+      dispatch(setIsLoggedInAC(true))
+      dispatch(setUserProfileData(res.data))
+      dispatch(setAppSuccessAC(res.statusText))
+      dispatch(setAppErrorAC(null))
+      dispatch(setAppStatusAC("succeeded"))
 
-        })
-        .catch(err => {
-            dispatch(setAppStatusAC('failed'))
-            dispatch(setAppErrorAC(err.response.data.error))
-        })
-        .finally(() => {
-            dispatch(setIsInitializedAC(true))
-            dispatch(setAppStatusAC('failed'))
-        })
+    })
+    .catch(err => {
+      dispatch(setAppStatusAC('failed'))
+      dispatch(setAppErrorAC(err.response.data.error))
+    })
+    .finally(() => {
+      dispatch(setIsInitializedAC(true))
+      dispatch(setAppStatusAC('failed'))
+    })
 }
 
 export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI.logOut()
-        .then(res => {
-            dispatch(setIsLoggedInAC(false))
-            dispatch(setAppStatusAC("succeeded"))
-            dispatch(setAppSuccessAC(res.statusText))
-        })
-        .catch(err => {
-            dispatch(setAppErrorAC(err.response.data.error))
-            dispatch(setAppStatusAC('failed'))
-        })
+  dispatch(setAppStatusAC("loading"))
+  authAPI.logOut()
+    .then(res => {
+      dispatch(setIsLoggedInAC(false))
+      dispatch(setAppStatusAC("succeeded"))
+      dispatch(setAppSuccessAC(res.statusText))
+    })
+    .catch(err => {
+      dispatch(setAppErrorAC(err.response.data.error))
+      dispatch(setAppStatusAC('failed'))
+    })
 }
 
-export const setIntitalazedTC = () => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI.me()
-        .then(res => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setUserProfileData(res.data))
-            dispatch(setAppStatusAC("succeeded"))
-            dispatch(setAppSuccessAC(res.statusText))
-        })
-        .catch(err => {
-            // dispatch(setAppErrorAC(err.response.data.error))
-            dispatch(setAppStatusAC('failed'))
-        })
+export const authMeTC = () => (dispatch: Dispatch<ActionsType>) => {
+  dispatch(setAppStatusAC("loading"))
+  dispatch(setIsInitializedAC(false))
+  authAPI.me()
+    .then(res => {
+      dispatch(setIsLoggedInAC(true))
+      dispatch(setUserProfileData(res.data))
+      dispatch(setAppStatusAC("succeeded"))
+      dispatch(setAppSuccessAC(res.statusText))
+    })
+    .catch(() => {
+      // dispatch(setAppErrorAC(err.response.data.error))
+      dispatch(setAppStatusAC('failed'))
+    })
+    .finally(() => {
+      dispatch(setIsInitializedAC(true))
+    })
 }
 
 // export const setIsLoggedInTC = () => (dispatch: Dispatch<ActionsType>) => {
