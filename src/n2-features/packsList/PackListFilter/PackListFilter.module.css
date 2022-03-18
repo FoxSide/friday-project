@@ -1,0 +1,35 @@
+.containerFilter {
+    width: 243px;
+    background-color: #ECECF9;
+    min-height: 639px;
+    padding: 23px;
+    box-sizing: border-box;
+
+}
+.blockShowCards {
+    margin: 10px 0;
+}
+.blockButtonsShowCards {
+    width: 196px;
+    height: 36px;
+    background-color: #FEFEFF;
+    color: #2D2E46;
+    display: flex;
+    margin: 20px 0;
+
+}
+.buttonShowCards {
+     width: 50%;
+     text-align: center;
+     line-height: 38px;
+ }
+
+.buttonShowCards {
+      width: 50%;
+      text-align: center;
+  }
+
+.buttonShowCardsActive {
+    background-color: #9A91C8;
+    color: white;
+}

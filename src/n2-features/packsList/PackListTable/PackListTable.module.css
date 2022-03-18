@@ -1,0 +1,78 @@
+.containerPackList {
+    background-color: #FEFEFF;
+    min-height: 639px;
+    width: 765px;
+    padding: 24px 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.titlePackList {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.blockPacks {
+    font-size: 13px;
+    margin-top: 24px;
+    margin-bottom: 50px;
+    box-shadow: 3px 3px 10px gray;
+    width: 670px;
+}
+
+.packsHeader {
+    width: 670px;
+    height: 48px;
+    background-color: #ECECF9;
+    display: flex;
+}
+
+.packsHeader div {
+    line-height: 48px;
+    padding-left: 15px;
+}
+
+
+.packsBlockLarge {
+    width: 30%;
+    overflow: hidden;
+}
+
+.packsBlockMedium {
+    width: 15%;
+    overflow: hidden;
+}
+
+.packsBlockSmall {
+    width: 10%
+}
+
+.pagination {
+    position: absolute;
+    bottom: 0;
+    width: 670px;
+    height: 24px;
+    margin-bottom: 34px;
+    overflow: hidden;
+}
+
+.setPagination {
+    position: absolute;
+    bottom: -23px;
+    width: auto;
+    height: 24px;
+    border: 1px solid black;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.OtherPage {
+    border: 1px solid;
+    padding: 2px;
+    color: black;
+}
+
+.selectedPage {
+    font-weight: bold;
+    background-color: #9A91C8;
+}

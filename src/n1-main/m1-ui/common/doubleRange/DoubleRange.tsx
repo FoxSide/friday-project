@@ -5,20 +5,17 @@ import s from './DoubleRange.module.css'
 import './NouisliderCustom.css'
 
 type PropsType = {
-    min: number
-    max: number
-    setMax: (value:number)=>void
-    setMin: (value:number)=>void
+    maxCardsCount: number
+    minCardsCount: number
+    setRangeCadsInPacksCallBack: (min: number, max: number) => void
 }
 
-export const DoubleRange = ({min, max, setMin, setMax}: PropsType) => {
-    // const [value1, setValue1] = useState(0)
-    // const [value2, setValue2] = useState(100)
+export const DoubleRange = ({maxCardsCount, minCardsCount, setRangeCadsInPacksCallBack}: PropsType) => {
+
 
 
     const onChangeRangeDouble = (e: number[]) => {
-        setMin(Math.round(e[0]))
-        setMax(Math.round(e[1]))
+        setRangeCadsInPacksCallBack(Math.round(e[0]), Math.round(e[1]))
     }
 
     return (
@@ -27,7 +24,7 @@ export const DoubleRange = ({min, max, setMin, setMax}: PropsType) => {
     <div>
         <div className={s.blockSlider}>
                 <Nouislider range={{min: 0, max: 100}}
-                            start={[min, max]}
+                            start={[minCardsCount, maxCardsCount]}
                             connect
                             onChange={onChangeRangeDouble}
                     // @ts-ignore

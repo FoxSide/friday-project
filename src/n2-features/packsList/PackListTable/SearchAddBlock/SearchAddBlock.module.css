@@ -1,0 +1,42 @@
+.blockSearch {
+    width: 669px;
+    height: 38px;
+    display: flex;
+    margin-top: 21px;
+}
+.search {
+    height: 100%;
+    width: 461px;
+    border: 1px solid lightgrey;
+    background-color: #ECECF9;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.svgSearch {
+    margin-left: 20px;
+    padding-top: 7px;
+}
+
+.search input {
+    height: 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    width: 400px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+}
+
+.blockSearch button {
+    width: 184px;
+    margin-left: 22px;
+    border-radius: 20px;
+    color: white;
+    background-color: mediumblue;
+    box-shadow: 3px 3px 10px gray;
+    outline: none;
+    border: 0;
+}

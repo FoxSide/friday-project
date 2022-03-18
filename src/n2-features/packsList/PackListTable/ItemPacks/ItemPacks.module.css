@@ -1,0 +1,49 @@
+.pack {
+    width: 670px;
+    height: 48px;
+    background-color: #F8F7FD;
+    display: flex;
+    border-top: 1px solid lightgrey;
+
+}
+.pack div {
+    line-height: 48px;
+    padding-left: 15px;
+}
+
+.pack button{
+    background-color: #D7D8EF;
+    padding: 5px;
+    outline: none;
+    border: none;
+    margin-left: 6px;
+    border-radius: 3px;
+    color: mediumblue;
+}
+
+.packsBlockLarge {
+    width: 30%;
+    overflow: hidden;
+}
+
+.packsBlockMedium {
+    width: 15%;
+    overflow: hidden;
+}
+
+.packsBlockSmall {
+    width: 10%
+}
+
+button.buttonDelete{
+    background-color: #F1453D;
+    color: white;
+}
+div .packButtons{
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+    margin-top: 10px;
+}
