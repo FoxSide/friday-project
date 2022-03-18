@@ -75,7 +75,7 @@ export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
 
 export const authMeTC = () => (dispatch: Dispatch<ActionsType>) => {
   dispatch(setAppStatusAC("loading"))
-  dispatch(setIsInitializedAC(false))
+  // dispatch(setIsInitializedAC(false))
   authAPI.me()
     .then(res => {
       dispatch(setIsLoggedInAC(true))
@@ -91,13 +91,6 @@ export const authMeTC = () => (dispatch: Dispatch<ActionsType>) => {
       dispatch(setIsInitializedAC(true))
     })
 }
-
-// export const setIsLoggedInTC = () => (dispatch: Dispatch<ActionsType>) => {
-//   authAPI.me()
-//     .then(res => {
-//       dispatch(setIsLoggedInAC(true))
-//     })
-// }
 
 
 export default loginReducer;
