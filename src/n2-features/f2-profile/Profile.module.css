@@ -65,6 +65,7 @@
     height: 370px;
     width: 670px;
     box-shadow: 3px 3px 10px grey;
+    overflow-x: hidden;
 }
 
 .packListPagination {
@@ -102,6 +103,7 @@
 .packsHeader {
     width: 670px;
     height: 48px;
+    position: fixed;
     background-color: #ECECF9;
     display: flex;
 }
