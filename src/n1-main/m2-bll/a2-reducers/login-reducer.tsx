@@ -75,7 +75,6 @@ export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
 
 export const authMeTC = () => (dispatch: Dispatch<ActionsType>) => {
   dispatch(setAppStatusAC("loading"))
-  // dispatch(setIsInitializedAC(false))
   authAPI.me()
     .then(res => {
       dispatch(setIsLoggedInAC(true))

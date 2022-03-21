@@ -20,8 +20,8 @@ export const SvgSelector = ({id, onClick, className}: PropsType) => {
             return (
                 <svg width="120" height="120" viewBox="0 0 57 57" xmlns="http://www.w3.org/2000/svg"
                      stroke="mediumblue">
-                    <g fill="mediumblue" fill-rule="evenodd">
-                        <g transform="translate(1 1)" stroke-width="2">
+                    <g fill="mediumblue" fillRule="evenodd">
+                        <g transform="translate(1 1)" strokeWidth="2">
                             <circle cx="5" cy="50" r="5">
                                 <animate attributeName="cy"
                                          begin="0s" dur="2.2s"
