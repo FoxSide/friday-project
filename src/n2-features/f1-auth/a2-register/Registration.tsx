@@ -2,18 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {path} from "../../../n1-main/m1-ui/routes/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    addUserTC,
-} from "../../../n1-main/m2-bll/a2-reducers/registration-reducer";
+import {addUserTC,} from "../../../n1-main/m2-bll/a2-reducers/registration-reducer";
 import {AppRootStateType} from "../../../n1-main/m2-bll/a1-redux-store/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import style from './Registration.module.css'
 import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
-import {ErrorMassage} from "../../../n1-main/m1-ui/common/ErrorMassage/ErrorMassage";
 import {Preloader} from "../../../n1-main/m1-ui/common/preloader/Preloader";
-import {setAppSuccessAC} from "../../../n1-main/m2-bll/a2-reducers/error-reducer";
 
 
 const Registration = () => {

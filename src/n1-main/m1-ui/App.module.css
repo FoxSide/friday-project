@@ -1,8 +1,9 @@
 .app {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     background: rgb(238,174,202);
-    background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 }
 
 .loader {

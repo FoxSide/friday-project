@@ -3,12 +3,10 @@
     background-color: white;
     border-radius: 10px;
     width: 350px;
-    height: 550px;
+    height: 600px;
     padding: 20px;
     margin: 0 auto;
     display: block;
-    /*box-sizing: border-box;*/
-
 }
 
 .headerForm {
@@ -18,15 +16,15 @@
 
 }
 
-.headerForm h2{
+.headerForm h2 {
     margin-top: 0px;
-    padding-top: 10px;
+    padding-top: 15px;
     font-weight: bold;
     font-size: 25px;
 }
 
-.headerForm h3{
-    margin-top: 40px;
+.headerForm h3 {
+    margin-top: 31px;
     margin-bottom: 0px;
     font-weight: bold;
     font-size: 20px;
@@ -40,7 +38,8 @@
 
 }
 
-.inputForm input{
+.inputForm input {
+    padding-left: 10px;
     height: 40px;
     margin-top: 10px;
     outline: none;
@@ -55,7 +54,7 @@
     justify-content: space-between;
 }
 
-.buttonForm button{
+.buttonForm button {
 
     height: 36px;
     border: none;
@@ -69,7 +68,7 @@
     line-height: 19px;
 }
 
-.buttonForm button:first-child{
+.buttonForm button:first-child {
     background: #D7D8EF;
     color: mediumblue;
 
@@ -110,15 +109,25 @@
 }
 
 .eyeOne {
-position: absolute;
+    position: absolute;
     left: 334px;
-    top: 245px;
+    top: 242px;
     cursor: pointer;
 }
 
 .eyeTwo {
     position: absolute;
     left: 334px;
-    top: 319px;
+    top: 313px;
     cursor: pointer;
+}
+
+.titleText {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.secondTitleText {
+    font-weight: bold;
+    font-size: 20px;
 }
