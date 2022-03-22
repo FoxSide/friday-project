@@ -11,7 +11,6 @@ const initialState: PackListStateType = {
     minCardsCount: 0,
     page: 1,
     pageCount: 5,
-    user_id: '',
     isMyPacks: false,
     sortPacks: "0grade",
     maxFilter: 0,
@@ -89,7 +88,7 @@ export const setSortPacksOnPage = (sortPacks: string) => {
     } as const
 }
 
-export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
+export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<ActionsType>,
                                        getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
     dispatch(setAppStatusAC("loading"))
@@ -110,7 +109,7 @@ export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
-                user_id: data.user_id
+                user_id: userId
             }
         }
         let res = await packListAPI.getPacks(apIModel);
@@ -149,7 +148,6 @@ export type PackListStateType = AdditionalPackListStateType & {
     minCardsCount: number,
     page: number,
     pageCount: number,
-    user_id: string,
 
 }
 

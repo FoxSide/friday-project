@@ -28,6 +28,8 @@ export const PacksList = () => {
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const packs = useSelector<AppRootStateType, cardPacksType[]>(state => state.packList.cardPacks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    // @ts-ignore
+    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
 
     const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
     const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
@@ -44,12 +46,12 @@ export const PacksList = () => {
             if (!isLoggedIn) {
                 navigate('/login')
             } else {
-                dispatch(getPacksTC())
+                dispatch(getPacksTC(UserId))
                 console.log('Загрузка страницы')
                 console.log('Загрузка:', maxFilter, minFilter)
             }
         }
-    }, [page, pageCount, debouncedMaxFilter, debouncedMinFilter])
+    }, [page, pageCount, debouncedMaxFilter, debouncedMinFilter, isMyPacks])
 
     return (
         <div className={s.container}>
