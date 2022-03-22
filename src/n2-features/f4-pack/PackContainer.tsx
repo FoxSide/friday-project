@@ -8,8 +8,10 @@ import {
     fetchingCardsData,
     setCountItemsOnPage
 } from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
+import { Navigate } from "react-router-dom";
 
 export const PackContainer = () => {
+    // const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const {
         page,
         cards,
@@ -25,6 +27,10 @@ export const PackContainer = () => {
     useEffect(() => {
         dispatch(fetchingCardsData("605cb468338d2c15f075ba82"));
     }, [page, pageCount]);
+
+    // if (!isLoggedIn) {
+    //     return <Navigate to={'/login'}/>
+    // }
 
     return (
         <Pack

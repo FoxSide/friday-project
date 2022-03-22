@@ -42,7 +42,7 @@ export const PacksList = () => {
                 console.log('Загрузка страницы')
             }
         }
-    }, [page, pageCount])
+    }, [page, pageCount, isLoggedIn])
 
     return (
         <div className={s.container}>
