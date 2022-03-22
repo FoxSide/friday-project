@@ -7,13 +7,15 @@ import {AppRootStateType} from "../a1-redux-store/store";
 const initialState: PackListStateType = {
     cardPacks: [],
     cardPacksTotalCount: 100,
-    maxCardsCount: 100,
+    maxCardsCount: 0,
     minCardsCount: 0,
     page: 1,
     pageCount: 5,
     user_id: '',
     isMyPacks: false,
     sortPacks: "0grade",
+    maxFilter: 0,
+    minFilter: 0,
 }
 
 export const packListReducer = (state: PackListStateType = initialState, action: ActionsType): PackListStateType => {
@@ -23,11 +25,16 @@ export const packListReducer = (state: PackListStateType = initialState, action:
         case 'PACK-LIST/SET-CURRENT-PACKS_PAGE':
         case 'PACK-LIST/SET-COUNT-ITEMS-PACKS-ON-PAGE':
         case 'PACK-LIST/SET-IS-MY-PACKS':
-        case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
         case 'PACK-LIST/SET-SORT-PACKS-ON-PAGE':
+        case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
             return {
                 ...state,
                 ...action.payload
+            }
+        case 'PACK-LIST/FILTERING-RANGE-CARDS-IN-PACKS':
+            return {
+                ...state,
+                cardPacks: [...state.cardPacks.filter(cards => cards.cardsCount >= action.payload.minFilter && cards.cardsCount <= action.payload.maxFilter)]
             }
         default:
             return state
@@ -37,62 +44,69 @@ export const packListReducer = (state: PackListStateType = initialState, action:
 export const setPacksAC = (dataResponse: PackListStateType) => {
     return {
         type: 'PACK-LIST/SET-PACKS',
-           payload: {...dataResponse}
+        payload: {...dataResponse}
     } as const
 }
 
 export const setCurrentPacksPage = (currentPage: number) => {
     return {
         type: 'PACK-LIST/SET-CURRENT-PACKS_PAGE',
-        payload: {page: currentPage }
+        payload: {page: currentPage}
     } as const
 }
 
 export const setCountItemsPacksOnPage = (countItemsOnPage: number) => {
     return {
         type: "PACK-LIST/SET-COUNT-ITEMS-PACKS-ON-PAGE",
-        payload: { pageCount: countItemsOnPage }
+        payload: {pageCount: countItemsOnPage}
     } as const
 }
 
 export const setIsMyPacks = (isMyPacks: boolean) => {
     return {
         type: 'PACK-LIST/SET-IS-MY-PACKS',
-        payload: { isMyPacks: isMyPacks }
+        payload: {isMyPacks: isMyPacks}
     } as const
 }
 
 export const setRangeCadsInPacks = (min: number, max: number) => {
     return {
         type: 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS',
-        payload: { maxCardsCount: max,  minCardsCount: min,}
+        payload: {maxFilter: max, minFilter: min,}
     } as const
 }
+export const filteringRangeCadsInPacks = (min: number, max: number) => {
+    return {
+        type: 'PACK-LIST/FILTERING-RANGE-CARDS-IN-PACKS',
+        payload: {maxFilter: max, minFilter: min,}
+    } as const
+}
+
 export const setSortPacksOnPage = (sortPacks: string) => {
     return {
         type: 'PACK-LIST/SET-SORT-PACKS-ON-PAGE',
-        payload: { sortPacks: sortPacks,}
+        payload: {sortPacks: sortPacks,}
     } as const
 }
 
 export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
-                                                              getState: () => AppRootStateType) => {
+                                       getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
     dispatch(setAppStatusAC("loading"))
     try {
         let apIModel
-        if(!isMyPacks) {
+        if (!isMyPacks) {
             apIModel = {
-                min: data.minCardsCount,
-                max: data.maxCardsCount,
+                min: data.minFilter,
+                max: data.maxFilter,
                 sortPacks: data.sortPacks,
                 page: data.page,
-                pageCount: data.pageCount
+                pageCount: data.pageCount,
             }
         } else {
             apIModel = {
-                min: data.minCardsCount,
-                max: data.maxCardsCount,
+                min: data.minFilter,
+                max: data.maxFilter,
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
@@ -100,7 +114,15 @@ export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
             }
         }
         let res = await packListAPI.getPacks(apIModel);
+        if (data.maxFilter == 0) {
+            dispatch(setRangeCadsInPacks(data.minFilter, res.data.maxCardsCount))
+
+        }
         dispatch(setPacksAC(res.data))
+        dispatch(filteringRangeCadsInPacks(data.minFilter, data.maxFilter))
+            // dispatch(setPacksAC(res.data))
+
+
         // console.log(res.data)
         dispatch(setAppStatusAC("succeeded"))
     } catch (e: any) {
@@ -114,8 +136,10 @@ export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
 // }
 
 type AdditionalPackListStateType = {
-    isMyPacks: boolean
-    sortPacks: string
+    isMyPacks: boolean,
+    sortPacks: string,
+    maxFilter: number,
+    minFilter: number,
 }
 
 export type PackListStateType = AdditionalPackListStateType & {
@@ -140,14 +164,15 @@ export type cardPacksType = {
 }
 
 type ActionsType = SetPacksType
-    |SetCurrentPacksPageType
-    |SetCountItemsPacksOnPageType
-    |SetIsMyPacksType
-    |SetRangeCadsInPacksType
-    |SetSortPacksOnPageType
+    | SetCurrentPacksPageType
+    | SetCountItemsPacksOnPageType
+    | SetIsMyPacksType
+    | SetRangeCadsInPacksType
+    | SetSortPacksOnPageType
     | SetAppErrorType
     | SetAppStatusActionType
     | SetAppSuccessType
+    | FilteringRangeCadsInPacksPageType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
 export type SetCurrentPacksPageType = ReturnType<typeof setCurrentPacksPage>
@@ -155,3 +180,4 @@ export type SetCountItemsPacksOnPageType = ReturnType<typeof setCountItemsPacksO
 export type SetIsMyPacksType = ReturnType<typeof setIsMyPacks>
 export type SetRangeCadsInPacksType = ReturnType<typeof setRangeCadsInPacks>
 export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
+export type FilteringRangeCadsInPacksPageType = ReturnType<typeof filteringRangeCadsInPacks>

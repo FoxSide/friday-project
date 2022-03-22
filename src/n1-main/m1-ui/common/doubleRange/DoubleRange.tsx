@@ -1,4 +1,3 @@
-import {useState} from "react";
 import Nouislider from "nouislider-react";
 import 'nouislider/dist/nouislider.css';
 import s from './DoubleRange.module.css'
@@ -8,13 +7,16 @@ type PropsType = {
     maxCardsCount: number
     minCardsCount: number
     setRangeCadsInPacksCallBack: (min: number, max: number) => void
+    maxFilter: number,
+    minFilter: number,
 }
 
-export const DoubleRange = ({maxCardsCount, minCardsCount, setRangeCadsInPacksCallBack}: PropsType) => {
-
+export const DoubleRange = ({maxCardsCount, minCardsCount, setRangeCadsInPacksCallBack, maxFilter, minFilter}: PropsType) => {
+    console.log(maxCardsCount, minCardsCount)
 
 
     const onChangeRangeDouble = (e: number[]) => {
+        console.log('Из компоненты мин, макс: ', Math.round(e[0]), Math.round(e[1]))
         setRangeCadsInPacksCallBack(Math.round(e[0]), Math.round(e[1]))
     }
 
@@ -23,8 +25,8 @@ export const DoubleRange = ({maxCardsCount, minCardsCount, setRangeCadsInPacksCa
     <p>Number of cards</p>
     <div>
         <div className={s.blockSlider}>
-                <Nouislider range={{min: 0, max: 100}}
-                            start={[minCardsCount, maxCardsCount]}
+                <Nouislider range={{min: minCardsCount, max: maxCardsCount}}
+                            start={[String(minFilter), String(maxFilter)]}
                             connect
                             onChange={onChangeRangeDouble}
                     // @ts-ignore
