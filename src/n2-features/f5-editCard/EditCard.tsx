@@ -6,12 +6,17 @@ import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {updateCard} from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
+import {addCard, updateCard} from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
+import {useParams} from "react-router-dom";
 
 export const EditCard: React.FC<EditCardType> = (props) => {
-    const { setEditMode, question, answer } = props;
+    const { setEditMode, question, answer, cardId } = props;
 
     const status = useSelector<AppRootStateType>(state => state.app.status)
+    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
+    const {packID} = useParams();
+    const cardsPack_id = packID ? packID : "";
+    const card_id = cardId ? cardId : "";
 
     const dispatch = useDispatch();
 
@@ -26,7 +31,9 @@ export const EditCard: React.FC<EditCardType> = (props) => {
     })
 
     const onSubmit: SubmitHandler<StateForm> = async (data) => {
-        await dispatch(updateCard("packId", "cardId", data.question, data.answer));
+        cardsTotalCount !== 0
+        ? await dispatch(updateCard(cardsPack_id, card_id, data.question, data.answer))
+        : await dispatch(addCard(cardsPack_id, data.question, data.answer));
         setEditMode(false);
     }
 
@@ -84,7 +91,8 @@ type StateForm = {
 };
 
 type EditCardType = {
-    answer: string;
-    question: string;
+    cardId?: string;
+    answer?: string;
+    question?: string;
     setEditMode: (editMode: boolean) => void;
 };

@@ -8,7 +8,7 @@ import {
     fetchingCardsData,
     setCountItemsOnPage
 } from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
-import { Navigate } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 export const PackContainer = () => {
     // const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
@@ -20,13 +20,15 @@ export const PackContainer = () => {
     } = useSelector<AppRootStateType, CardsStateType>(state => state.cards);
 
     const dispatch = useDispatch();
+    const {packID} = useParams();
 
+    const id = packID ? packID : "";
     const setCurrentPageCallback = (currentPage: number) => dispatch(setCurrentPage(currentPage));
     const setCountItemsOnPageCallback = (countItemsOnPage: number) => dispatch(setCountItemsOnPage(countItemsOnPage));
 
     useEffect(() => {
-        dispatch(fetchingCardsData("605cb468338d2c15f075ba82"));
-    }, [page, pageCount]);
+        dispatch(fetchingCardsData(id));
+    }, [page, pageCount, id]);
 
     // if (!isLoggedIn) {
     //     return <Navigate to={'/login'}/>

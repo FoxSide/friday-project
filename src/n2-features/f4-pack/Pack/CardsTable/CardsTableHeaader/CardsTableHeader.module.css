@@ -15,6 +15,7 @@
 
 .answer {
     width: 35%;
+    margin-right: 10px;
 }
 
 .lastUpdated {
@@ -25,7 +26,6 @@
     width: 10%;
 }
 
-.edit {
-    width: 3%;
-    height: 90%;
+.actions {
+    width: 18%;
 }

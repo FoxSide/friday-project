@@ -11,14 +11,29 @@ export const cardsAPI = {
     },
     updateCard(data: UpdateCardDataType) {
         return instance
-            .post(`cards/card`, data)
+            .put(`cards/card`, {...data})
             .then(res => res.data);
+    },
+    addCard(data: CreateCardDataType) {
+        return instance
+           .post(`cards/card`, {...data})
+           .then(res => res.data);
     },
 };
 
 
 export type UpdateCardDataType = {
-    _id: string;
-    question: string;
-    answer: string;
+    card: {
+        _id: string;
+        question: string;
+        answer: string;
+    }
+};
+
+export type CreateCardDataType = {
+    card: {
+        cardsPack_id: string;
+        question: string;
+        answer: string;
+    }
 };
