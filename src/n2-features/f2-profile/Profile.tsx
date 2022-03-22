@@ -20,12 +20,14 @@ const Profile = () => {
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    // @ts-ignore
+    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(setIsMyPacks(true))
-        dispatch(getPacksTC())
+        dispatch(getPacksTC(UserId))
     }, [])
 
     const onEditProfileClickHandler = () => {
@@ -58,8 +60,9 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className={s.profileSetting}>
-                        <DoubleRange maxCardsCount={60} minCardsCount={4} setRangeCadsInPacksCallBack={() => {
-                        }}/>
+                        {/*<DoubleRange maxCardsCount={60} minCardsCount={4} setRangeCadsInPacksCallBack={() => {*/}
+                        {/*}}/>*/}
+
                     </div>
 
                 </div>

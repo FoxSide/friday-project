@@ -17,6 +17,7 @@ const initialState: PackListStateType = {
     minFilter: 0,
 }
 
+
 export const packListReducer = (state: PackListStateType = initialState, action: ActionsType): PackListStateType => {
 
     switch (action.type) {
@@ -111,8 +112,6 @@ export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsT
     }
 }
 
-export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
-                                       getState: () => AppRootStateType) => {
 export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<ActionsType>,
                                        getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
@@ -173,7 +172,6 @@ export type PackListStateType = AdditionalPackListStateType & {
     minCardsCount: number,
     page: number,
     pageCount: number,
-
 }
 
 export type cardPacksType = {
