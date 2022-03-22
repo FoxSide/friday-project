@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {setAppErrorAC, SetAppErrorType, SetAppSuccessType} from "./error-reducer";
 
-// fix
 const initialState: TNullable<UserProfileStateType> = null
 const profileReducer = (state: TNullable<UserProfileStateType> = initialState, action: ProfileReducerActionsType) => {
 
