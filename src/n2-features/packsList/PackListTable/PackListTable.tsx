@@ -13,6 +13,8 @@ type  PropsType = {
     pageCount: number
     page: number
     cardPacksTotalCount: number
+    deleteMyPackCallBack: () => void
+    addPackCallBack: () => void
 }
 
 export const PackListTable = ({
@@ -23,11 +25,13 @@ export const PackListTable = ({
                                   pageCount,
                                   page,
                                   cardPacksTotalCount,
+                                  deleteMyPackCallBack,
+                                  addPackCallBack,
                               }: PropsType) => {
     return (
         <div className={s.containerPackList}>
             <p className={s.titlePackList}>Packs list</p>
-            <SearchAddBlock/>
+            <SearchAddBlock addPackCallBack={addPackCallBack} />
             <div className={s.blockPacks}>
                 <div className={s.packsHeader}>
                     <div className={s.packsBlockLarge}>Name</div>
@@ -37,13 +41,14 @@ export const PackListTable = ({
                     <div className={s.packsBlockLarge}>Actions</div>
                 </div>
                 <div>
-                {packs.map(p =>
+                    {packs.map(p =>
                         <ItemPacks
                             id={p._id}
                             name={p.name}
                             cardsCount={p.cardsCount}
                             updated={p.updated}
                             userName={p.user_name}
+                            deleteMyPackCallBack={deleteMyPackCallBack}
                         />
                     )}
                 </div>

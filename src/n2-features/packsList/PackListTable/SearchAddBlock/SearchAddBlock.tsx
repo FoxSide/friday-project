@@ -2,7 +2,10 @@ import s from "./SearchAddBlock.module.css";
 import {SvgSelector} from "../../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
 import React from "react";
 
-export const SearchAddBlock = () => {
+type PropsType = {
+    addPackCallBack: () => void
+}
+export const SearchAddBlock = ({addPackCallBack}: PropsType) => {
     return (
         <div className={s.blockSearch}>
             <div className={s.search}>
@@ -11,7 +14,7 @@ export const SearchAddBlock = () => {
                 </div>
                 <input type="text" placeholder={'Search...'}/>
             </div>
-            <button >Add new pack</button>
+            <button onClick={addPackCallBack}>Add new pack</button>
         </div>
     )
 }

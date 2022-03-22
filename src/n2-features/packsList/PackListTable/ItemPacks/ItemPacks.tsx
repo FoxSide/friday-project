@@ -7,6 +7,7 @@ type PropsType = {
     cardsCount: number
     updated: string
     userName: string
+    deleteMyPackCallBack?: () => void
 }
 export const ItemPacks = ({
                               id,
@@ -14,6 +15,7 @@ export const ItemPacks = ({
                               cardsCount,
                               updated,
                               userName,
+                              deleteMyPackCallBack,
                           }: PropsType) => {
     let date = updated.substring(0, 10)
     return <div className={s.pack} key={id}>
@@ -23,7 +25,9 @@ export const ItemPacks = ({
         <div className={s.packsBlockMedium}>{userName}</div>
         <div className={s.packsBlockLarge}>
             <div className={s.packButtons}>
-                <button className={s.buttonDelete}>Delete</button>
+                <button className={s.buttonDelete}
+                        onClick={deleteMyPackCallBack}
+                >Delete</button>
                 <button>Edit</button>
                 <button>Learn</button>
             </div>

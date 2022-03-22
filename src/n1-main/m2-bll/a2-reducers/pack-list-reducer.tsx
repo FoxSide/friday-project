@@ -1,4 +1,4 @@
-import {packListAPI, packListRequestType} from "../../m3-dal/packList-api";
+import {AddPackListRequestType, packListAPI, packListRequestType} from "../../m3-dal/packList-api";
 import {Dispatch} from "redux";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {setAppErrorAC, SetAppErrorType, SetAppSuccessType} from "./error-reducer";
@@ -25,6 +25,7 @@ export const packListReducer = (state: PackListStateType = initialState, action:
         case 'PACK-LIST/SET-IS-MY-PACKS':
         case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
         case 'PACK-LIST/SET-SORT-PACKS-ON-PAGE':
+        case "PACK-LIST/SET-NEW-PACK":
             return {
                 ...state,
                 ...action.payload
@@ -37,51 +38,73 @@ export const packListReducer = (state: PackListStateType = initialState, action:
 export const setPacksAC = (dataResponse: PackListStateType) => {
     return {
         type: 'PACK-LIST/SET-PACKS',
-           payload: {...dataResponse}
+        payload: {...dataResponse}
     } as const
 }
 
 export const setCurrentPacksPage = (currentPage: number) => {
     return {
         type: 'PACK-LIST/SET-CURRENT-PACKS_PAGE',
-        payload: {page: currentPage }
+        payload: {page: currentPage}
     } as const
 }
 
 export const setCountItemsPacksOnPage = (countItemsOnPage: number) => {
     return {
         type: "PACK-LIST/SET-COUNT-ITEMS-PACKS-ON-PAGE",
-        payload: { pageCount: countItemsOnPage }
+        payload: {pageCount: countItemsOnPage}
     } as const
 }
 
 export const setIsMyPacks = (isMyPacks: boolean) => {
     return {
         type: 'PACK-LIST/SET-IS-MY-PACKS',
-        payload: { isMyPacks: isMyPacks }
+        payload: {isMyPacks: isMyPacks}
     } as const
 }
 
 export const setRangeCadsInPacks = (min: number, max: number) => {
     return {
         type: 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS',
-        payload: { maxCardsCount: max,  minCardsCount: min,}
+        payload: {maxCardsCount: max, minCardsCount: min,}
     } as const
 }
 export const setSortPacksOnPage = (sortPacks: string) => {
     return {
         type: 'PACK-LIST/SET-SORT-PACKS-ON-PAGE',
-        payload: { sortPacks: sortPacks,}
+        payload: {sortPacks: sortPacks,}
     } as const
 }
 
+export const setNewPack = (name: string) => {
+    return {
+        type: 'PACK-LIST/SET-NEW-PACK',
+        payload: {name}
+    } as const
+}
+
+
+//thunk
+export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        let res = await packListAPI.addNewPack({cardsPack: {name}});
+        //@ts-ignore
+        dispatch(getPacksTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e: any) {
+        dispatch(setAppErrorAC(e.response.data.error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
 export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
-                                                              getState: () => AppRootStateType) => {
+                                       getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
     dispatch(setAppStatusAC("loading"))
     try {
         let apIModel
-        if(!isMyPacks) {
+        if (!isMyPacks) {
             apIModel = {
                 min: data.minCardsCount,
                 max: data.maxCardsCount,
@@ -140,14 +163,15 @@ export type cardPacksType = {
 }
 
 type ActionsType = SetPacksType
-    |SetCurrentPacksPageType
-    |SetCountItemsPacksOnPageType
-    |SetIsMyPacksType
-    |SetRangeCadsInPacksType
-    |SetSortPacksOnPageType
+    | SetCurrentPacksPageType
+    | SetCountItemsPacksOnPageType
+    | SetIsMyPacksType
+    | SetRangeCadsInPacksType
+    | SetSortPacksOnPageType
     | SetAppErrorType
     | SetAppStatusActionType
     | SetAppSuccessType
+    | SetNewPackType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
 export type SetCurrentPacksPageType = ReturnType<typeof setCurrentPacksPage>
@@ -155,3 +179,4 @@ export type SetCountItemsPacksOnPageType = ReturnType<typeof setCountItemsPacksO
 export type SetIsMyPacksType = ReturnType<typeof setIsMyPacks>
 export type SetRangeCadsInPacksType = ReturnType<typeof setRangeCadsInPacks>
 export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
+export type SetNewPackType = ReturnType<typeof setNewPack>
