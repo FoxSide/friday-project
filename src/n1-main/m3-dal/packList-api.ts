@@ -6,6 +6,10 @@ export const packListAPI = {
         return instance.get<PackListStateType>('cards/pack', {
             params: data
         })
+    },
+
+    addNewPack(data: AddPackListRequestType) {
+        return instance.post(`cards/pack`,{...data})
     }
 }
 
@@ -16,6 +20,14 @@ export type  packListRequestType = {
     page?: number,
     pageCount?: number,
     user_id?: string | null
+}
+
+export type AddPackListRequestType = {
+    cardsPack: {
+        name?: string
+        deckCover?: string
+        private?: boolean
+    }
 }
 
 // export type packListResponseType = {

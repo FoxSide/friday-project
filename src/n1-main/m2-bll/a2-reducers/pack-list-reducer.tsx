@@ -1,4 +1,4 @@
-import {packListAPI, packListRequestType} from "../../m3-dal/packList-api";
+import {AddPackListRequestType, packListAPI, packListRequestType} from "../../m3-dal/packList-api";
 import {Dispatch} from "redux";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {setAppErrorAC, SetAppErrorType, SetAppSuccessType} from "./error-reducer";
@@ -26,6 +26,7 @@ export const packListReducer = (state: PackListStateType = initialState, action:
         case 'PACK-LIST/SET-IS-MY-PACKS':
         case 'PACK-LIST/SET-SORT-PACKS-ON-PAGE':
         case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
+        case "PACK-LIST/SET-NEW-PACK":
             return {
                 ...state,
                 ...action.payload
@@ -88,6 +89,30 @@ export const setSortPacksOnPage = (sortPacks: string) => {
     } as const
 }
 
+export const setNewPack = (name: string) => {
+    return {
+        type: 'PACK-LIST/SET-NEW-PACK',
+        payload: {name}
+    } as const
+}
+
+
+//thunk
+export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        let res = await packListAPI.addNewPack({cardsPack: {name}});
+        //@ts-ignore
+        dispatch(getPacksTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e: any) {
+        dispatch(setAppErrorAC(e.response.data.error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
+export const getPacksTC = () => async (dispatch: Dispatch<ActionsType>,
+                                       getState: () => AppRootStateType) => {
 export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<ActionsType>,
                                        getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
@@ -171,6 +196,7 @@ type ActionsType = SetPacksType
     | SetAppStatusActionType
     | SetAppSuccessType
     | FilteringRangeCadsInPacksPageType
+    | SetNewPackType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
 export type SetCurrentPacksPageType = ReturnType<typeof setCurrentPacksPage>
@@ -178,4 +204,5 @@ export type SetCountItemsPacksOnPageType = ReturnType<typeof setCountItemsPacksO
 export type SetIsMyPacksType = ReturnType<typeof setIsMyPacks>
 export type SetRangeCadsInPacksType = ReturnType<typeof setRangeCadsInPacks>
 export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
+export type SetNewPackType = ReturnType<typeof setNewPack>
 export type FilteringRangeCadsInPacksPageType = ReturnType<typeof filteringRangeCadsInPacks>

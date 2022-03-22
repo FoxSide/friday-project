@@ -1,5 +1,6 @@
 import s from './PacksList.module.css'
 import {
+    addNewPackTC,
     cardPacksType,
     getPacksTC,
     PackListStateType, setCountItemsPacksOnPage,
@@ -11,6 +12,10 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {PackListFilter} from "./PackListFilter/PackListFilter";
 import {PackListTable} from "./PackListTable/PackListTable";
+import Modal from "../../n1-main/m1-ui/common/Modal/Modal";
+import SuperInputText from "../../n1-main/m1-ui/common/super-input-text/SuperInputText";
+import {AddPack} from "../../n1-main/m1-ui/common/Modal/AddingPack/AddPack";
+
 import useDebounce from "../../utils/hooks/useDebounse-hook";
 
 export const PacksList = () => {
@@ -36,7 +41,22 @@ export const PacksList = () => {
     const setIsMyPacksCallBack = (isMyPacks: boolean) => dispatch(setIsMyPacks(isMyPacks))
     const setRangeCadsInPacksCallBack = (min: number, max: number) => dispatch(setRangeCadsInPacks(min, max))
     const setSortPacksOnPageCallBack = (sortPacks: string) => dispatch(setSortPacksOnPage(sortPacks))
+    const deleteMyPackCallBack = () => dispatch(() => {
+    })
+    const onAddPackCallBack = () => {
+        setShowModal(true)
+    }
     const navigate = useNavigate()
+    const [showModal, setShowModal] = useState(false);
+
+    const onAddPackHandler = (name: string) => {
+        dispatch(addNewPackTC(name))
+        setShowModal(false)
+    }
+
+    const onCancelHandler = () => {
+        setShowModal(false)
+    }
 
     const debouncedMinFilter = useDebounce<number>(minFilter, 1500)
     const debouncedMaxFilter = useDebounce<number>(maxFilter, 1500)
@@ -73,7 +93,17 @@ export const PacksList = () => {
                 pageCount={pageCount}
                 page={page}
                 cardPacksTotalCount={cardPacksTotalCount}
+                deleteMyPackCallBack={deleteMyPackCallBack}
+                addPackCallBack={onAddPackCallBack}
             />
+            <Modal width={395}
+                   height={221}
+                   enableBackground={true}
+                   backgroundOnClick={() => setShowModal(false)}
+                   show={showModal}
+            >
+                <AddPack onSave={onAddPackHandler} onCancel={onCancelHandler}/>
+            </Modal>
         </div>
     )
 }
