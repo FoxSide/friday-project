@@ -8,6 +8,8 @@ type PropsType = {
     maxCardsCount: number
     minCardsCount: number
     setRangeCadsInPacksCallBack: (min: number, max: number) => void
+    maxFilter: number,
+    minFilter: number,
 }
 
 export const PackListFilter = ({
@@ -15,8 +17,11 @@ export const PackListFilter = ({
                                    setIsMyPacksCallBack,
                                    maxCardsCount,
                                    minCardsCount,
-                                   setRangeCadsInPacksCallBack
+                                   setRangeCadsInPacksCallBack,
+                                   maxFilter,
+                                   minFilter,
                                }: PropsType) => {
+
 
     return (
         <div className={s.containerFilter}>
@@ -35,6 +40,8 @@ export const PackListFilter = ({
                 maxCardsCount={maxCardsCount}
                 minCardsCount={minCardsCount}
                 setRangeCadsInPacksCallBack={setRangeCadsInPacksCallBack}
+                maxFilter={maxFilter}
+            minFilter={minFilter}
             />
         </div>
     )

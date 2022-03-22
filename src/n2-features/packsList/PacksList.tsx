@@ -11,6 +11,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {PackListFilter} from "./PackListFilter/PackListFilter";
 import {PackListTable} from "./PackListTable/PackListTable";
+import useDebounce from "../../utils/hooks/useDebounse-hook";
 
 export const PacksList = () => {
     const dispatch = useDispatch()
@@ -22,9 +23,13 @@ export const PacksList = () => {
         minCardsCount,
         sortPacks,
         cardPacksTotalCount,
+        maxFilter,
+        minFilter,
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const packs = useSelector<AppRootStateType, cardPacksType[]>(state => state.packList.cardPacks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    // @ts-ignore
+    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
 
     const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
     const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
@@ -33,16 +38,20 @@ export const PacksList = () => {
     const setSortPacksOnPageCallBack = (sortPacks: string) => dispatch(setSortPacksOnPage(sortPacks))
     const navigate = useNavigate()
 
+    const debouncedMinFilter = useDebounce<number>(minFilter, 1500)
+    const debouncedMaxFilter = useDebounce<number>(maxFilter, 1500)
+
     useEffect(() => {
         {
             if (!isLoggedIn) {
                 navigate('/login')
             } else {
-                dispatch(getPacksTC())
+                dispatch(getPacksTC(UserId))
                 console.log('Загрузка страницы')
+                console.log('Загрузка:', maxFilter, minFilter)
             }
         }
-    }, [page, pageCount, isLoggedIn])
+    }, [page, pageCount, debouncedMaxFilter, debouncedMinFilter, isMyPacks, isLoggedIn])
 
     return (
         <div className={s.container}>
@@ -52,6 +61,9 @@ export const PacksList = () => {
                 maxCardsCount={maxCardsCount}
                 minCardsCount={minCardsCount}
                 setRangeCadsInPacksCallBack={setRangeCadsInPacksCallBack}
+                maxFilter={maxFilter}
+                minFilter={minFilter}
+
             />
             <PackListTable
                 packs={packs}
