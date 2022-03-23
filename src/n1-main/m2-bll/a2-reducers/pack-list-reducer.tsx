@@ -2,7 +2,9 @@ import {AddPackListRequestType, packListAPI, packListRequestType} from "../../m3
 import {Dispatch} from "redux";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {setAppErrorAC, SetAppErrorType, SetAppSuccessType} from "./error-reducer";
-import {AppRootStateType} from "../a1-redux-store/store";
+import {AppRootStateType, AppThunk} from "../a1-redux-store/store";
+import {TNullable} from "./profile-reducer";
+import {ThunkAction} from "redux-thunk";
 
 const initialState: PackListStateType = {
     cardPacks: [],
@@ -18,7 +20,7 @@ const initialState: PackListStateType = {
 }
 
 
-export const packListReducer = (state: PackListStateType = initialState, action: ActionsType): PackListStateType => {
+export const packListReducer = (state: PackListStateType = initialState, action: PackListActionsType): PackListStateType => {
 
     switch (action.type) {
         case 'PACK-LIST/SET-PACKS':
@@ -37,6 +39,8 @@ export const packListReducer = (state: PackListStateType = initialState, action:
                 ...state,
                 cardPacks: [...state.cardPacks.filter(cards => cards.cardsCount >= action.payload.minFilter && cards.cardsCount <= action.payload.maxFilter)]
             }
+        case "PACK-LIST/REMOVE-MY-PACK":
+            return {...state, cardPacks: state.cardPacks.filter(pack => pack._id !== action.payload.packId)}
         default:
             return state
     }
@@ -97,14 +101,21 @@ export const setNewPack = (name: string) => {
     } as const
 }
 
+export const removeMyPack = (packId: string) => {
+    return {
+        type: 'PACK-LIST/REMOVE-MY-PACK',
+        payload: {packId}
+    } as const
+}
 
-//thunk
-export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsType>) => {
+
+//thunks
+export const deletePackTC = (packId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
-        let res = await packListAPI.addNewPack({cardsPack: {name}});
-        //@ts-ignore
-        dispatch(getPacksTC())
+        let res = await packListAPI.deletePack(packId)
+        dispatch(removeMyPack(packId))
+        await dispatch(getPacksTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e: any) {
         dispatch(setAppErrorAC(e.response.data.error))
@@ -112,8 +123,20 @@ export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsT
     }
 }
 
-export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<ActionsType>,
-                                       getState: () => AppRootStateType) => {
+export const addNewPackTC = (name: string): AppThunk => async (dispatch) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        let res = await packListAPI.addNewPack({cardsPack: {name}});
+        await dispatch(getPacksTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e: any) {
+        dispatch(setAppErrorAC(e.response.data.error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
+export const getPacksTC = (userId?: TNullable<string>) => async (dispatch: Dispatch<PackListActionsType>,
+                                                                 getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
     dispatch(setAppStatusAC("loading"))
     try {
@@ -143,7 +166,7 @@ export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<A
         }
         dispatch(setPacksAC(res.data))
         dispatch(filteringRangeCadsInPacks(data.minFilter, data.maxFilter))
-            // dispatch(setPacksAC(res.data))
+        // dispatch(setPacksAC(res.data))
 
 
         // console.log(res.data)
@@ -184,7 +207,7 @@ export type cardPacksType = {
     user_name: string
 }
 
-type ActionsType = SetPacksType
+export type PackListActionsType = SetPacksType
     | SetCurrentPacksPageType
     | SetCountItemsPacksOnPageType
     | SetIsMyPacksType
@@ -195,6 +218,7 @@ type ActionsType = SetPacksType
     | SetAppSuccessType
     | FilteringRangeCadsInPacksPageType
     | SetNewPackType
+    | RemoveMyPackType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
 export type SetCurrentPacksPageType = ReturnType<typeof setCurrentPacksPage>
@@ -203,4 +227,5 @@ export type SetIsMyPacksType = ReturnType<typeof setIsMyPacks>
 export type SetRangeCadsInPacksType = ReturnType<typeof setRangeCadsInPacks>
 export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
 export type SetNewPackType = ReturnType<typeof setNewPack>
+export type RemoveMyPackType = ReturnType<typeof removeMyPack>
 export type FilteringRangeCadsInPacksPageType = ReturnType<typeof filteringRangeCadsInPacks>

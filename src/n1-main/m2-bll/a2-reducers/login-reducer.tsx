@@ -8,7 +8,7 @@ import {setAppErrorAC, SetAppErrorType, setAppSuccessAC, SetAppSuccessType} from
 type InitialStateType = {
   isLoggedIn: boolean
 }
-type ActionsType =
+export type LoginActionsType =
   | SetUserProfileDataType
   | ReturnType<typeof setIsLoggedInAC>
   | SetIsInitializedActionType
@@ -21,7 +21,7 @@ export const initialState: InitialStateType = {
   isLoggedIn: false
 }
 
-const loginReducer = (state: InitialStateType = initialState, action: ActionsType) => {
+const loginReducer = (state: InitialStateType = initialState, action: LoginActionsType) => {
   switch (action.type) {
     case 'LOGIN/SET_IS_LOGGED_IN':
       return {...state, isLoggedIn: action.value}
@@ -38,7 +38,7 @@ export const setIsLoggedInAC = (value: boolean) => {
 }
 
 //thunk
-export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
+export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<LoginActionsType>) => {
   dispatch(setAppStatusAC("loading"))
   authAPI.login(data)
     .then(res => {
@@ -59,7 +59,7 @@ export const setUserDataTC = (data: LoginParamsType) => (dispatch: Dispatch<Acti
     })
 }
 
-export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const logOutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
   dispatch(setAppStatusAC("loading"))
   authAPI.logOut()
     .then(res => {
@@ -73,7 +73,7 @@ export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
     })
 }
 
-export const authMeTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const authMeTC = () => (dispatch: Dispatch<LoginActionsType>) => {
   dispatch(setAppStatusAC("loading"))
   authAPI.me()
     .then(res => {

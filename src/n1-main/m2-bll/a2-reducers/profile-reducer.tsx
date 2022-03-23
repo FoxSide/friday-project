@@ -64,7 +64,7 @@ export type UserProfileStateType = {
     rememberMe: boolean
     error?: string
 }
-type ProfileReducerActionsType = ReturnType<typeof setChangeUserData>
+export type ProfileReducerActionsType = ReturnType<typeof setChangeUserData>
     | SetUserProfileDataType
     | SetAppErrorType
     | SetAppStatusActionType

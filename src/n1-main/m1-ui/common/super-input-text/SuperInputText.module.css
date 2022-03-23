@@ -4,10 +4,10 @@
 
 .errorInput {
     border: 3px solid lime;
-    background: red;
+    /*background: red;*/
     border-radius: 10px;
 }
 
 .error {
-    color: red;
+    /*color: red;*/
 }

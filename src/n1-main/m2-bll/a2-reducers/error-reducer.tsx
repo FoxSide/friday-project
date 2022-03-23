@@ -12,7 +12,7 @@ const initialState = {
 }
 
 
-const errorReducer = (state: StateErrorType = initialState, action: ActionType): StateErrorType => {
+const errorReducer = (state: StateErrorType = initialState, action: ErrorActionType): StateErrorType => {
     switch (action.type) {
         case 'ERROR/SET-ERROR':
             return {...state, error: action.error}
@@ -42,7 +42,7 @@ export const setAppSuccessAC = (success: string | null) => {
 
 export type SetAppSuccessType = ReturnType<typeof setAppSuccessAC>
 
-type ActionType = SetAppErrorType | SetAppSuccessType
+export type ErrorActionType = SetAppErrorType | SetAppSuccessType
 
 
 export default errorReducer;

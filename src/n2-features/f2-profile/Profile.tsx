@@ -20,14 +20,13 @@ const Profile = () => {
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    // @ts-ignore
-    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
+    const UserId = useSelector<AppRootStateType, TNullable<string>>(state => state.profile?._id)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(setIsMyPacks(true))
-        dispatch(getPacksTC(UserId))
+        dispatch(getPacksTC(user?._id))
     }, [])
 
     const onEditProfileClickHandler = () => {
@@ -56,7 +55,7 @@ const Profile = () => {
                         </div>
                         <div className={s.profileButton}>
                             <button onClick={onEditProfileClickHandler}>edit profile</button>
-                            <button onClick={logOutOnClickHandler}>logOut</button>
+                            {/*<button onClick={logOutOnClickHandler}>logOut</button>*/}
                         </div>
                     </div>
                     <div className={s.profileSetting}>

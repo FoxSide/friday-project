@@ -10,6 +10,10 @@ export const packListAPI = {
 
     addNewPack(data: AddPackListRequestType) {
         return instance.post(`cards/pack`,{...data})
+    },
+
+    deletePack(packId: string) {
+        return instance.delete(`cards/pack?id=${packId}`)
     }
 }
 

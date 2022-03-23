@@ -1,0 +1,47 @@
+.wrapp {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.header {
+    width: 100%;
+    padding-left: 70px;
+}
+
+.input {
+    padding-left: 10px;
+    width: 80%;
+    height: 40px;
+    margin-top: 10px;
+    outline: none;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+}
+
+.buttonBlock button {
+        width: 124px;
+        height: 36px;
+        margin: 2px 10px;
+        border-radius: 20px;
+        color: white;
+        background-color: #21268F;
+        box-shadow: 3px 3px 10px grey;
+        outline: none;
+        border: 0;
+        cursor: pointer;
+}
+
+.buttonBlock button:first-child {
+    background: #D7D8EF;
+    color: mediumblue;
+
+}
+
+.buttonBlock button:disabled {
+    background: lightgrey;
+    box-shadow: 1px 1px 5px gray;
+}

@@ -1,7 +1,7 @@
 import s from './PacksList.module.css'
 import {
     addNewPackTC,
-    cardPacksType,
+    cardPacksType, deletePackTC,
     getPacksTC,
     PackListStateType, setCountItemsPacksOnPage,
     setCurrentPacksPage, setIsMyPacks, setRangeCadsInPacks, setSortPacksOnPage
@@ -17,6 +17,15 @@ import SuperInputText from "../../n1-main/m1-ui/common/super-input-text/SuperInp
 import {AddPack} from "../../n1-main/m1-ui/common/Modal/AddingPack/AddPack";
 
 import useDebounce from "../../utils/hooks/useDebounse-hook";
+import {DeletePack} from "../../n1-main/m1-ui/common/Modal/DeletePack/DeletePack";
+import {TNullable} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
+
+
+enum EModeType {
+  ADD_MODE = 'ADD_MODE',
+ DELETE_MODE = 'DELETE_MODE'
+}
+
 
 export const PacksList = () => {
     const dispatch = useDispatch()
@@ -33,28 +42,45 @@ export const PacksList = () => {
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const packs = useSelector<AppRootStateType, cardPacksType[]>(state => state.packList.cardPacks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    // @ts-ignore
-    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
+
+    const UserId = useSelector<AppRootStateType, TNullable<string>>(state => state.profile?._id)
 
     const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
     const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
     const setIsMyPacksCallBack = (isMyPacks: boolean) => dispatch(setIsMyPacks(isMyPacks))
     const setRangeCadsInPacksCallBack = (min: number, max: number) => dispatch(setRangeCadsInPacks(min, max))
     const setSortPacksOnPageCallBack = (sortPacks: string) => dispatch(setSortPacksOnPage(sortPacks))
-    const deleteMyPackCallBack = () => dispatch(() => {
-    })
+
+    const deleteMyPackCallBack = (name: string, packId: string) => {
+        setShowModal(true)
+        setMode(EModeType.DELETE_MODE)
+        setRemovedPackData({name, packId})
+    }
     const onAddPackCallBack = () => {
         setShowModal(true)
+        setMode(EModeType.ADD_MODE)
     }
+
     const navigate = useNavigate()
+    const [removedPackData, setRemovedPackData] = useState({name: '', packId: ''})
+    const [mode, setMode] = useState<EModeType | null>(null)
     const [showModal, setShowModal] = useState(false);
 
-    const onAddPackHandler = (name: string) => {
+    const onDeletePackHandler = () => {
+        dispatch(deletePackTC(removedPackData.packId))
+        setShowModal(false)
+    }
+
+    const onDeletePackCancelHandler = () => {
+        setShowModal(false)
+    }
+
+    const onAddPackSaveHandler = (name: string) => {
         dispatch(addNewPackTC(name))
         setShowModal(false)
     }
 
-    const onCancelHandler = () => {
+    const onAddPackCancelHandler = () => {
         setShowModal(false)
     }
 
@@ -93,7 +119,9 @@ export const PacksList = () => {
                 pageCount={pageCount}
                 page={page}
                 cardPacksTotalCount={cardPacksTotalCount}
-                deleteMyPackCallBack={deleteMyPackCallBack}
+                deleteMyPackCallBack={(name, packId) => {
+                    deleteMyPackCallBack(name, packId)
+                }}
                 addPackCallBack={onAddPackCallBack}
             />
             <Modal width={395}
@@ -102,7 +130,9 @@ export const PacksList = () => {
                    backgroundOnClick={() => setShowModal(false)}
                    show={showModal}
             >
-                <AddPack onSave={onAddPackHandler} onCancel={onCancelHandler}/>
+                {mode === EModeType.ADD_MODE && <AddPack onSave={onAddPackSaveHandler} onCancel={onAddPackCancelHandler}/>}
+                {mode === EModeType.DELETE_MODE && <DeletePack packData={removedPackData} onDelete={onDeletePackHandler}
+                                                     onCancel={onDeletePackCancelHandler}/>}
             </Modal>
         </div>
     )
