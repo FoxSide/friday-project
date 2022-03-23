@@ -88,11 +88,28 @@ export const SvgSelector = ({id, onClick, className}: PropsType) => {
                     viewBox="0 0 14 14"
                 >
                     <path
+
                         fill="grey"
                         fillRule="evenodd"
                         d="M10.571 5.857a4.714 4.714 0 11-9.428 0 4.714 4.714 0 019.428 0zM9.53 10.236a5.714 5.714 0 11.707-.707l2.832 2.832a.5.5 0 01-.707.707l-2.832-2.832z"
                         clipRule="evenodd"
                     ></path>
+                </svg>
+            )
+        case 'down':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" stroke-width="2" width="18"
+                     height="18">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+            )
+        case 'up':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" stroke-width="2" width="18"
+                     height="18">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
                 </svg>
             )
         default:

@@ -12,11 +12,11 @@ const initialState: PackListStateType = {
     page: 1,
     pageCount: 5,
     isMyPacks: false,
-    sortPacks: "0grade",
+    sortPacks: '',
     maxFilter: 0,
     minFilter: 0,
+    searchName: '',
 }
-
 
 export const packListReducer = (state: PackListStateType = initialState, action: ActionsType): PackListStateType => {
 
@@ -28,6 +28,7 @@ export const packListReducer = (state: PackListStateType = initialState, action:
         case 'PACK-LIST/SET-SORT-PACKS-ON-PAGE':
         case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
         case "PACK-LIST/SET-NEW-PACK":
+        case "PACK-LIST/SET-SEARCH_NAME":
             return {
                 ...state,
                 ...action.payload
@@ -90,6 +91,13 @@ export const setSortPacksOnPage = (sortPacks: string) => {
     } as const
 }
 
+export const setSearchName = (searchName: string) => {
+    return {
+        type: 'PACK-LIST/SET-SEARCH_NAME',
+        payload: {searchName}
+    } as const
+}
+
 export const setNewPack = (name: string) => {
     return {
         type: 'PACK-LIST/SET-NEW-PACK',
@@ -113,7 +121,7 @@ export const addNewPackTC = (name: string) => async (dispatch: Dispatch<ActionsT
 }
 
 export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<ActionsType>,
-                                       getState: () => AppRootStateType) => {
+                                                            getState: () => AppRootStateType) => {
     const {isMyPacks, ...data} = getState().packList
     dispatch(setAppStatusAC("loading"))
     try {
@@ -125,6 +133,7 @@ export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<A
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
+                packName: data.searchName,
             }
         } else {
             apIModel = {
@@ -133,7 +142,8 @@ export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<A
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
-                user_id: userId
+                packName: data.searchName,
+                user_id: userId,
             }
         }
         let res = await packListAPI.getPacks(apIModel);
@@ -143,7 +153,7 @@ export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<A
         }
         dispatch(setPacksAC(res.data))
         dispatch(filteringRangeCadsInPacks(data.minFilter, data.maxFilter))
-            // dispatch(setPacksAC(res.data))
+        // dispatch(setPacksAC(res.data))
 
 
         // console.log(res.data)
@@ -154,15 +164,12 @@ export const getPacksTC = (userId: string | null) => async (dispatch: Dispatch<A
     }
 }
 
-// export const UpdatePacksTC = ()=> () => {
-//
-// }
-
 type AdditionalPackListStateType = {
     isMyPacks: boolean,
     sortPacks: string,
     maxFilter: number,
     minFilter: number,
+    searchName: string,
 }
 
 export type PackListStateType = AdditionalPackListStateType & {
@@ -195,6 +202,7 @@ type ActionsType = SetPacksType
     | SetAppSuccessType
     | FilteringRangeCadsInPacksPageType
     | SetNewPackType
+    | SetSearchNamePageType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
 export type SetCurrentPacksPageType = ReturnType<typeof setCurrentPacksPage>
@@ -204,3 +212,4 @@ export type SetRangeCadsInPacksType = ReturnType<typeof setRangeCadsInPacks>
 export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
 export type SetNewPackType = ReturnType<typeof setNewPack>
 export type FilteringRangeCadsInPacksPageType = ReturnType<typeof filteringRangeCadsInPacks>
+export type SetSearchNamePageType = ReturnType<typeof setSearchName>

@@ -20,6 +20,7 @@ export type  packListRequestType = {
     page?: number,
     pageCount?: number,
     user_id?: string | null
+    packName: string,
 }
 
 export type AddPackListRequestType = {

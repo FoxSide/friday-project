@@ -1,9 +1,10 @@
 import s from "./PackListTable.module.css"
 import {SearchAddBlock} from "./SearchAddBlock/SearchAddBlock";
 import {ItemPacks} from "./ItemPacks/ItemPacks";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {cardPacksType} from "../../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
 import {PaginationBlock} from "../../f4-pack/Pack/PaginationBlock/PaginationBlock";
+import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
 
 type  PropsType = {
     packs: cardPacksType[]
@@ -15,6 +16,9 @@ type  PropsType = {
     cardPacksTotalCount: number
     deleteMyPackCallBack: () => void
     addPackCallBack: () => void
+    UserId: string | null
+    sortPacks: string
+    setSearchNameCallBack: (searchName: string)=>void
 }
 
 export const PackListTable = ({
@@ -27,17 +31,48 @@ export const PackListTable = ({
                                   cardPacksTotalCount,
                                   deleteMyPackCallBack,
                                   addPackCallBack,
+                                  UserId,
+                                  sortPacks,
+                                  setSearchNameCallBack
                               }: PropsType) => {
+
+    const [iconSort, setIconSort] = useState('')
+    const [buttonSort, setButtonSort] = useState('')
+
+    const sortPack = (typeSort: string) => {
+        if (sortPacks[0] === '0') {
+            setSortPacksOnPageCallBack('1' + typeSort)
+            setIconSort('down')
+            setButtonSort(typeSort)
+        } else if (sortPacks[0] === '1'){
+            setSortPacksOnPageCallBack('0' + typeSort)
+            setIconSort('up')
+            setButtonSort(typeSort)
+        } else {
+            setButtonSort(typeSort)
+            setSortPacksOnPageCallBack('0' + typeSort)
+            setIconSort('up')
+        }
+    }
+    console.log(iconSort)
     return (
         <div className={s.containerPackList}>
             <p className={s.titlePackList}>Packs list</p>
-            <SearchAddBlock addPackCallBack={addPackCallBack} />
+            <SearchAddBlock addPackCallBack={addPackCallBack} setSearchNameCallBack={setSearchNameCallBack}/>
             <div className={s.blockPacks}>
                 <div className={s.packsHeader}>
-                    <div className={s.packsBlockLarge}>Name</div>
-                    <div className={s.packsBlockSmall}>Cards</div>
-                    <div className={s.packsBlockMedium}>Last Updated</div>
-                    <div className={s.packsBlockMedium}>Created by</div>
+                    <div className={s.packsBlockLarge} onClick={() => sortPack('name')}>Name
+                        {buttonSort === 'name' && <SvgSelector id={iconSort}/>}
+                    </div>
+                    <div className={s.packsBlockSmall} onClick={() => sortPack('cardsCount')}>Cards
+                        {buttonSort === 'cardsCount' && <SvgSelector id={iconSort}/>}
+                    </div>
+                    <div className={s.packsBlockMedium} onClick={() => sortPack('updated')}>Last Updated
+                        {buttonSort === 'updated' && <SvgSelector id={iconSort}/>}
+                    </div>
+                    <div className={s.packsBlockMedium} onClick={() => sortPack('user_name')}>Created by
+                        {buttonSort === 'user_name' && <SvgSelector id={iconSort}/>}
+                    </div>
                     <div className={s.packsBlockLarge}>Actions</div>
                 </div>
                 <div>
@@ -49,6 +84,8 @@ export const PackListTable = ({
                             updated={p.updated}
                             userName={p.user_name}
                             deleteMyPackCallBack={deleteMyPackCallBack}
+                            UserId={UserId}
+                            OwnerId={p.user_id}
                         />
                     )}
                 </div>
@@ -61,27 +98,7 @@ export const PackListTable = ({
                     setCurrentPageCallback={setCurrentPacksPageCallBack}
                     setCountItemsOnPageCallback={setCountItemsPacksOnPageCallBack}
                 />
-                {/*{pages.map(p => {*/}
-                {/*    return <span*/}
-                {/*        className={page === p ? s.selectedPage + ' ' + s.OtherPage : s.OtherPage}*/}
-                {/*        onClick={(e) => {*/}
-                {/*            setPageNumber(p)*/}
-                {/*        }}*/}
-                {/*        key={p}>*/}
-                {/*            {p}</span>*/}
-                {/*})}*/}
             </div>
-            {/*<div className={s.setPagination}>*/}
-            {/*    {setsPages.map(p => {*/}
-            {/*        return <span*/}
-            {/*            className={s.OtherPage}*/}
-            {/*            onClick={(e) => {*/}
-            {/*                setSetPage(p)*/}
-            {/*            }}*/}
-            {/*            key={p}>*/}
-            {/*                {p}</span>*/}
-            {/*    })}*/}
-            {/*</div>*/}
         </div>
     )
 }

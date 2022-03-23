@@ -41,7 +41,7 @@ export const PackListFilter = ({
                 minCardsCount={minCardsCount}
                 setRangeCadsInPacksCallBack={setRangeCadsInPacksCallBack}
                 maxFilter={maxFilter}
-            minFilter={minFilter}
+                minFilter={minFilter}
             />
         </div>
     )

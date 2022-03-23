@@ -58,3 +58,7 @@ div .packButtons{
     margin-right: 15px;
     margin-top: 10px;
 }
+div .ownButtons{
+    display: flex;
+
+}
