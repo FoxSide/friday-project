@@ -8,14 +8,28 @@ import {TNullable, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/
 import {logOutTC} from "../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
 import {ItemPacks} from "../packsList/PackListTable/ItemPacks/ItemPacks";
-import {getPacksTC, PackListStateType, setIsMyPacks} from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
+import {
+    getPacksTC,
+    PackListStateType, setCountItemsPacksOnPage,
+    setCurrentPacksPage,
+    setIsMyPacks
+} from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
 import {DoubleRange} from '../../n1-main/m1-ui/common/doubleRange/DoubleRange';
 import {PaginationBlock} from "../f4-pack/Pack/PaginationBlock/PaginationBlock";
 import {SearchInput} from "../f4-pack/Pack/SearchInput/SearchInput";
 
 const Profile = () => {
     const {
-        cardPacks
+        cardPacks,
+        page,
+        pageCount,
+        isMyPacks,
+        maxCardsCount,
+        minCardsCount,
+        sortPacks,
+        cardPacksTotalCount,
+        maxFilter,
+        minFilter,
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
@@ -35,6 +49,10 @@ const Profile = () => {
     const logOutOnClickHandler = () => {
         dispatch(logOutTC())
     }
+
+    const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
+    const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
+
     return (
         !isLoggedIn
             ? <Navigate to={'/login'}/>
@@ -94,13 +112,11 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className={s.packListPagination}>
-                            <PaginationBlock currentPage={3}
-                                             pageSize={5}
-                                             setCountItemsOnPageCallback={() => {
-                                             }}
-                                             setCurrentPageCallback={() => {
-                                             }}
-                                             totalCount={6}/>
+                            <PaginationBlock currentPage={page}
+                                             pageSize={pageCount}
+                                             setCountItemsOnPageCallback={setCountItemsPacksOnPageCallBack}
+                                             setCurrentPageCallback={setCurrentPacksPageCallBack}
+                                             totalCount={cardPacksTotalCount}/>
                         </div>
                     </div>
                 </div>

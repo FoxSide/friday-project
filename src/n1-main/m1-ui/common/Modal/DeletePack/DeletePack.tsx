@@ -23,7 +23,7 @@ export const DeletePack: FC<PropsType> = ({
             <div className={s.header}>
                 <h3>Delete Pack</h3>
             </div>
-            <div>
+            <div className={s.description}>
                 <p>Do you really want to remove <b>{packData.name}?</b></p>
                 <p>All cards will be excluded from this course</p>
             </div>

@@ -12,13 +12,17 @@
     padding-left: 70px;
 }
 
+.description {
+    font-size: 13px;
+}
+
 .buttonBlock button {
     width: 124px;
     height: 36px;
     margin: 2px 10px;
     border-radius: 20px;
     color: white;
-    background-color: #21268F;
+    background-color: #F1453D;
     box-shadow: 3px 3px 10px grey;
     outline: none;
     border: 0;
