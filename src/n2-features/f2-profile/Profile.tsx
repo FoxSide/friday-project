@@ -20,7 +20,6 @@ const Profile = () => {
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    const UserId = useSelector<AppRootStateType, TNullable<string>>(state => state.profile?._id)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -41,7 +40,6 @@ const Profile = () => {
             ? <Navigate to={'/login'}/>
             : <div className={s.wrapp}>
                 {status === "loading" && <Preloader/>}
-
                 <div className={s.profileContainer}>
                     <div className={s.profile}>
                         <div className={s.profileAva}>
