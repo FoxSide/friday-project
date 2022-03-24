@@ -2,7 +2,7 @@ import {ActionCreator} from "redux";
 import {setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {SetAppErrorType, SetAppSuccessType} from "./error-reducer";
 import {AppRootStateType} from "../a1-redux-store/store";
-import {cardsAPI, UpdateCardDataType} from "../../m3-dal/cards-api";
+import {cardsAPI, CreateCardDataType, UpdateCardDataType} from "../../m3-dal/cards-api";
 
 const initialState: CardsStateType = {
     cards: [],
@@ -70,9 +70,11 @@ export const updateCard = (packId: string, cardId: string, question: string, ans
         dispatch(setAppStatusAC("loading"))
         try {
             const data: UpdateCardDataType = {
-                _id: cardId,
-                answer,
-                question,
+                card: {
+                    _id: cardId,
+                    answer,
+                    question,
+                }
             }
             await cardsAPI.updateCard(data)
             dispatch(fetchingCardsData(packId))
@@ -81,6 +83,24 @@ export const updateCard = (packId: string, cardId: string, question: string, ans
             dispatch(setAppStatusAC('failed'))
         }
     }
+
+export const addCard = (cardsPack_id: string, question: string, answer: string) => async (dispatch: ActionCreator<CardsReducerActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        const data: CreateCardDataType = {
+            card: {
+                cardsPack_id,
+                answer,
+                question,
+            }
+        }
+        await cardsAPI.addCard(data)
+        dispatch(fetchingCardsData(cardsPack_id))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e: any) {
+        dispatch(setAppStatusAC('failed'))
+    }
+}
 
 export type OwnCardsStateType = {
     sort: string;

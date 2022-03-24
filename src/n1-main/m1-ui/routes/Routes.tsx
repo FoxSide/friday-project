@@ -23,7 +23,7 @@ export const path = {
   passwordRecovery: '/password-recovery',
   checkEmail: '/check-email',
   newPassword: '/new-password/:token',
-  cards: '/cards',
+  cards: '/cards/:packID',
   packList: '/pack-list',
 }
 
@@ -37,7 +37,6 @@ const RoutesComponent = () => {
         <Route path={path.login} element={<Login/>}/>
         <Route path={path.registration} element={<Registration/>}/>
         <Route path={path.profile} element={<Profile/>}/>
-        {/*<Route path={path.profile} element={<PackContainer/>}/>*/}
         <Route path={path.cards} element={<PackContainer/>}/>
         <Route path={path.profileEdit} element={<ProfileEdit/>}/>
         <Route path={path.errorPage} element={<ErrorPage/>}/>
