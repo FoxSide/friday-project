@@ -67,7 +67,7 @@ export const PacksList = () => {
     const [showModal, setShowModal] = useState(false);
 
     const onDeletePackHandler = () => {
-        dispatch(deletePackTC(removedPackData.packId))
+        dispatch(deletePackTC(removedPackData.packId, UserId))
         setShowModal(false)
     }
 
@@ -76,7 +76,7 @@ export const PacksList = () => {
     }
 
     const onAddPackSaveHandler = (name: string) => {
-        dispatch(addNewPackTC(name))
+        dispatch(addNewPackTC(name, UserId))
         setShowModal(false)
     }
 

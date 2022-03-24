@@ -23,13 +23,7 @@ const Profile = () => {
         cardPacks,
         page,
         pageCount,
-        isMyPacks,
-        maxCardsCount,
-        minCardsCount,
-        sortPacks,
         cardPacksTotalCount,
-        maxFilter,
-        minFilter,
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
