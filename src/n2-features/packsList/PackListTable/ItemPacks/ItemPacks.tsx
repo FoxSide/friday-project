@@ -1,6 +1,6 @@
 import s from "./ItemPacks.module.css";
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 type PropsType = {
    id: string
@@ -19,6 +19,11 @@ export const ItemPacks = ({
                              deleteMyPackCallBack,
                           }: PropsType) => {
    let date = updated.substring(0, 10)
+  const navigate = useNavigate()
+  const onclickHandler = () => {
+     navigate(`/question/${id}`)
+  }
+
    return (
       <div
          className={s.pack}
@@ -40,7 +45,7 @@ export const ItemPacks = ({
                   Delete
                </button>
                <button>Edit</button>
-               <button>Learn</button>
+               <button onClick={onclickHandler}>Learn</button>
             </div>
          </div>
       </div>)

@@ -9,6 +9,7 @@ import {passwordRecoveryReducer} from "../a2-reducers/password-recovery-reducer"
 import {newPasswordReducer} from "../a2-reducers/new-password-reducer";
 import {cardsReducer} from "../a2-reducers/cards-reducer";
 import {packListReducer} from "../a2-reducers/pack-list-reducer";
+import {questionReducer} from "../a2-reducers/question-reduser";
 
 let rootReducer = combineReducers({
   login: loginReducer,
@@ -20,6 +21,7 @@ let rootReducer = combineReducers({
   passwordRecovery: passwordRecoveryReducer,
   newPassword: newPasswordReducer,
   packList: packListReducer,
+  questionReducer: questionReducer
 })
 
 
