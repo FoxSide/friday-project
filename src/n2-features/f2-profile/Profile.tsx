@@ -44,7 +44,7 @@ const Profile = () => {
     useEffect(() => {
         dispatch(setIsMyPacks(true))
         dispatch(getPacksTC(user?._id))
-    }, [])
+    }, [page, pageCount, isMyPacks, isLoggedIn, sortPacks])
 
     const onEditProfileClickHandler = () => {
         navigate('/profile-edit')
