@@ -9,7 +9,7 @@ const initialState: StateRegistrationReducerType = {
     isRegistrtion: null,
 }
 
-const registrationReducer = (state: StateRegistrationReducerType = initialState, action: ActionType): StateRegistrationReducerType => {
+const registrationReducer = (state: StateRegistrationReducerType = initialState, action: RegistrationActionType): StateRegistrationReducerType => {
   switch (action.type) {
       case "IS-REGISTRATION":
           return  {
@@ -53,6 +53,6 @@ export type StateRegistrationReducerType = {
 }
 
 type IsRegistrationACActionType = ReturnType<typeof isRegistrationAC>
-type ActionType = IsRegistrationACActionType
+export type RegistrationActionType = IsRegistrationACActionType
 
 export default registrationReducer

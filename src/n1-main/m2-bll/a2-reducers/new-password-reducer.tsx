@@ -42,7 +42,7 @@ export const setIsSetNewPasswordTC = (password: string, token: string) => async 
 type NewPasswordStateType = {
   isSetNewPassword: boolean;
 }
-type NewPasswordActionType =
+export type NewPasswordActionType =
     | ReturnType<typeof setIsSetNewPasswordAC>
     | ReturnType<typeof setIsLoadingAC>
     | SetAppErrorType

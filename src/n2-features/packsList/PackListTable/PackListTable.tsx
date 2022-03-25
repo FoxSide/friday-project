@@ -14,7 +14,7 @@ type  PropsType = {
     pageCount: number
     page: number
     cardPacksTotalCount: number
-    deleteMyPackCallBack: () => void
+    deleteMyPackCallBack: (name: string, packId: string) => void
     addPackCallBack: () => void
     UserId: string | null
     sortPacks: string
@@ -83,9 +83,9 @@ export const PackListTable = ({
                             cardsCount={p.cardsCount}
                             updated={p.updated}
                             userName={p.user_name}
-                            deleteMyPackCallBack={deleteMyPackCallBack}
                             UserId={UserId}
                             OwnerId={p.user_id}
+                            deleteMyPackCallBack={()=>{deleteMyPackCallBack(p.name, p._id)}}
                         />
                     )}
                 </div>

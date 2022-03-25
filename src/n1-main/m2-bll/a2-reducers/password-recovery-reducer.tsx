@@ -47,7 +47,7 @@ type PasswordRecoveryStateType = {
   email: string;
   isLoading: boolean;
 }
-type PasswordRecoveryActionType =
+export type PasswordRecoveryActionType =
     | ReturnType<typeof setIsEmailSendAC>
     | ReturnType<typeof setIsLoadingAC>
     | SetAppErrorType

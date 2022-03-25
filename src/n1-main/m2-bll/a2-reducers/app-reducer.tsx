@@ -12,7 +12,7 @@ const initialState = {
   isInitialized: false,
 }
 
-export const appReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
+export const appReducer = (state: initialStateType = initialState, action: AppActionType): initialStateType => {
   switch (action.type) {
     case "APP/SET_STATUS":
       return {...state, status: action.status}
@@ -24,7 +24,7 @@ export const appReducer = (state: initialStateType = initialState, action: Actio
   }
 };
 
-type ActionType = SetAppStatusActionType | SetIsInitializedActionType
+export type AppActionType = SetAppStatusActionType | SetIsInitializedActionType
 
 export const setAppStatusAC = (status:RequestStatusType) => {
   return {

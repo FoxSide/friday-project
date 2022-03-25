@@ -62,7 +62,7 @@ const Modal: React.FC<IModal> = (
                     flexFlow: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-
+                    borderRadius: '3px',
                     background: '#F9F9FE',
                     zIndex: 21,
 

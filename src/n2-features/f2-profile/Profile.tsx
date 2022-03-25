@@ -8,26 +8,38 @@ import {TNullable, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/
 import {logOutTC} from "../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
 import {ItemPacks} from "../packsList/PackListTable/ItemPacks/ItemPacks";
-import {getPacksTC, PackListStateType, setIsMyPacks} from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
+import {
+    getPacksTC,
+    PackListStateType, setCountItemsPacksOnPage,
+    setCurrentPacksPage,
+    setIsMyPacks
+} from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
 import {DoubleRange} from '../../n1-main/m1-ui/common/doubleRange/DoubleRange';
 import {PaginationBlock} from "../f4-pack/Pack/PaginationBlock/PaginationBlock";
 import {SearchInput} from "../f4-pack/Pack/SearchInput/SearchInput";
 
 const Profile = () => {
     const {
-        cardPacks
+        cardPacks,
+        page,
+        pageCount,
+        isMyPacks,
+        maxCardsCount,
+        minCardsCount,
+        sortPacks,
+        cardPacksTotalCount,
+        maxFilter,
+        minFilter,
     } = useSelector<AppRootStateType, PackListStateType>(state => state.packList)
     const status = useSelector<AppRootStateType>(state => state.app.status)
     const user = useSelector<AppRootStateType, TNullable<UserProfileStateType>>(state => state.profile)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    // @ts-ignore
-    const UserId = useSelector<AppRootStateType, string | null>(state => state.profile?._id)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(setIsMyPacks(true))
-        dispatch(getPacksTC(UserId))
+        dispatch(getPacksTC(user?._id))
     }, [])
 
     const onEditProfileClickHandler = () => {
@@ -37,12 +49,15 @@ const Profile = () => {
     const logOutOnClickHandler = () => {
         dispatch(logOutTC())
     }
+
+    const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
+    const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
+
     return (
         !isLoggedIn
             ? <Navigate to={'/login'}/>
             : <div className={s.wrapp}>
                 {status === "loading" && <Preloader/>}
-
                 <div className={s.profileContainer}>
                     <div className={s.profile}>
                         <div className={s.profileAva}>
@@ -56,7 +71,7 @@ const Profile = () => {
                         </div>
                         <div className={s.profileButton}>
                             <button onClick={onEditProfileClickHandler}>edit profile</button>
-                            <button onClick={logOutOnClickHandler}>logOut</button>
+                            {/*<button onClick={logOutOnClickHandler}>logOut</button>*/}
                         </div>
                     </div>
                     <div className={s.profileSetting}>
@@ -97,13 +112,11 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className={s.packListPagination}>
-                            <PaginationBlock currentPage={3}
-                                             pageSize={5}
-                                             setCountItemsOnPageCallback={() => {
-                                             }}
-                                             setCurrentPageCallback={() => {
-                                             }}
-                                             totalCount={6}/>
+                            <PaginationBlock currentPage={page}
+                                             pageSize={pageCount}
+                                             setCountItemsOnPageCallback={setCountItemsPacksOnPageCallBack}
+                                             setCurrentPageCallback={setCurrentPacksPageCallBack}
+                                             totalCount={cardPacksTotalCount}/>
                         </div>
                     </div>
                 </div>
