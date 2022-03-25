@@ -30,21 +30,27 @@
 .packsHeader div {
     line-height: 48px;
     padding-left: 15px;
+    position: relative;
+}
+.packsHeader svg {
+    position: relative;
+    top: 5px;
+    /*padding-top: 25px;*/
+    /*line-height: 48px;*/
 }
 
-
 .packsBlockLarge {
-    width: 30%;
+    width: 28%;
     overflow: hidden;
 }
 
 .packsBlockMedium {
-    width: 15%;
+    width: 18%;
     overflow: hidden;
 }
 
 .packsBlockSmall {
-    width: 10%
+    width: 10%;
 }
 
 .pagination {

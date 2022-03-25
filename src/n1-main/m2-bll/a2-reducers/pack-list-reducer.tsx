@@ -14,9 +14,10 @@ const initialState: PackListStateType = {
     page: 1,
     pageCount: 5,
     isMyPacks: false,
-    sortPacks: "0grade",
+    sortPacks: '',
     maxFilter: 0,
     minFilter: 0,
+    searchName: '',
 }
 
 
@@ -30,6 +31,7 @@ export const packListReducer = (state: PackListStateType = initialState, action:
         case 'PACK-LIST/SET-SORT-PACKS-ON-PAGE':
         case 'PACK-LIST/SET-RANGE-CARDS-IN-PACKS':
         case "PACK-LIST/SET-NEW-PACK":
+        case "PACK-LIST/SET-SEARCH_NAME":
             return {
                 ...state,
                 ...action.payload
@@ -94,6 +96,13 @@ export const setSortPacksOnPage = (sortPacks: string) => {
     } as const
 }
 
+export const setSearchName = (searchName: string) => {
+    return {
+        type: 'PACK-LIST/SET-SEARCH_NAME',
+        payload: {searchName}
+    } as const
+}
+
 export const setNewPack = (name: string) => {
     return {
         type: 'PACK-LIST/SET-NEW-PACK',
@@ -148,6 +157,7 @@ export const getPacksTC = (userId?: TNullable<string>) => async (dispatch: Dispa
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
+                packName: data.searchName,
             }
         } else {
             apIModel = {
@@ -156,7 +166,8 @@ export const getPacksTC = (userId?: TNullable<string>) => async (dispatch: Dispa
                 sortPacks: data.sortPacks,
                 page: data.page,
                 pageCount: data.pageCount,
-                user_id: userId
+                packName: data.searchName,
+                user_id: userId,
             }
         }
         let res = await packListAPI.getPacks(apIModel);
@@ -177,15 +188,12 @@ export const getPacksTC = (userId?: TNullable<string>) => async (dispatch: Dispa
     }
 }
 
-// export const UpdatePacksTC = ()=> () => {
-//
-// }
-
 type AdditionalPackListStateType = {
     isMyPacks: boolean,
     sortPacks: string,
     maxFilter: number,
     minFilter: number,
+    searchName: string,
 }
 
 export type PackListStateType = AdditionalPackListStateType & {
@@ -218,6 +226,7 @@ export type PackListActionsType = SetPacksType
     | SetAppSuccessType
     | FilteringRangeCadsInPacksPageType
     | SetNewPackType
+    | SetSearchNamePageType
     | RemoveMyPackType
 
 export type SetPacksType = ReturnType<typeof setPacksAC>
@@ -229,3 +238,4 @@ export type SetSortPacksOnPageType = ReturnType<typeof setSortPacksOnPage>
 export type SetNewPackType = ReturnType<typeof setNewPack>
 export type RemoveMyPackType = ReturnType<typeof removeMyPack>
 export type FilteringRangeCadsInPacksPageType = ReturnType<typeof filteringRangeCadsInPacks>
+export type SetSearchNamePageType = ReturnType<typeof setSearchName>
