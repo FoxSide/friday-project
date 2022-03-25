@@ -13,6 +13,7 @@ import {CheckEmail} from "../../../n2-features/f1-auth/a5-password-recovery/chec
 import {AppRootStateType} from "../../m2-bll/a1-redux-store/store";
 import {PackContainer} from "../../../n2-features/f4-pack/PackContainer";
 import {PacksList} from "../../../n2-features/packsList/PacksList";
+import {Question} from "../../../n2-features/f6-question/Question";
 
 export const path = {
   login: '/login',
@@ -25,6 +26,7 @@ export const path = {
   newPassword: '/new-password/:token',
   cards: '/cards/:packID',
   packList: '/pack-list',
+  question: '/question/:packID'
 }
 
 
@@ -44,6 +46,7 @@ const RoutesComponent = () => {
         <Route path={path.checkEmail} element={<CheckEmail/>}/>
         <Route path={path.newPassword} element={<CreateNewPassword/>}/>
         <Route path={path.packList} element={<PacksList/>}/>
+        <Route path={path.question} element={<Question/>}/>
       </Routes>
     </div>
   );
