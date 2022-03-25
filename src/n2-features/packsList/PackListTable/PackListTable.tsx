@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {cardPacksType} from "../../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
 import {PaginationBlock} from "../../f4-pack/Pack/PaginationBlock/PaginationBlock";
 import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
+import {TNullable} from "../../../n1-main/m2-bll/a2-reducers/profile-reducer";
 
 type  PropsType = {
     packs: cardPacksType[]
@@ -16,7 +17,7 @@ type  PropsType = {
     cardPacksTotalCount: number
     deleteMyPackCallBack: (name: string, packId: string) => void
     addPackCallBack: () => void
-    UserId: string | null
+    UserId: TNullable<string>
     sortPacks: string
     setSearchNameCallBack: (searchName: string)=>void
 }
