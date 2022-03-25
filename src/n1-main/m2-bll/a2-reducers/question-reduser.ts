@@ -1,5 +1,6 @@
 import {questionApi} from "../../m3-dal/question-api";
 import {Dispatch} from "redux";
+import {setAppStatusAC, setIsInitializedAC} from "./app-reducer";
 
 type InitislStateType = {
   cards: Array<CardType>
@@ -32,17 +33,28 @@ export type UpdatedGradeCardType = {
   shots: number
 }
 
-type ActionType = ReturnType<typeof setCardsAC>
+type ActionType = ReturnType<typeof setCardsAC> | ReturnType<typeof setCardsGradeAC>
 
+const initialState = {
+  cards: [],
+  cardsTotalCount: 0,
+  maxGrade: 0,
+  minGrade: 0,
+  page: 0,
+  pageCount: 0,
+  packUserId: ''
+}
 
-export type TNullable<T> = T | null | undefined
-
-const initialState = null
-
-export const questionReducer = (state: TNullable<InitislStateType> = initialState, action: ActionType) => {
+export const questionReducer = (state: InitislStateType = initialState, action: ActionType) => {
   switch (action.type) {
     case "QUESTION/SET_CARDS":
       return {...state, ...action.data}
+    case "CARDS/SET_CARDS_GRADE":
+      return {
+        ...state, cards: state.cards.map(m => m._id === action.updatedGrade.card_id
+          ? {...m, shots: action.updatedGrade.shots, grade: action.updatedGrade.grade}
+          : m)
+      }
     default:
       return state
   }
@@ -52,12 +64,43 @@ const setCardsAC = (data: InitislStateType) => {
   return {
     type: 'QUESTION/SET_CARDS',
     data
-  }
+  } as const
 }
 
-export const getCardsTC = (id: string | undefined, pageCount: number) => (dispatch: Dispatch<ActionType>) => {
+export const setCardsGradeAC = (updatedGrade: UpdatedGradeCardType) => {
+  return {
+    type: 'CARDS/SET_CARDS_GRADE',
+    updatedGrade
+  } as const
+}
+
+export const getCardsTC = (id: string | undefined, pageCount: number) => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"))
   questionApi.getCards(id, pageCount)
     .then(res => {
       dispatch(setCardsAC(res.data))
+      dispatch(setAppStatusAC("succeeded"))
     })
+}
+
+export const cardsGradeTC = (cardId: string, grade: number) =>
+  (dispatch: Dispatch) => {
+    const data: GetCardsGrade = {
+      grade: grade,
+      card_id: cardId
+    }
+    dispatch(setAppStatusAC("loading"))
+    questionApi.updateCardsGrade(data)
+      .then((res) => {
+        dispatch(setCardsGradeAC(res.data.updatedGrade));
+        dispatch(setAppStatusAC("succeeded"))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('failed'))
+      })
+  };
+
+export type GetCardsGrade = {
+  grade: number,
+  card_id: string
 }

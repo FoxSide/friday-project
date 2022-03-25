@@ -15,7 +15,6 @@ export type LoginActionsType =
   | SetAppErrorType
   | SetAppStatusActionType
   | SetAppSuccessType
-export type TNullable<T> = T | null | undefined
 
 export const initialState: InitialStateType = {
   isLoggedIn: false

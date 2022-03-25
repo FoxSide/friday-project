@@ -3,7 +3,8 @@ import s from './Question.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 import {Navigate, useParams} from "react-router-dom";
-import {CardType, getCardsTC} from "../../n1-main/m2-bll/a2-reducers/question-reduser";
+import {cardsGradeTC, CardType, getCardsTC} from "../../n1-main/m2-bll/a2-reducers/question-reduser";
+import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
 
 const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer']
 
@@ -15,28 +16,25 @@ const getCard = (cards: CardType[]) => {
       return {sum: newSum, id: newSum < rand ? i : acc.id}
     }
     , {sum: 0, id: -1});
-  console.log('test: ', sum, rand, res)
-
   return cards[res.id + 1];
 }
 
 export const Question = () => {
+  const status = useSelector<AppRootStateType>(state => state.app.status)
   const [first, setFirst] = useState<boolean>(true);
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-  const cards = useSelector((state: AppRootStateType) => state.questionReducer?.cards)
+  const cards = useSelector<AppRootStateType, CardType[]>(state => state.questionReducer.cards)
   const dispatch = useDispatch()
   const {packID} = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
-  const [pageValue, setPageValue] = useState<number>(0)
   const [grade, setGrade] = useState<number>(0)
-  console.log(grade)
 
   const [card, setCard] = useState<CardType>({
     user_id: "",
-    _id: 'fake',
+    _id: '',
     cardsPack_id: '',
-    answer: 'answer fake',
-    question: 'question fake',
+    answer: '',
+    question: '',
     grade: 0,
     shots: 0,
     created: '',
@@ -48,22 +46,14 @@ export const Question = () => {
       dispatch(getCardsTC(packID, 100))
       setFirst(false)
     }
-    // @ts-ignore
-    if (cards?.length > 0) setCard(getCard(cards))
+    cards.length > 0 && setCard(getCard(cards))
   }, [dispatch, packID, cards, first])
 
   const onClickNextHandler = () => {
+    dispatch(cardsGradeTC(card._id, grade))
+    setGrade(0)
     setIsChecked(false);
-    // @ts-ignore
-    if (cards?.length > 0) setCard(getCard(cards));
-    else {
-
-    }
-  }
-  const onClickBackHandler = () => {
-    if (pageValue > 0) {
-      setPageValue(pageValue - 1)
-    }
+    cards.length > 0 && setCard(getCard(cards));
   }
 
   const onClickGradeHandler = (i: number) => {
@@ -76,6 +66,7 @@ export const Question = () => {
 
   return (
     <div className={s.wrapp}>
+      {status === "loading" && <Preloader/>}
       <>
         <div className={s.titleContainer}>
           <h2>Learn page</h2>
@@ -97,12 +88,11 @@ export const Question = () => {
         </div>
         {!isChecked ?
           <div className={s.buttonsContainer}>
-            <button className={s.button} onClick={onClickBackHandler}>Cancel</button>
             <button className={s.button} onClick={() => (setIsChecked(!isChecked))}>Show Answer</button>
           </div> :
           <div className={s.buttonsContainer}>
             <button className={s.button} onClick={() => (setIsChecked(false))}>Cancel</button>
-            <button className={s.button} onClick={onClickNextHandler}>Next</button>
+            <button className={s.button} onClick={onClickNextHandler} disabled={grade === 0}>Next</button>
           </div>
         }
       </>
