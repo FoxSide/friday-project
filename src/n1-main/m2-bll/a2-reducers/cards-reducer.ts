@@ -12,13 +12,16 @@ const initialState: CardsStateType = {
     packUserId: "",
     page: 1,
     pageCount: 5,
-    sort: "0grade",
+    sort: "",
+    cardQuestion: "",
 }
 export const cardsReducer = (state: CardsStateType = initialState, action: CardsReducerActionsType) => {
     switch (action.type) {
         case "SET-COUNT-ITEMS-ON-PAGE":
         case "SET-CURRENT-PAGE":
         case "SET-CARDS-DATA":
+        case "SET-SEARCH_CARD_QUESTION":
+        case "SET-SORT_CARD_COLUMN":
             return {
                 ...state,
                 ...action.payload
@@ -43,6 +46,20 @@ export const setCurrentPage = (currentPage: number) => {
     } as const
 };
 
+export const setSearchCardQuestion = (cardQuestion: string) => {
+    return {
+        type: "SET-SEARCH_CARD_QUESTION",
+        payload: {cardQuestion}
+    } as const
+};
+
+export const setSortCardColumn = (sort: string) => {
+    return {
+        type: "SET-SORT_CARD_COLUMN",
+        payload: {sort}
+    } as const
+};
+
 export const setCountItemsOnPage = (countItemsOnPage: number) => {
     return {
         type: "SET-COUNT-ITEMS-ON-PAGE",
@@ -53,11 +70,13 @@ export const setCountItemsOnPage = (countItemsOnPage: number) => {
 export const fetchingCardsData = (
     packId: string,
 ) =>
+
     async (dispatch: ActionCreator<CardsReducerActionsType>, getState: () => AppRootStateType) => {
-        const {page, pageCount, sort} = getState().cards
+
+    const {page, pageCount, sort, cardQuestion} = getState().cards
         dispatch(setAppStatusAC("loading"))
         try {
-            const data: CardsStateType = await cardsAPI.getCardsByPackId(packId, sort, page, pageCount);
+            const data: CardsStateType = await cardsAPI.getCardsByPackId(packId, sort, page, pageCount, cardQuestion);
             dispatch(setCardsData(data))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e: any) {
@@ -104,6 +123,7 @@ export const addCard = (cardsPack_id: string, question: string, answer: string) 
 
 export type OwnCardsStateType = {
     sort: string;
+    cardQuestion: string,
 };
 
 export type CardsStateType = OwnCardsStateType & {
@@ -132,6 +152,8 @@ export type CardsReducerActionsType =
     | ReturnType<typeof setCardsData>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setCountItemsOnPage>
+    | ReturnType<typeof setSearchCardQuestion>
+    | ReturnType<typeof setSortCardColumn>
     | SetAppErrorType
     | SetAppStatusActionType
     | SetAppSuccessType

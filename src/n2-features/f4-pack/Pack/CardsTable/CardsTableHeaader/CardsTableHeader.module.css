@@ -11,19 +11,23 @@
 
 .question {
     width: 35%;
+    cursor: pointer;
 }
 
 .answer {
     width: 35%;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .lastUpdated {
     width: 17%;
+    cursor: pointer;
 }
 
 .grade {
     width: 10%;
+    cursor: pointer;
 }
 
 .actions {

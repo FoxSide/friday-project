@@ -1,17 +1,18 @@
 import React, {ChangeEvent} from "react";
 
 type PropsType = {
-    callBack: (value:string) => void
+    callBack: (value:any) => void
+    className?: any
 }
 
-export const SearchInputComponent = ({callBack}:PropsType) => {
+export const SearchInputComponent = ({callBack, className}:PropsType) => {
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         callBack(e.currentTarget.value)
     }
     return (
         <>
-        <input type="text" placeholder={'Search...'} onChange={onChange}/>
+        <input className={className} type="text" placeholder={'Search...'} onChange={onChange}/>
         </>
     )
 }

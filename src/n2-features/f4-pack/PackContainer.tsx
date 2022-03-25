@@ -6,9 +6,12 @@ import {
     setCurrentPage,
     CardsStateType,
     fetchingCardsData,
-    setCountItemsOnPage
+    setCountItemsOnPage, setSearchCardQuestion, setSortCardColumn
 } from "../../n1-main/m2-bll/a2-reducers/cards-reducer";
 import {useParams} from "react-router-dom";
+import {string} from "yup";
+import useDebounce from "../../utils/hooks/useDebounse-hook";
+import {setSortPacksOnPage} from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
 
 export const PackContainer = () => {
     // const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
@@ -17,6 +20,8 @@ export const PackContainer = () => {
         cards,
         pageCount,
         cardsTotalCount,
+        cardQuestion,
+        sort,
     } = useSelector<AppRootStateType, CardsStateType>(state => state.cards);
 
     const dispatch = useDispatch();
@@ -25,10 +30,16 @@ export const PackContainer = () => {
     const id = packID ? packID : "";
     const setCurrentPageCallback = (currentPage: number) => dispatch(setCurrentPage(currentPage));
     const setCountItemsOnPageCallback = (countItemsOnPage: number) => dispatch(setCountItemsOnPage(countItemsOnPage));
+    const setSearchCardQuestionCallback = (cardQuestion: string) => dispatch(setSearchCardQuestion(cardQuestion));
+    const setSortCardColumnCallBack = (sort: string) => dispatch(setSortCardColumn(sort))
+
+    const debounceCardQuestion = useDebounce<string>(cardQuestion, 1500)
+    const debounceSort = useDebounce<string>(sort, 500)
+
 
     useEffect(() => {
         dispatch(fetchingCardsData(id));
-    }, [page, pageCount, id]);
+    }, [page, pageCount, id, debounceCardQuestion, debounceSort]);
 
     // if (!isLoggedIn) {
     //     return <Navigate to={'/login'}/>
@@ -42,5 +53,8 @@ export const PackContainer = () => {
             totalCount={cardsTotalCount}
             setCurrentPageCallback={setCurrentPageCallback}
             setCountItemsOnPageCallback={setCountItemsOnPageCallback}
+            setSearchCardQuestionCallback={setSearchCardQuestionCallback}
+            setSortCardColumnCallBack={setSortCardColumnCallBack}
+            sort={sort}
         />);
 };

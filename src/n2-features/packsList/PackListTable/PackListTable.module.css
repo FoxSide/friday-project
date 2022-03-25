@@ -42,15 +42,18 @@
 .packsBlockLarge {
     width: 28%;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .packsBlockMedium {
     width: 18%;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .packsBlockSmall {
     width: 10%;
+    cursor: pointer;
 }
 
 .pagination {

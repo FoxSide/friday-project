@@ -1,6 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react';
 import s from "./SearchInput.module.css";
-
 export const SearchInput: React.FC<SearchInputType> = (
     {
         type,
@@ -11,6 +10,8 @@ export const SearchInput: React.FC<SearchInputType> = (
     }
 ) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+
+
         onChange
         && onChange(e);
 
@@ -35,6 +36,7 @@ export const SearchInput: React.FC<SearchInputType> = (
 
                 {...restProps}
             />
+            {/*<SearchInputComponent className={finalInputClassName} callBack={onChangeCallback}/>*/}
         </div>
     );
 };

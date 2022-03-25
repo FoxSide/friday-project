@@ -4,9 +4,9 @@ import {instance} from "./a1-instance-api";
 
 
 export const cardsAPI = {
-    getCardsByPackId(packId: string, sortCards: string, page: number, pageCount: number) {
+    getCardsByPackId(packId: string, sortCards: string, page: number, pageCount: number, cardQuestion:string) {
         return instance
-            .get<{}, AxiosResponse<CardsStateType>>(`cards/card?&cardsPack_id=${packId}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}`)
+            .get<{}, AxiosResponse<CardsStateType>>(`cards/card?&cardsPack_id=${packId}&sortCards=${sortCards}&page=${page}&pageCount=${pageCount}&cardQuestion=${cardQuestion}`)
             .then(res => res.data);
     },
     updateCard(data: UpdateCardDataType) {

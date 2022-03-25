@@ -89,6 +89,7 @@ export const PacksList = () => {
     const debouncedMinFilter = useDebounce<number>(minFilter, 1500)
     const debouncedMaxFilter = useDebounce<number>(maxFilter, 1500)
     const debouncedSearchName = useDebounce<string>(searchName, 1500)
+    const debouncedSortPacks = useDebounce<string>(sortPacks, 500)
 
 
     useEffect(() => {
@@ -99,7 +100,7 @@ export const PacksList = () => {
                 dispatch(getPacksTC(UserId))
             }
         }
-    }, [page, pageCount, debouncedMaxFilter, debouncedMinFilter, isMyPacks, isLoggedIn, sortPacks, debouncedSearchName])
+    }, [page, pageCount, debouncedMaxFilter, debouncedMinFilter, isMyPacks, isLoggedIn, debouncedSortPacks, debouncedSearchName])
 
     return (
         <div className={s.container}>
