@@ -16,10 +16,12 @@ type  PropsType = {
     page: number
     cardPacksTotalCount: number
     deleteMyPackCallBack: (name: string, packId: string) => void
-    addPackCallBack: () => void
+    addPackCallBack?: () => void
     UserId: TNullable<string>
     sortPacks: string
     setSearchNameCallBack: (searchName: string)=>void
+    title: string
+    addBlockToggle: boolean
 }
 
 export const PackListTable = ({
@@ -34,7 +36,9 @@ export const PackListTable = ({
                                   addPackCallBack,
                                   UserId,
                                   sortPacks,
-                                  setSearchNameCallBack
+                                  setSearchNameCallBack,
+                                  title,
+                                  addBlockToggle
                               }: PropsType) => {
 
     const [iconSort, setIconSort] = useState('')
@@ -58,8 +62,8 @@ export const PackListTable = ({
     console.log(iconSort)
     return (
         <div className={s.containerPackList}>
-            <p className={s.titlePackList}>Packs list</p>
-            <SearchAddBlock addPackCallBack={addPackCallBack} setSearchNameCallBack={setSearchNameCallBack}/>
+            <p className={s.titlePackList}>{title}</p>
+            <SearchAddBlock addBlockToggle={addBlockToggle} addPackCallBack={addPackCallBack} setSearchNameCallBack={setSearchNameCallBack}/>
             <div className={s.blockPacks}>
                 <div className={s.packsHeader}>
                     <div className={s.packsBlockLarge} onClick={() => sortPack('name')}>Name
