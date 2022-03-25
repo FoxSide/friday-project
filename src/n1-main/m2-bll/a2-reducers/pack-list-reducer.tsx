@@ -119,12 +119,12 @@ export const removeMyPack = (packId: string) => {
 
 
 //thunks
-export const deletePackTC = (packId: string): AppThunk => async (dispatch) => {
+export const deletePackTC = (packId: string, userId: TNullable<string>): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
         let res = await packListAPI.deletePack(packId)
         dispatch(removeMyPack(packId))
-        await dispatch(getPacksTC())
+        await dispatch(getPacksTC(userId))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e: any) {
         dispatch(setAppErrorAC(e.response.data.error))
@@ -132,11 +132,11 @@ export const deletePackTC = (packId: string): AppThunk => async (dispatch) => {
     }
 }
 
-export const addNewPackTC = (name: string): AppThunk => async (dispatch) => {
+export const addNewPackTC = (name: string, userId: TNullable<string>): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
         let res = await packListAPI.addNewPack({cardsPack: {name}});
-        await dispatch(getPacksTC())
+        await dispatch(getPacksTC(userId))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e: any) {
         dispatch(setAppErrorAC(e.response.data.error))

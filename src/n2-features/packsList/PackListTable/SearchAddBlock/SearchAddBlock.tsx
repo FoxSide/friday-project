@@ -4,10 +4,11 @@ import React from "react";
 import {SearchInputComponent} from "../../../../n1-main/m1-ui/common/searchInputComponent/SearchInputComponent";
 
 type PropsType = {
-    addPackCallBack: () => void
-    setSearchNameCallBack: (searchName: string)=>void
+    addPackCallBack?: () => void
+    setSearchNameCallBack: (searchName: string) => void
+    addBlockToggle: boolean
 }
-export const SearchAddBlock = ({addPackCallBack, setSearchNameCallBack}: PropsType) => {
+export const SearchAddBlock = ({addPackCallBack, setSearchNameCallBack, addBlockToggle}: PropsType) => {
     return (
         <div className={s.blockSearch}>
             <div className={s.search}>
@@ -16,7 +17,7 @@ export const SearchAddBlock = ({addPackCallBack, setSearchNameCallBack}: PropsTy
                 </div>
                 <SearchInputComponent callBack={setSearchNameCallBack}/>
             </div>
-            <button onClick={addPackCallBack}>Add new pack</button>
+            {addBlockToggle && <button onClick={addPackCallBack}>Add new pack</button>}
         </div>
     )
 }

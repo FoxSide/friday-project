@@ -21,7 +21,7 @@ import {DeletePack} from "../../n1-main/m1-ui/common/Modal/DeletePack/DeletePack
 import {TNullable} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
 
 
-enum EModeType {
+export enum EModeType {
   ADD_MODE = 'ADD_MODE',
  DELETE_MODE = 'DELETE_MODE'
 }
@@ -69,7 +69,7 @@ export const PacksList = () => {
     const [showModal, setShowModal] = useState(false);
 
     const onDeletePackHandler = () => {
-        dispatch(deletePackTC(removedPackData.packId))
+        dispatch(deletePackTC(removedPackData.packId, UserId))
         setShowModal(false)
     }
 
@@ -78,7 +78,7 @@ export const PacksList = () => {
     }
 
     const onAddPackSaveHandler = (name: string) => {
-        dispatch(addNewPackTC(name))
+        dispatch(addNewPackTC(name, UserId))
         setShowModal(false)
     }
 
@@ -115,6 +115,8 @@ export const PacksList = () => {
 
             />
             <PackListTable
+                title={'Pack list'}
+                addBlockToggle={true}
                 packs={packs}
                 setCurrentPacksPageCallBack={setCurrentPacksPageCallBack}
                 setCountItemsPacksOnPageCallBack={setCountItemsPacksOnPageCallBack}
@@ -122,9 +124,7 @@ export const PacksList = () => {
                 pageCount={pageCount}
                 page={page}
                 cardPacksTotalCount={cardPacksTotalCount}
-                deleteMyPackCallBack={(name, packId) => {
-                    deleteMyPackCallBack(name, packId)
-                }}
+                deleteMyPackCallBack={deleteMyPackCallBack}
                 addPackCallBack={onAddPackCallBack}
                 UserId={UserId}
                 sortPacks={sortPacks}
