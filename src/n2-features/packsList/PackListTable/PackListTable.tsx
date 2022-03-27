@@ -145,6 +145,7 @@ export const PackListTable = ({
                     {packs.map(p =>
                         <ItemPacks
                             id={p._id}
+                            pack={p}
                             name={p.name}
                             cardsCount={p.cardsCount}
                             updated={p.updated}
