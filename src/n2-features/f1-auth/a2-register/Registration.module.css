@@ -108,20 +108,6 @@
     font-size: 14px;
 }
 
-.eyeOne {
-    position: absolute;
-    left: 334px;
-    top: 242px;
-    cursor: pointer;
-}
-
-.eyeTwo {
-    position: absolute;
-    left: 334px;
-    top: 313px;
-    cursor: pointer;
-}
-
 .titleText {
     font-weight: bold;
     font-size: 25px;
@@ -130,4 +116,22 @@
 .secondTitleText {
     font-weight: bold;
     font-size: 20px;
+}
+
+.eyeOne {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 334px;
+    top: 242px;
+    cursor: pointer;
+}
+
+.eyeTwo {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 334px;
+    top: 313px;
+    cursor: pointer;
 }

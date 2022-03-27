@@ -8,8 +8,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import style from './Registration.module.css'
-import {SvgSelector} from "../../../n1-main/m1-ui/common/SvgSelector/SvgSelector";
 import {Preloader} from "../../../n1-main/m1-ui/common/preloader/Preloader";
+import eye from "../../../n1-main/m1-ui/common/images/eye.png";
+import hidden from "../../../n1-main/m1-ui/common/images/hidden.png";
 
 
 const Registration = () => {
@@ -74,14 +75,14 @@ const Registration = () => {
                                placeholder='Password*'
 
                         />
-                        <SvgSelector id={'Eye'} onClick={toggleTypeInput} className={style.eyeOne}/>
+                        <img className={style.eyeOne} src={!isType ? eye : hidden} alt="eye" onClick={toggleTypeInput}/>
                         <div className={style.inputFormError}>{errors.password?.message}</div>
                         <input {...register('confirmPassword')}
                                type={isType ? "password" : "text"}
                                required
                                placeholder='Confirm Password*'
                         />
-                        <SvgSelector id={'Eye'} onClick={toggleTypeInput} className={style.eyeTwo}/>
+                        <img className={style.eyeTwo} src={!isType ? eye : hidden} alt="eye" onClick={toggleTypeInput}/>
                         <div className={style.inputFormError}>{errors.confirmPassword?.message}</div>
                     </div>
                     <div className={style.buttonForm}>
