@@ -19,11 +19,13 @@ import {AddPack} from "../../n1-main/m1-ui/common/Modal/AddingPack/AddPack";
 import useDebounce from "../../utils/hooks/useDebounse-hook";
 import {DeletePack} from "../../n1-main/m1-ui/common/Modal/DeletePack/DeletePack";
 import {TNullable} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
+import {EditPack} from "../../n1-main/m1-ui/common/Modal/EditPack/EditPack";
 
 
 export enum EModeType {
-  ADD_MODE = 'ADD_MODE',
- DELETE_MODE = 'DELETE_MODE'
+    ADD_MODE = 'ADD_MODE',
+    EDIT_MODE = 'EDIT_MODE',
+    DELETE_MODE = 'DELETE_MODE'
 }
 
 
@@ -53,38 +55,7 @@ export const PacksList = () => {
     const setSortPacksOnPageCallBack = (sortPacks: string) => dispatch(setSortPacksOnPage(sortPacks))
     const setSearchNameCallBack = (searchName: string) => dispatch(setSearchName(searchName))
 
-    const deleteMyPackCallBack = (name: string, packId: string) => {
-        setShowModal(true)
-        setMode(EModeType.DELETE_MODE)
-        setRemovedPackData({name, packId})
-    }
-    const onAddPackCallBack = () => {
-        setShowModal(true)
-        setMode(EModeType.ADD_MODE)
-    }
-
     const navigate = useNavigate()
-    const [removedPackData, setRemovedPackData] = useState({name: '', packId: ''})
-    const [mode, setMode] = useState<EModeType | null>(null)
-    const [showModal, setShowModal] = useState(false);
-
-    const onDeletePackHandler = () => {
-        dispatch(deletePackTC(removedPackData.packId, UserId))
-        setShowModal(false)
-    }
-
-    const onDeletePackCancelHandler = () => {
-        setShowModal(false)
-    }
-
-    const onAddPackSaveHandler = (name: string) => {
-        dispatch(addNewPackTC(name, UserId))
-        setShowModal(false)
-    }
-
-    const onAddPackCancelHandler = () => {
-        setShowModal(false)
-    }
 
     const debouncedMinFilter = useDebounce<number>(minFilter, 1500)
     const debouncedMaxFilter = useDebounce<number>(maxFilter, 1500)
@@ -124,22 +95,10 @@ export const PacksList = () => {
                 pageCount={pageCount}
                 page={page}
                 cardPacksTotalCount={cardPacksTotalCount}
-                deleteMyPackCallBack={deleteMyPackCallBack}
-                addPackCallBack={onAddPackCallBack}
                 UserId={UserId}
                 sortPacks={sortPacks}
                 setSearchNameCallBack={setSearchNameCallBack}
             />
-            <Modal width={395}
-                   height={221}
-                   enableBackground={true}
-                   backgroundOnClick={() => setShowModal(false)}
-                   show={showModal}
-            >
-                {mode === EModeType.ADD_MODE && <AddPack onSave={onAddPackSaveHandler} onCancel={onAddPackCancelHandler}/>}
-                {mode === EModeType.DELETE_MODE && <DeletePack packData={removedPackData} onDelete={onDeletePackHandler}
-                                                     onCancel={onDeletePackCancelHandler}/>}
-            </Modal>
         </div>
     )
 }

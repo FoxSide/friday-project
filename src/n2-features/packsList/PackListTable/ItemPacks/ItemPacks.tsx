@@ -8,7 +8,8 @@ type PropsType = {
     cardsCount: number
     updated: string
     userName: string
-    deleteMyPackCallBack?: () => void,
+    onDeleteCallBack?: () => void,
+    onEditCallBack?: () => void,
     OwnerId?: string
     UserId?: string | null
 }
@@ -18,7 +19,8 @@ export const ItemPacks = ({
                               cardsCount,
                               updated,
                               userName,
-                              deleteMyPackCallBack,
+                              onDeleteCallBack,
+                              onEditCallBack,
                               OwnerId,
                               UserId
                           }: PropsType) => {
@@ -44,11 +46,11 @@ export const ItemPacks = ({
             <div className={s.packButtons}>
                <button
                   className={s.buttonDelete}
-                  onClick={deleteMyPackCallBack}
+                  onClick={onDeleteCallBack}
                >
                   Delete
                </button>
-               <button>Edit</button>
+               <button onClick={onEditCallBack}>Edit</button>
                <button onClick={onclickHandler}>Learn</button>
             </div>
          </div>

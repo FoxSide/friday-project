@@ -4,9 +4,10 @@
     display: flex;
     margin-top: 21px;
 }
+
 .search {
     height: 100%;
-    width: 461px;
+    width: 100%;
     border: 1px solid lightgrey;
     background-color: #ECECF9;
     display: flex;

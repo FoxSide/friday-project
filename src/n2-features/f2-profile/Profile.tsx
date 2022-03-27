@@ -1,25 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
 import {AppRootStateType} from "../../n1-main/m2-bll/a1-redux-store/store";
 import s from './Profile.module.css'
 import noAvatar from '../f2-profile/ProfileImg/noAvatar.png'
 import {TNullable, UserProfileStateType} from "../../n1-main/m2-bll/a2-reducers/profile-reducer";
-import {logOutTC} from "../../n1-main/m2-bll/a2-reducers/login-reducer";
 import {Preloader} from "../../n1-main/m1-ui/common/preloader/Preloader";
-import {ItemPacks} from "../packsList/PackListTable/ItemPacks/ItemPacks";
 import {
     cardPacksType,
     getPacksTC,
-    PackListStateType, setCountItemsPacksOnPage,
+    PackListStateType,
+    setCountItemsPacksOnPage,
     setCurrentPacksPage,
-    setIsMyPacks, setSearchName, setSortPacksOnPage
+    setIsMyPacks,
+    setSearchName,
+    setSortPacksOnPage
 } from "../../n1-main/m2-bll/a2-reducers/pack-list-reducer";
-import {DoubleRange} from '../../n1-main/m1-ui/common/doubleRange/DoubleRange';
-import {PaginationBlock} from "../f4-pack/Pack/PaginationBlock/PaginationBlock";
-import {SearchInput} from "../f4-pack/Pack/SearchInput/SearchInput";
 import {PackListTable} from "../packsList/PackListTable/PackListTable";
-import {EModeType} from "../packsList/PacksList";
 
 const Profile = () => {
     const {
@@ -44,30 +41,18 @@ const Profile = () => {
     useEffect(() => {
         dispatch(setIsMyPacks(true))
         dispatch(getPacksTC(user?._id))
-    }, [page, pageCount, isMyPacks, isLoggedIn, sortPacks])
+    }, [page, pageCount, isLoggedIn, sortPacks])
 
     const onEditProfileClickHandler = () => {
         navigate('/profile-edit')
     }
 
-    const logOutOnClickHandler = () => {
-        dispatch(logOutTC())
-    }
 
     const setCurrentPacksPageCallBack = (currentPage: number) => dispatch(setCurrentPacksPage(currentPage))
     const setCountItemsPacksOnPageCallBack = (countItemsOnPage: number) => dispatch(setCountItemsPacksOnPage(countItemsOnPage))
     const setSortPacksOnPageCallBack = (sortPacks: string) => dispatch(setSortPacksOnPage(sortPacks))
     const setSearchNameCallBack = (searchName: string) => dispatch(setSearchName(searchName))
 
-    const deleteMyPackCallBack = (name: string, packId: string) => {
-        setShowModal(true)
-        setMode(EModeType.DELETE_MODE)
-        setRemovedPackData({name, packId})
-    }
-
-    const [removedPackData, setRemovedPackData] = useState({name: '', packId: ''})
-    const [mode, setMode] = useState<EModeType | null>(null)
-    const [showModal, setShowModal] = useState(false);
 
     return (
         !isLoggedIn
@@ -87,7 +72,6 @@ const Profile = () => {
                         </div>
                         <div className={s.profileButton}>
                             <button onClick={onEditProfileClickHandler}>edit profile</button>
-                            {/*<button onClick={logOutOnClickHandler}>logOut</button>*/}
                         </div>
                     </div>
                     <div className={s.profileSetting}>
@@ -108,50 +92,10 @@ const Profile = () => {
                     pageCount={pageCount}
                     page={page}
                     cardPacksTotalCount={cardPacksTotalCount}
-                    deleteMyPackCallBack={deleteMyPackCallBack}
                     UserId={user?._id}
                     sortPacks={sortPacks}
                     setSearchNameCallBack={setSearchNameCallBack}
                 />
-                {/*<div className={s.packListContainer}>*/}
-                {/*    <div className={s.packListBlock}>*/}
-                {/*        <div className={s.packListHeader}>*/}
-                {/*            <h3>My pack list</h3>*/}
-                {/*        </div>*/}
-                {/*        <div className={s.packListSearch}>*/}
-                {/*            <SearchInput className={s.searchInput} placeholder={"Search..."}/>*/}
-                {/*        </div>*/}
-                {/*        <div className={s.packListTable}>*/}
-                {/*            <div className={s.packsHeader}>*/}
-                {/*                <div className={s.packsBlockLarge}>Name</div>*/}
-                {/*                <div className={s.packsBlockSmall}>Cards</div>*/}
-                {/*                <div className={s.packsBlockMedium}>Last Updated</div>*/}
-                {/*                <div className={s.packsBlockMedium}>Created by</div>*/}
-                {/*                <div className={s.packsBlockLarge}>Actions</div>*/}
-                {/*            </div>*/}
-                {/*            <div>*/}
-                {/*                {*/}
-                {/*                    cardPacks.map(pack =>*/}
-                {/*                        <ItemPacks*/}
-                {/*                            id={pack._id}*/}
-                {/*                            name={pack.name}*/}
-                {/*                            cardsCount={pack.cardsCount}*/}
-                {/*                            updated={pack.updated}*/}
-                {/*                            userName={pack.user_name}*/}
-                {/*                        />*/}
-                {/*                    )*/}
-                {/*                }*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*        <div className={s.packListPagination}>*/}
-                {/*            <PaginationBlock currentPage={page}*/}
-                {/*                             pageSize={pageCount}*/}
-                {/*                             setCountItemsOnPageCallback={setCountItemsPacksOnPageCallBack}*/}
-                {/*                             setCurrentPageCallback={setCurrentPacksPageCallBack}*/}
-                {/*                             totalCount={cardPacksTotalCount}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
     );
 };

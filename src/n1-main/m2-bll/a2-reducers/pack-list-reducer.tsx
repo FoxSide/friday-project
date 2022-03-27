@@ -132,6 +132,18 @@ export const deletePackTC = (packId: string, userId: TNullable<string>): AppThun
     }
 }
 
+export const updatePackNameAC = (name: string, userId: TNullable<string>, packId: string) : AppThunk => async (dispatch) => {
+    dispatch(setAppStatusAC("loading"))
+    try {
+        let res = await packListAPI.updatePackName({cardsPack: {_id: packId, name: name}});
+        await dispatch(getPacksTC(userId))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e: any) {
+        dispatch(setAppErrorAC(e.response.data.error))
+        dispatch(setAppStatusAC('failed'))
+    }
+}
+
 export const addNewPackTC = (name: string, userId: TNullable<string>): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {

@@ -1,5 +1,6 @@
 import {instance} from "./a1-instance-api";
 import {PackListStateType} from "../m2-bll/a2-reducers/pack-list-reducer";
+import {TNullable} from "../m2-bll/a2-reducers/profile-reducer";
 
 export const packListAPI = {
     getPacks(data: packListRequestType) {
@@ -10,6 +11,10 @@ export const packListAPI = {
 
     addNewPack(data: AddPackListRequestType) {
         return instance.post(`cards/pack`,{...data})
+    },
+
+    updatePackName(data: UpdatePackListNameRequestType) {
+        return instance.put(`cards/pack`, {...data})
     },
 
     deletePack(packId: string) {
@@ -34,6 +39,14 @@ export type AddPackListRequestType = {
         private?: boolean
     }
 }
+
+export type UpdatePackListNameRequestType = {
+    cardsPack: {
+        _id: TNullable<string>
+        name?: string
+    }
+}
+
 
 // export type packListResponseType = {
 //     cardPacks: packListCardPacks[]
