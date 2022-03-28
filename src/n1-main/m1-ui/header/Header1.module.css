@@ -15,6 +15,7 @@
     font-weight: bold;
     position: absolute;
     right: 80%;
+    cursor: default;
 }
 
 .logoutButttonContainer {
@@ -83,7 +84,8 @@
 
 .logoutImg {
     height: 40px;
-    transition: width 1s, height 1s, transform 1s
+    transition: width 1s, height 1s, transform 1s;
+    cursor: pointer;
 }
 
 .logoutImg:hover {

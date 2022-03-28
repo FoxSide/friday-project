@@ -40,4 +40,5 @@
     box-shadow: 3px 3px 10px gray;
     outline: none;
     border: 0;
+    cursor: pointer;
 }

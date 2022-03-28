@@ -22,14 +22,19 @@
      width: 50%;
      text-align: center;
      line-height: 38px;
+     user-select: none;
+     cursor: pointer;
  }
 
 .buttonShowCards {
       width: 50%;
       text-align: center;
+      user-select: none;
+      cursor: pointer;
   }
 
 .buttonShowCardsActive {
     background-color: #9A91C8;
     color: white;
+    user-select: none;
 }
