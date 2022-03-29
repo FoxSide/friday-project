@@ -8,4 +8,4 @@ Implemented: login page with validation; register page with validation; reset pa
 
 ## Frontent development team:
 
-### [FoxSide](https://github.com/FoxSide "FoxSide")
+#### [FoxSide](https://github.com/FoxSide "FoxSide")
