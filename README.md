@@ -7,5 +7,8 @@ Implemented: login page with validation; register page with validation; reset pa
 # [Link](https://foxside.github.io/friday-project/ "Link")
 
 ## Frontent development team:
+#### - [FoxSide](https://github.com/FoxSide "FoxSide")
+#### - [Roman Larionov](https://github.com/Rombeso "Roman Larionov")
+#### - [Anatoliy0707](https://github.com/anatoliy0707 "Anatoliy0707")
+#### - [Alexey Nikitin](https://github.com/alexeynikinitin "Alexey Nikitin")
 
-#### [FoxSide](https://github.com/FoxSide "FoxSide")
